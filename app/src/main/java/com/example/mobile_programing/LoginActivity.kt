@@ -3,23 +3,28 @@ package com.example.mobile_programing
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import kotlin.math.log
+import androidx.databinding.DataBindingUtil
+import com.example.mobile_programing.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
+    // Data binding
+    private lateinit var binding : ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        val loginButton = findViewById<Button>(R.id.login_button)
-        loginButton.setOnClickListener {
+        // Data binding
+        // setContentView(R.layout.activity_login)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
+        binding.loginButton.setOnClickListener {
             run {
                 onLoginClicked()
             }
         }
     }
 
-    fun onLoginClicked(){
+    private fun onLoginClicked(){
         moveMainPage()
     }
     private fun moveMainPage(){
