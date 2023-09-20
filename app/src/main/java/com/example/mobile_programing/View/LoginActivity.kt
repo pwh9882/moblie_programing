@@ -1,9 +1,10 @@
-package com.example.mobile_programing
+package com.example.mobile_programing.View
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
