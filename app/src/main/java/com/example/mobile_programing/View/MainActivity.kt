@@ -1,9 +1,10 @@
-package com.example.mobile_programing
+package com.example.mobile_programing.View
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.viewModel.MainViewModel
 
