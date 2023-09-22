@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         if (user != null) {
             // User is signed in
             binding.test.text = user.email
+            ///asdf
         } else {
             // No user is signed in
             binding.test.text = "cannot load"
