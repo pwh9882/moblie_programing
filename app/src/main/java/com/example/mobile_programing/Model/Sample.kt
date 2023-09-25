@@ -4,3 +4,5 @@ package com.example.mobile_programing.Model
 class Sample(val index: Int, val name: String) {
 
 }
+
+// Model 파일 sample
