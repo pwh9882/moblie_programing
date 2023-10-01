@@ -1,23 +1,25 @@
 package com.example.mobile_programing.View
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.example.mobile_programing.DbDemoActivity
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.viewModel.MainViewModel
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
     // Data binding
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     // viewModel
-    private val viewModel : MainViewModel by viewModels()
-
+    private val viewModel: MainViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +42,9 @@ class MainActivity : AppCompatActivity() {
             binding.test.text = "cannot load"
         }
 
+        binding.bttnConnect.setOnClickListener {//조회버튼 클릭시 이벤트
+            startActivity(Intent(this, DbDemoActivity::class.java))
 
+        }
     }
 }
