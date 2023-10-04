@@ -1,11 +1,15 @@
-package com.example.mobile_programing.View
+package com.example.mobile_programing.views
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
+import com.example.mobile_programing.views.adapters.RoutineAdapter
 import com.example.mobile_programing.viewModel.MainViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -20,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,6 +45,14 @@ class MainActivity : AppCompatActivity() {
             binding.test.text = "cannot load"
         }
 
+        viewModel.updateRoutineListData()
+        val routineAdapter = RoutineAdapter(binding, viewModel, this)
+        binding.rvRoutineList.adapter = routineAdapter
+        viewModel.routineList.observe(this, Observer {
+            routineAdapter.routineLint = it
+            routineAdapter.notifyDataSetChanged()
+            binding.tvDebugRoutinedata.text = it.toString()
+        })
 
     }
 }
