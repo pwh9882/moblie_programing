@@ -1,4 +1,4 @@
-package com.example.mobile_programing.Model
+package com.example.mobile_programing.models
 
 data class Card (
     val id: Int, // db에서 auto increment로 생성

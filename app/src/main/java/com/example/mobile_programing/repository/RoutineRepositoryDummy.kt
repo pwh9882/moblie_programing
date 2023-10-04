@@ -1,9 +1,7 @@
 package com.example.mobile_programing.repository
 
-import com.example.mobile_programing.Model.Routine
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
+import com.example.mobile_programing.models.Card
+import com.example.mobile_programing.models.Routine
 
 // Contains all functions related to operations on Routines collection in Firestore.
 class RoutineRepositoryDummy {
@@ -43,7 +41,10 @@ class RoutineRepositoryDummy {
 
     // firebase uid로 routine 목록을 가져오는 함수
     fun getRoutinesByUserId(userId : String): ArrayList<Routine> {
-        TODO(" Implement function for fetching all routines belonging to current logged-in user")
+        val dummy = ArrayList<Routine>()
+        dummy.add(Routine(0, "루틴1", 3000, "루틴1입니다.", ArrayList<Card>()))
+        dummy.add(Routine(1, "루틴2", 6000, "루틴2입니다.", ArrayList<Card>()))
+        return dummy
     }
 
     // user-id와 그에 해당하는 history routine 목록을 가져오는 함수

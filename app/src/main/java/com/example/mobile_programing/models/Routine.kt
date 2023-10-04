@@ -1,4 +1,4 @@
-package com.example.mobile_programing.Model
+package com.example.mobile_programing.models
 
 data class Routine (
     val id: Int, // Unique ID for the routine // ID의 생성 방법: 6자리, auto increment
