@@ -14,7 +14,7 @@ class CardRepositoryDummy {
     }
 
     // Fetches a specific routine using its ID from Firestore.
-    fun getCard(id: Int): Card {
+    fun getCard(id: String): Card {
         // 성공했다고 가정하고 dummu data return
         return Card(
             id=id,

@@ -8,8 +8,9 @@ import java.lang.reflect.Constructor
 val database = Firebase.database("https://mobile-programing-9ec38-default-rtdb.asia-southeast1.firebasedatabase.app")
 val cardRef = database.getReference("Card")
 
+
 data class Card (
-    var id: Int, // db에서 auto increment로 생성
+    var id : String, // db에서 auto increment로 생성
     var name: String, // Name of the card e.g., "Squats"
 
     var preTimerSecs : Int,
@@ -26,12 +27,12 @@ data class Card (
     var additionalInfo : ArrayList<String>
 
 
-
 ){
-    constructor(id: Int,name: String,preTimerAutoStart: Boolean,activeTimerSecs: Int,activeTimerAutoStart: Boolean
+    constructor(id: String,name: String,preTimerAutoStart: Boolean,activeTimerSecs: Int,activeTimerAutoStart: Boolean
    ,postTimerAutoStart: Boolean,sets: Int,additionalInfo: ArrayList<String>) : this(id, name,3, preTimerAutoStart, activeTimerSecs, activeTimerAutoStart, 3, postTimerAutoStart, sets, additionalInfo)
 
     fun saveData(){
+        this.id = cardRef.push().key!!
         cardRef.child(this.id.toString()).setValue(this)
 
     }

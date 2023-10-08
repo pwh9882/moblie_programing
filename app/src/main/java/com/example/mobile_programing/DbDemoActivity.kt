@@ -22,9 +22,10 @@ class DbDemoActivity : AppCompatActivity() {
         bttn.setOnClickListener {
             id = cardRef.push().key!!
             additionalInfo.add("hello")
-            val card:Card = Card(id.toInt(),"김도경",3,true,3,false,4,false,5,additionalInfo)
+            val card:Card = Card(id,"김도경",3,true,3,false,4,false,5,additionalInfo)
+            card.saveData()
+            finish()
 
-            cardRef.child(id).setValue(card)
         }
     }
 
