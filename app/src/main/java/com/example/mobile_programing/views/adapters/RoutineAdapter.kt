@@ -1,16 +1,19 @@
 package com.example.mobile_programing.views.adapters
 
 import android.app.Activity
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.viewModel.MainViewModel
+import com.example.mobile_programing.views.RoutineDetailActivity
 
 
 class RoutineAdapter constructor(private val binding: ActivityMainBinding, private val viewModel: MainViewModel, private val activity: Activity) : RecyclerView.Adapter<RoutineAdapter.CustomViewHolder>(){
@@ -26,7 +29,11 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, priva
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_routine, parent, false)
         return CustomViewHolder(view).apply {
             itemView.setOnClickListener {
+                val selectedRoutine: Routine = routineLint[absoluteAdapterPosition]
 
+                activity.startActivity(Intent(activity, RoutineDetailActivity::class.java).apply {
+                    putExtra("selected_routine", selectedRoutine)
+                })
             }
 
         }
