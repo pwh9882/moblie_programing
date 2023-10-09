@@ -13,9 +13,11 @@
         android:theme="@style/Theme.Moblie_programing"
         tools:targetApi="31">
         <activity
+            android:name=".CardActivity"
+            android:exported="false" />
+        <activity
             android:name=".DbDemoActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".View.LoginActivity"
             android:exported="true">
@@ -24,11 +26,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".View.MainActivity">
-
-        </activity>
+        <activity android:name=".View.MainActivity"></activity>
     </application>
 
 </manifest>

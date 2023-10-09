@@ -2,7 +2,6 @@ package com.example.mobile_programing.Model
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.lang.reflect.Constructor
 
 
 val database = Firebase.database("https://mobile-programing-9ec38-default-rtdb.asia-southeast1.firebasedatabase.app")
@@ -28,13 +27,20 @@ data class Card (
 
 
 ){
-    constructor(id: String,name: String,preTimerAutoStart: Boolean,activeTimerSecs: Int,activeTimerAutoStart: Boolean
-   ,postTimerAutoStart: Boolean,sets: Int,additionalInfo: ArrayList<String>) : this(id, name,3, preTimerAutoStart, activeTimerSecs, activeTimerAutoStart, 3, postTimerAutoStart, sets, additionalInfo)
+    /*초기화
+    * 사전타이머 시간과 사후 타이머 시간을 입력하지 않았을때 기본세팅값 3초로 세팅
+    * 세트수는 1
+    * */
+    init {
+        if(this.preTimerSecs == 0) this.preTimerSecs = 3
+        if(this.postTimerSecs == 0) this.postTimerSecs = 3
+        if(sets == 0) sets = 1
+        id = cardRef.push().key!!
+
+    }
 
     fun saveData(){
-        this.id = cardRef.push().key!!
-        cardRef.child(this.id.toString()).setValue(this)
-
+        cardRef.child(id).setValue(this)
     }
 
 }
