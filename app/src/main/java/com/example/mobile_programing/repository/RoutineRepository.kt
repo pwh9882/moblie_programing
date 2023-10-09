@@ -1,9 +1,6 @@
 package com.example.mobile_programing.repository
 
-import com.example.mobile_programing.Model.Routine
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
+import com.example.mobile_programing.models.Routine
 
 // Contains all functions related to operations on Routines collection in Firestore.
 class RoutineRepository {

@@ -1,7 +1,6 @@
 package com.example.mobile_programing.repository
 
-import com.example.mobile_programing.Model.Card
-import com.example.mobile_programing.Model.Routine
+import com.example.mobile_programing.models.Card
 
 //Contains all functions related to operations on Cards sub-collection inside specific routines in Firestore.
 

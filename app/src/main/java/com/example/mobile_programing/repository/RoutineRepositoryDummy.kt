@@ -1,9 +1,7 @@
 package com.example.mobile_programing.repository
 
-import com.example.mobile_programing.Model.Routine
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
+import com.example.mobile_programing.models.Card
+import com.example.mobile_programing.models.Routine
 
 // Contains all functions related to operations on Routines collection in Firestore.
 class RoutineRepositoryDummy {
@@ -20,7 +18,7 @@ class RoutineRepositoryDummy {
     // Fetches a specific routine using its ID from Firestore.
     fun getRoutine(id: Int): Routine {
         // 성공했다고 가정하고 dummu data return
-        return Routine(id=id, name="Leg Day", totalTime=100, description="Leg Day", cards=ArrayList())
+        return Routine(id=id, name="Leg Day", totalTime=100, routineStartTime = 1, description="Leg Day", cards=ArrayList())
     }
 
     // Deletes a specific routine using its ID from Firestore.
@@ -43,7 +41,16 @@ class RoutineRepositoryDummy {
 
     // firebase uid로 routine 목록을 가져오는 함수
     fun getRoutinesByUserId(userId : String): ArrayList<Routine> {
-        TODO(" Implement function for fetching all routines belonging to current logged-in user")
+        val dummy = ArrayList<Routine>()
+        dummy.add(Routine(0, "루틴1", 0,3000, "루틴1입니다.", ArrayList<Card>().apply {
+            add(Card(0, "카드1", 0, true, 0, true, 0, true, 0, ArrayList<String>()))
+            add(Card(1, "카드2", 0, true, 0, true, 0, true, 0, ArrayList<String>()))
+        }))
+        dummy.add(Routine(1, "루틴2", 1,6000,  "루틴2입니다.", ArrayList<Card>().apply {
+            add(Card(0, "카드1", 0, true, 0, true, 0, true, 0, ArrayList<String>()))
+            add(Card(1, "카드2", 0, true, 0, true, 0, true, 0, ArrayList<String>()))
+        }))
+        return dummy
     }
 
     // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
