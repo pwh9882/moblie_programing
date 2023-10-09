@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             binding.test.text = "cannot load"
         }
 
-        binding.bttnConnect.setOnClickListener {//조회버튼 클릭시 이벤트
+        binding.bttnConnect.setOnClickListener {//데모버튼 클릭시 이벤트
             startActivity(Intent(this, DbDemoActivity::class.java))
 
         }

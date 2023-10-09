@@ -1,18 +1,24 @@
 package com.example.mobile_programing.repository
 
 import com.example.mobile_programing.Model.Routine
+import com.example.mobile_programing.Model.database
+import com.example.mobile_programing.Model.routineRef
 import com.google.android.gms.tasks.Task
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.ktx.Firebase
 
 // Contains all functions related to operations on Routines collection in Firestore.
 class RoutineRepository {
-
-//    private val db = FirebaseFirestore.getInstance()
-//    private val routineCollection = db.collection("routines")
+    val database = Firebase.database("https://mobile-programing-9ec38-default-rtdb.asia-southeast1.firebasedatabase.app")
+    val routineRef = database.getReference("Routine")
 
     // Creates a new routine in Firestore.
     fun createRoutine(routine: Routine): Boolean {
+        //firebase에 생성한 루틴 저장
+        routineRef.child(routine.id).setValue(routine)
+        return true
         TODO("Implement function to create a new document in Firebase Firestore for the given routine.")
     }
 
@@ -27,8 +33,19 @@ class RoutineRepository {
     }
 
     // Updates given fields of an existing routine in Firestore
-    fun updateRoutine(id: Int, newRoutine: Routine): Boolean {
+    fun updateRoutine(id: String, newRoutine: Routine): Boolean {
         TODO("Implement function to update certain fields of a specific Routine Document in Firebase Firestore")
+    }
+
+    //기존의 루틴의 필드가 변경될 경우(ex: 카드리스트에 카드 추가)
+    fun changeRoutine(changeRoutine:Routine): Boolean {
+        var time = 0
+        for(card in changeRoutine.cards){
+            time += (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs) * card.sets
+        }
+        changeRoutine.totalTime = time
+        routineRef.child(changeRoutine.id).setValue(changeRoutine)
+        return true
     }
 
     // Fetches all routines from Firestore.

@@ -1,14 +1,22 @@
 package com.example.mobile_programing.repository
 
 import com.example.mobile_programing.Model.Card
-import com.example.mobile_programing.Model.Routine
+import com.example.mobile_programing.Model.database
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 //Contains all functions related to operations on Cards sub-collection inside specific routines in Firestore.
 
 class CardRepository {
+    val database = Firebase.database("https://mobile-programing-9ec38-default-rtdb.asia-southeast1.firebasedatabase.app")
+    val cardRef = database.getReference("Card")
+
 
     // Creates a new routine in Firestore.
     fun createCard(card: Card): Boolean {
+        //생성한 카드 firebase Database에 저장
+        cardRef.child(card.id).setValue(card)
+
         // 성공했다고 가정하고 dummu data true return
         return true;
     }
@@ -62,5 +70,6 @@ class CardRepository {
     fun getFavoriteCardsByUserId(userId : String): ArrayList<Card> {
         TODO(" Implement function for fetching all favorite routines belonging to current logged-in user")
     }
+
 
 }
