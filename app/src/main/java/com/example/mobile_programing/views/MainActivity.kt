@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.routineList.observe(this, Observer {
             routineAdapter.routineLint = it
             routineAdapter.notifyDataSetChanged()
-            binding.tvDebugRoutinedata.text = it.toString()
+//            binding.tvDebugRoutinedata.text = it.toString()
         })
 
     }

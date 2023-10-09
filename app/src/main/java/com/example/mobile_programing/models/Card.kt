@@ -1,5 +1,7 @@
 package com.example.mobile_programing.models
 
+import java.io.Serializable
+
 data class Card (
     val id: Int, // db에서 auto increment로 생성
     val name: String, // Name of the card e.g., "Squats"
@@ -17,4 +19,4 @@ data class Card (
 
     val additionalInfo : ArrayList<String>
 
-)
+): Serializable

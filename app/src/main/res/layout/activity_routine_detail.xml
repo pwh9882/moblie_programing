@@ -10,15 +10,67 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tv_routine_detail_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="RoutineDetailName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_routine_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="RoutineDetailName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_routine_detail_total_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="totalTime"
+            app:layout_constraintEnd_toEndOf="@+id/tv_routine_detail_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_name" />
+
+        <TextView
+            android:id="@+id/tv_routine_detail_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="startTime"
+            app:layout_constraintEnd_toEndOf="@+id/tv_routine_detail_total_time"
+            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_total_time"
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_total_time" />
+
+        <TextView
+            android:id="@+id/tv_routine_detail_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="description"
+            app:layout_constraintEnd_toEndOf="@+id/tv_routine_detail_start_time"
+            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_start_time"
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_start_time" />
+
+        <TextView
+            android:id="@+id/tv_routine_detail_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="cards"
+            app:layout_constraintEnd_toEndOf="@+id/tv_routine_detail_description"
+            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_description"
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_description" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_routine_detail_card_list"
+            android:layout_width="409dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_cards"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
