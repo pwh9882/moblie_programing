@@ -47,7 +47,7 @@ class DbDemoActivity : AppCompatActivity() {
         * */
 
         //갱신된 루틴 Friebase Database에서도 갱신
-        routineRepository.changeRoutine(routine1)
+        routineRepository.createRoutine(routine1)
 
         finish()
 

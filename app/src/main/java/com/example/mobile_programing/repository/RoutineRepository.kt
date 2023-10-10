@@ -18,6 +18,16 @@ class RoutineRepository {
     fun createRoutine(routine: Routine): Boolean {
         //firebase에 생성한 루틴 저장
         routineRef.child(routine.id).setValue(routine)
+
+        //루틴에 카드가 추가됬을경우 totalTime을 계산해주는 로직
+        if(!routine.cards.isEmpty()) {
+            var time = 0
+            for (card in routine.cards) {
+                time += (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs) * card.sets
+            }
+            routine.totalTime = time
+            routineRef.child(routine.id).setValue(routine)
+        }
         return true
         TODO("Implement function to create a new document in Firebase Firestore for the given routine.")
     }
@@ -37,16 +47,7 @@ class RoutineRepository {
         TODO("Implement function to update certain fields of a specific Routine Document in Firebase Firestore")
     }
 
-    //기존의 루틴의 필드가 변경될 경우(ex: 카드리스트에 카드 추가)
-    fun changeRoutine(changeRoutine:Routine): Boolean {
-        var time = 0
-        for(card in changeRoutine.cards){
-            time += (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs) * card.sets
-        }
-        changeRoutine.totalTime = time
-        routineRef.child(changeRoutine.id).setValue(changeRoutine)
-        return true
-    }
+
 
     // Fetches all routines from Firestore.
     fun getAllRoutines(): ArrayList<Routine> {
