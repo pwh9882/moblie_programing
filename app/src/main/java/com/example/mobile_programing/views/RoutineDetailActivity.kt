@@ -1,5 +1,6 @@
 package com.example.mobile_programing.views
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -41,5 +42,11 @@ class RoutineDetailActivity : AppCompatActivity() {
         Log.e("Cards: ", routine?.cards.toString())
         routineDetailCardAdapter.cardList = routine?.cards!!
         routineDetailCardAdapter.notifyDataSetChanged()
+
+        binding.btnRunRoutine.setOnClickListener {
+            startActivity(Intent(this, RoutineProgressActivity::class.java).apply {
+                putExtra("selected_routine", routine)
+            })
+        }
     }
 }
