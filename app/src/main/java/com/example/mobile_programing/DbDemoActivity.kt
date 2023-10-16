@@ -11,6 +11,8 @@ import com.example.mobile_programing.repository.CardRepository
 import com.example.mobile_programing.repository.RoutineRepository
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class DbDemoActivity : AppCompatActivity() {
@@ -49,6 +51,10 @@ class DbDemoActivity : AppCompatActivity() {
         //갱신된 루틴 Friebase Database에서도 갱신
         routineRepository.createRoutine(routine1)
 
+        GlobalScope.launch {
+            var cardData = cardRepository.getCard(card1.id)
+            Log.d("data",cardData.toString())
+        }
         finish()
 
     }
