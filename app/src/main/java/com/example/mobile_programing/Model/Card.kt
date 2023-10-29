@@ -10,6 +10,7 @@ val cardRef = database.getReference("Card")
 
 data class Card (
     var id : String, // db에서 auto increment로 생성
+    var userId : String,
     var name: String, // Name of the card e.g., "Squats"
 
     var preTimerSecs : Int,
