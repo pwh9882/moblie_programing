@@ -32,11 +32,41 @@ class CardDisplayFragment : Fragment() {
         routineProgressViewModel = ViewModelProvider(requireActivity())[RoutineProgressViewModel::class.java]
 
         routineProgressViewModel.currentCardIndex.observe(viewLifecycleOwner) {
+            routineProgressViewModel.initCardProgressInfo()
+
             binding.tvRoutineProgressCardIndex.text = it.toString()
             binding.tvRoutineProgressCardName.text = routineProgressViewModel.currentRoutine.value!!.cards[it].name
-            routineProgressViewModel.stopCardTimer()
-            routineProgressViewModel.startCardTimer()
+
+
         }
+
+        routineProgressViewModel.currentCardProgress.observe(viewLifecycleOwner) {
+            val currCard = routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!]
+            binding.tvRoutineProgressStatus.text = when(it) {
+                0 -> "진행 전"
+                1 -> "진행 중"
+                2 -> "진행 완료"
+                else -> "오류"
+            }
+
+            // 0: pretimer, 1: activeTimer, 2: postTimer
+            val time = when(it) {
+                0 -> currCard.preTimerSecs
+                1 -> currCard.activeTimerSecs
+                2 -> currCard.postTimerSecs
+                else -> 0
+            }
+            routineProgressViewModel.stopCardTimer()
+            routineProgressViewModel.startCardTimer(time)
+        }
+
+        routineProgressViewModel.currentCardSet.observe(viewLifecycleOwner) {
+            binding.tvRoutineProgressSets.text = "${it} / ${routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!].sets}"
+            // 다음 세트로 이동하면 pregress를 0으로 초기화
+            routineProgressViewModel.setCardProgress(0)
+        }
+
+
         routineProgressViewModel.currentCardTime.observe(viewLifecycleOwner) {
             binding.tvRoutineProgressCardLeftTime.text = it.toString()
             if (it == 0) {

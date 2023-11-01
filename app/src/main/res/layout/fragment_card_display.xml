@@ -20,12 +20,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="현재 카드" />
+
+        <TextView
             android:id="@+id/tv_routine_progress_card_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/hello_blank_fragment"
             android:textAlignment="center"
             android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="n번째 카드" />
 
         <TextView
             android:id="@+id/tv_routine_progress_card_index"
@@ -36,12 +48,46 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="타이머" />
+
+        <TextView
             android:id="@+id/tv_routine_progress_card_left_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="100"
             android:textAlignment="center"
             android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="남은 반복횟수" />
+
+        <TextView
+            android:id="@+id/tv_routine_progress_sets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="1/1"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="현재 진행 상태" />
+
+        <TextView
+            android:id="@+id/tv_routine_progress_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="사전"
+            android:textSize="24sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

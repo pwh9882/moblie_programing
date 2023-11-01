@@ -30,6 +30,7 @@ private lateinit var binding: ActivityRoutineCreateBinding
         binding.btnRoutineDetailCreate.setOnClickListener {
 
             // TODO: ID는 DB에서 자동으로 생성되도록 하기
+            // TODO: 유효한 입력인지 verify하기
             val newRoutine = Routine(
                 id=currentRoutine.id,
                 name = binding.etRoutineName.text.toString(),

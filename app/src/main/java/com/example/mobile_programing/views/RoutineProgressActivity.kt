@@ -32,86 +32,21 @@ class RoutineProgressActivity : AppCompatActivity() {
         } else {
             intent.getSerializableExtra("selected_routine") as Routine
         }
-        routineProgressViewModel.updateCurrentRoutineData(routine!!)
-        routineProgressViewModel.updateCurrentCardIndexData(0)
-        routineProgressViewModel.startRoutineTimer()
+        routineProgressViewModel.updateCurrentRoutineData(routine!!);
+        routineProgressViewModel.updateCurrentCardIndexData(0);
+        routineProgressViewModel.startRoutineTimer();
 
-        // fragment 설정
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val cardDisplayFragment = CardDisplayFragment.newInstance(routineProgressViewModel)
-        fragmentTransaction.replace(R.id.fl_routine_progress, CardDisplayFragment())
-        fragmentTransaction.commit()
-        supportFragmentManager.fragments[0].arguments = Bundle().apply {
-            putSerializable("selected_routine", routine)
-        }
+        // Set up the fragment
+        initCardDisplayFragment(routine);
 
-        // binding
-        routineProgressViewModel.currentRoutineTime.observe(this) {
-            binding.tvRoutineProgressTotalTime.text = it.toString()
-        }
+        // Observe the routine time
+        updateRoutineTime();
 
-        // onClickListener
-        binding.btnRoutineProgressNextCard.setOnClickListener {
-            if(routineProgressViewModel.currentCardIndex.value!! < routineProgressViewModel.currentRoutine.value!!.cards.size - 1)
-                routineProgressViewModel.updateCurrentCardIndexData(routineProgressViewModel.currentCardIndex.value!! + 1)
-            // exit condition
-            else {
-                Toast.makeText(this, "루틴이 종료되었습니다.", Toast.LENGTH_SHORT).show()
-                // TODO: 루틴 종료에 관한 DB 업데이트 처리하기
-                finish()
-            }
-        }
-        binding.btnRoutineProgressPreviousCard.setOnClickListener {
-            if(routineProgressViewModel.currentCardIndex.value!! > 0)
-                routineProgressViewModel.updateCurrentCardIndexData(routineProgressViewModel.currentCardIndex.value!! - 1)
-        }
-        binding.btnRoutineProgressSkipCard.setOnClickListener {
-            // 현재는 next 와 동일. 추후에 skip 기능 추가
-            if(routineProgressViewModel.currentCardIndex.value!! < routineProgressViewModel.currentRoutine.value!!.cards.size - 1)
-                routineProgressViewModel.updateCurrentCardIndexData(routineProgressViewModel.currentCardIndex.value!! + 1)
-        }
-
-
-        val cardCreateResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if(result.resultCode == CARD_CREATED) {
-                // Got data from other activity and process that data
-                Log.e("Activity result: ","${result.data}")
-                // 현재 카드 리스트에 결과 카드 추가(현재 카드 번호를 이용해 다음 카드 위치로 삽입.)
-                routineProgressViewModel.currentRoutine.value!!.cards.add(
-                    routineProgressViewModel.currentCardIndex.value!! + 1,
-                    result.data!!.getSerializableExtra("selected_card") as Card
-                )
-
-                // 다음 카드로 이동
-                routineProgressViewModel.updateCurrentCardIndexData(routineProgressViewModel.currentCardIndex.value!! + 1)
-            }
-        }
-        binding.btnRoutineProgressCreateCard.setOnClickListener {
-            cardCreateResultLauncher.launch(Intent(this, CardDetailActivity::class.java).apply {
-                // TODO: id는 데이터 베이스 용으로 적절하게 수정해야함.
-                var emptyCard = Card(
-                    id = 1000,
-                    name = "추가생성카드",
-                    preTimerSecs = 0,
-                    preTimerAutoStart = true,
-                    activeTimerSecs = 0,
-                    activeTimerAutoStart = true,
-                    postTimerSecs = 0,
-                    postTimerAutoStart = true,
-                    sets = 0,
-                    additionalInfo = arrayListOf()
-                )
-                putExtra("selected_card", emptyCard)
-                putExtra("createFlag", true)
-            })
-        }
-
-        routineProgressViewModel.currentCardIndex.observe(this) {
-//            if(it == routineProgressViewModel.currentRoutine.value!!.cards.size - 1)
-//                binding.btnRoutineProgressNextCard.text = "루틴 종료"
-//            else
-//                binding.btnRoutineProgressNextCard.text = "다음 카드"
-        }
+        // Set up click listeners
+        handleNextCardClick();
+        handlePreviousCardClick();
+        handleSkipCardClick();
+        handleCardCreation();
 
     }
 
@@ -122,4 +57,129 @@ class RoutineProgressActivity : AppCompatActivity() {
         routineProgressViewModel.stopRoutineTimer()
         routineProgressViewModel.stopCardTimer()
     }
+
+
+    // Initialize card display fragment
+private fun initCardDisplayFragment(routine: Routine) {
+    val cardDisplayFragment = CardDisplayFragment.newInstance(routineProgressViewModel)
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fl_routine_progress, CardDisplayFragment())
+        .commit()
+//    supportFragmentManager.fragments[0].arguments = Bundle().apply {
+//        putSerializable("selected_routine", routine)
+//    }
+}
+
+// Update routine time
+private fun updateRoutineTime() {
+    routineProgressViewModel.currentRoutineTime.observe(this) {
+        binding.tvRoutineProgressTotalTime.text = it.toString()
+    }
+}
+
+// Handle next card click
+private fun handleNextCardClick() {
+    binding.btnRoutineProgressNextCard.setOnClickListener {
+        // card set이 끝나지 않았다면 pregress를 증가, progress==2로 현 진행 세트를 마쳤으면 세트 수 증가, 모두 완료하면 다음 카드로 이동
+        if (routineProgressViewModel.currentCardProgress.value!! < 2)
+            routineProgressViewModel.setCardProgress(routineProgressViewModel.currentCardProgress.value!! + 1)
+        else if (routineProgressViewModel.currentCardSet.value!! < routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!].sets)
+            routineProgressViewModel.setCardSet(routineProgressViewModel.currentCardSet.value!! + 1)
+        else
+        if (isNotLastCard())
+            incrementCardIndex()
+        else
+            finishRoutine()
+    }
+}
+
+// Handle previous card click
+private fun handlePreviousCardClick() {
+    // handleNextCardClick의 반대기능
+    binding.btnRoutineProgressPreviousCard.setOnClickListener {
+        if (routineProgressViewModel.currentCardProgress.value!! > 0)
+            routineProgressViewModel.setCardProgress(routineProgressViewModel.currentCardProgress.value!! - 1)
+        else if (routineProgressViewModel.currentCardSet.value!! > 1)
+            routineProgressViewModel.setCardSet(routineProgressViewModel.currentCardSet.value!! - 1)
+        else
+        if (isNotFirstCard())
+            decrementCardIndex()
+        else
+            Toast.makeText(this, "첫 번째 카드입니다.", Toast.LENGTH_SHORT).show()
+    }
+}
+
+// Handle skip card click
+private fun handleSkipCardClick() {
+    // 관계없이 다음 카드로 이동(가능하면)
+    binding.btnRoutineProgressSkipCard.setOnClickListener {
+        if (isNotLastCard())
+            incrementCardIndex()
+        else
+            finishRoutine()
+    }
+}
+
+// Handle card creation
+private fun handleCardCreation() {
+    val cardCreateResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == CARD_CREATED) {
+            addCardToRoutine(result.data!!.getSerializableExtra("selected_card") as Card)
+            incrementCardIndex()
+        }
+    }
+    binding.btnRoutineProgressCreateCard.setOnClickListener {
+        cardCreateResultLauncher.launch(Intent(this, CardDetailActivity::class.java).apply {
+            var emptyCard = Card(
+                id = 1000,
+                name = "test",
+                preTimerSecs = 5,
+                postTimerSecs = 10,
+                activeTimerSecs = 3,
+                preTimerAutoStart = false,
+                postTimerAutoStart = false,
+                activeTimerAutoStart = false,
+                sets = 5,
+                additionalInfo = arrayListOf()
+            )
+            putExtra("selected_card", emptyCard)
+            putExtra("createFlag", true)
+        })
+    }
+}
+
+// Check if it's not the last card
+private fun isNotLastCard(): Boolean {
+    return routineProgressViewModel.currentCardIndex.value!! < routineProgressViewModel.currentRoutine.value!!.cards.size - 1
+}
+
+// Check if it's not the first card
+private fun isNotFirstCard(): Boolean {
+    return routineProgressViewModel.currentCardIndex.value!! > 0
+}
+
+// Increment card index
+private fun incrementCardIndex() {
+    routineProgressViewModel.updateCurrentCardIndexData(routineProgressViewModel.currentCardIndex.value!! + 1)
+}
+
+// Decrement card index
+private fun decrementCardIndex() {
+    routineProgressViewModel.updateCurrentCardIndexData(routineProgressViewModel.currentCardIndex.value!! - 1)
+}
+
+// Finish routine
+private fun finishRoutine() {
+    Toast.makeText(this, "루틴이 종료되었습니다.", Toast.LENGTH_SHORT).show()
+    // TODO: 루틴 종료에 관한 DB 업데이트 처리하기
+    finish()
+}
+
+// Add card to routine
+private fun addCardToRoutine(card: Card) {
+    routineProgressViewModel.currentRoutine.value!!.cards.add(
+        routineProgressViewModel.currentCardIndex.value!! + 1,
+        card
+    )
+}
 }

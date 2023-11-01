@@ -18,11 +18,11 @@ class CardRepositoryDummy {
         return Card(
             id=id,
             name="Leg Press",
-            preTimerSecs=10,
+            preTimerSecs=5,
             preTimerAutoStart=true,
-            activeTimerSecs=30,
+            activeTimerSecs=10,
             activeTimerAutoStart=true,
-            postTimerSecs=10,
+            postTimerSecs=3,
             postTimerAutoStart=true,
             sets=3,
             additionalInfo=ArrayList()
