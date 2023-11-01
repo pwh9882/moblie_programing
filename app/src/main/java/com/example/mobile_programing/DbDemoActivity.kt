@@ -55,8 +55,10 @@ class DbDemoActivity : AppCompatActivity() {
             var cardData = cardRepository.getCard(card1.id)
             var cards = ArrayList<Card>()
             Log.d("getCard",cardData.toString())
-            cards = cardRepository.getCardsByUserId(userId)
-            Log.d("cards",cards.toString())
+//            cards = cardRepository.getCardsByUserId(userId)
+//            Log.d("cards",cards.toString())
+            var routine_test = routineRepository.getRoutine(routine1.id)
+            Log.d("routine",routine_test.toString())
 
         }
 

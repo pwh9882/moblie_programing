@@ -35,19 +35,36 @@ class RoutineRepository {
     }
 
     // Fetches a specific routine using its ID from Firestore.
-    suspend fun getRoutine(id: String) = suspendCoroutine<Routine> {
-        var continuation = it
-        var routine = Routine("", "", 0, "", arrayListOf())
-        routineRef.child(id).get().addOnSuccessListener {
-            routine.id = it.child("id").value.toString()
-            routine.name = it.child("name").value.toString()
-            routine.totalTime = Integer.parseInt(it.child("activeTimerSecs").value.toString())
-            routine.description = it.child("description").value.toString()
-            Log.d("루틴",routine.id)
-            continuation.resume(routine)//resume -> return기능
+    suspend fun getRoutine(id: String) = suspendCoroutine<Routine> { continuation ->
+        val routine = Routine("", "", 0, "", arrayListOf())
+        routineRef.child(id).get().addOnSuccessListener { snapshot ->
+            routine.id = snapshot.child("id").value.toString()
+            routine.name = snapshot.child("name").value.toString()
+            routine.totalTime = Integer.parseInt(snapshot.child("totalTime").value.toString())
+            routine.description = snapshot.child("description").value.toString()
 
+            // Parsing Card objects
+            val cardsSnapshot = snapshot.child("cards")
+            cardsSnapshot.children.forEach { cardData ->
+                val card = Card(
+                    id = cardData.child("id").value.toString(),
+                    userId = cardData.child("userId").value.toString(),
+                    name = cardData.child("name").value.toString(),
+                    preTimerSecs = cardData.child("preTimerSecs").value.toString().toInt(),
+                    preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
+                    activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toInt(),
+                    activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
+                    postTimerSecs = cardData.child("postTimerSecs").value.toString().toInt(),
+                    postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
+                    sets = cardData.child("sets").value.toString().toInt(),
+                    additionalInfo = (cardData.child("additionalInfo").value as List<String>).toCollection(ArrayList())
+                )
+                routine.cards.add(card)
+            }
 
+            continuation.resume(routine)
         }
+    }
 
 
         // Deletes a specific routine using its ID from Firestore.
@@ -83,5 +100,5 @@ class RoutineRepository {
 
         // 추가사항: user-id에 해당하는 routine 목록을 폴더 형식으로 가져오는 함수
 
-    }
+
 }
