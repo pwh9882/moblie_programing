@@ -17,7 +17,7 @@ import com.example.mobile_programing.views.RoutineDetailActivity
 
 
 class RoutineAdapter constructor(private val binding: ActivityMainBinding, private val viewModel: MainViewModel, private val activity: Activity) : RecyclerView.Adapter<RoutineAdapter.CustomViewHolder>(){
-    var routineLint: MutableList<Routine> = mutableListOf()
+    var routineList: MutableList<Routine> = mutableListOf()
 
     class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById<TextView>(R.id.tv_routine_name)
@@ -29,7 +29,7 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, priva
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_routine, parent, false)
         return CustomViewHolder(view).apply {
             itemView.setOnClickListener {
-                val selectedRoutine: Routine = routineLint[absoluteAdapterPosition]
+                val selectedRoutine: Routine = routineList[absoluteAdapterPosition]
 
                 activity.startActivity(Intent(activity, RoutineDetailActivity::class.java).apply {
                     putExtra("selected_routine", selectedRoutine)
@@ -40,11 +40,11 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, priva
     }
 
     override fun getItemCount(): Int {
-        return routineLint.size
+        return routineList.size
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        val routine = routineLint[position]
+        val routine = routineList[position]
         Log.e("Routine: ", routine.toString())
         holder.name.text = routine.name
         holder.description.text = routine.description

@@ -84,6 +84,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="다음" />
+
+        <Button
+            android:id="@+id/btn_routine_progress_create_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="새 카드" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
