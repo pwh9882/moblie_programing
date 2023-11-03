@@ -67,9 +67,10 @@ class RoutineRepository {
     }
 
 
-        // Deletes a specific routine using its ID from Firestore.
-        fun deleteRoutine(id: Int): Boolean {
-            TODO("Implement function to delete a specific document (Routine) using its ID from Firebase Firestore.")
+    // Deletes a specific routine using its ID from Firestore.
+        fun deleteRoutine(id: String): Boolean {
+            routineRef.child(id).removeValue()
+            return true;
         }
 
         // Updates given fields of an existing routine in Firestore
