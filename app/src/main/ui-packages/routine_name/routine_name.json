@@ -1,0 +1,80 @@
+{
+  "name": "routine_name",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "MAiC0jvnjibWLGNUBHurRq",
+    "node": "37:274",
+    "version": "4457394328",
+    "component-id": "0416f59d21a1e1d488cc060e64ade67aac67736e"
+  },
+  "default": "routine name",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "하체 운동 루틴"
+      }
+    ],
+    "modes": {
+      "routine name": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "하체 운동 루틴"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "하체 운동 루틴",
+            "margin": {
+              "right": "3.0"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "하체 운동 루틴",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": "28.0",
+            "line-height": "1.2102272851126534",
+            "typeface": "Inter"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "routine name",
+      "size": {
+        "width": 171.0,
+        "height": 34.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
