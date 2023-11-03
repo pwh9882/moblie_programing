@@ -44,6 +44,7 @@ class CardRepository {
             var card = Card("","", "", 0, true, 0, true, 0, false, 0, arrayListOf())
             cardRef.child(id).get().addOnSuccessListener {
                 card.id = it.child("id").value.toString()
+                card.userId = it.child("userId").value.toString()
                 card.name = it.child("name").value.toString()
                 card.preTimerSecs = Integer.parseInt(it.child("preTimerSecs").value.toString())
                 card.preTimerAutoStart = if (it.child("preTimerAutoStart").value.toString() == "true") { true } else { false }
