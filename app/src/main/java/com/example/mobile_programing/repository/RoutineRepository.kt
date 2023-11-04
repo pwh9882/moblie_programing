@@ -36,7 +36,7 @@ class RoutineRepository {
 
     // Fetches a specific routine using its ID from Firestore.
     suspend fun getRoutine(id: String) = suspendCoroutine<Routine> { continuation ->
-        val routine = Routine("", "", 0, "", arrayListOf())
+        val routine = Routine("", "", 0, 0,"", arrayListOf())
         routineRef.child(id).get().addOnSuccessListener { snapshot ->
             routine.id = snapshot.child("id").value.toString()
             routine.name = snapshot.child("name").value.toString()

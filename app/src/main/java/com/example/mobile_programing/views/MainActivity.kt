@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.example.mobile_programing.DbDemoActivity
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.models.Routine
@@ -32,6 +33,12 @@ class MainActivity : AppCompatActivity() {
         setupUserAuthentication()
         setupRoutineList()
         setupRoutineCreateButton()
+
+        // 백엔드용 버튼
+        binding.bttnConnect.setOnClickListener {//데모버튼 클릭시 이벤트
+            startActivity(Intent(this, DbDemoActivity::class.java))
+
+        }
     }
 
     private fun setupDataBinding() {
@@ -95,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 putExtra("selected_routine", viewModel.routineList.value?.let {
                     Routine(
                         // TODO: 현재로는 id를 그냥 최대값+1
-                        id= it.size,
+                        id= it.size.toString(),
                         name = "",
                         description = "",
                         totalTime = 0,

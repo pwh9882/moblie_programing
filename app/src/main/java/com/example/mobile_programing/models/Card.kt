@@ -15,31 +15,27 @@ data class Card (
     var userId : String,
     var name: String, // Name of the card e.g., "Squats"
 
-    var preTimerSecs : Int,
+    var preTimerSecs: Int,
     var preTimerAutoStart : Boolean,
 
-    val preTimerSecs : Int,
-    val preTimerAutoStart : Boolean,
+    var activeTimerSecs : Int,
+    var activeTimerAutoStart : Boolean,
 
-    val activeTimerSecs : Int,
-    val activeTimerAutoStart : Boolean,
+    var postTimerSecs : Int,
+    var postTimerAutoStart : Boolean,
 
-    val postTimerSecs : Int,
-    val postTimerAutoStart : Boolean,
+    var sets : Int,
 
-    val sets : Int,
+    var additionalInfo : ArrayList<String>
 
-    val additionalInfo : ArrayList<String>
-
-): Serializable
-){
+): Serializable {
     /*초기화
     * 사전타이머 시간과 사후 타이머 시간을 입력하지 않았을때 기본세팅값 3초로 세팅
     * 세트수는 1
     * */
     init {
-        if(this.preTimerSecs == 0) this.preTimerSecs = 3
-        if(this.postTimerSecs == 0) this.postTimerSecs = 3
+        if (preTimerSecs == 0) preTimerSecs = 3
+        if(postTimerSecs == 0) postTimerSecs = 3
         if(sets == 0) sets = 1
         id = cardRef.push().key!!
 

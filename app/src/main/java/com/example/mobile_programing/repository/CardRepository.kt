@@ -3,22 +3,12 @@ package com.example.mobile_programing.repository
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import com.example.mobile_programing.Model.Card
-import com.example.mobile_programing.Model.database
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ktx.childEvents
+import com.example.mobile_programing.models.Card
+import com.example.mobile_programing.models.database
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import java.text.ParseException
-import java.util.concurrent.Flow
-import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import kotlin.math.log
 
 //Contains all functions related to operations on Cards sub-collection inside specific routines in Firestore.
 

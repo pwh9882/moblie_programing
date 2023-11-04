@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import com.example.mobile_programing.Model.Card
-import com.example.mobile_programing.Model.Routine
-import com.example.mobile_programing.Model.cardRef
+import com.example.mobile_programing.models.Card
+import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.repository.CardRepository
 import com.example.mobile_programing.repository.RoutineRepository
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+//import com.google.firebase.database.ktx.database
+//import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.reflect.Array
@@ -39,7 +38,7 @@ class DbDemoActivity : AppCompatActivity() {
         listCard.add(card2)
 
         //루틴 생성(추가 카드없음)
-        var routine1: Routine = Routine("","운동",0, "dsajfldsf",listCard)
+        var routine1: Routine = Routine("","운동",0, 0, "", listCard)
         //처음 생성한 루틴 저장
 
 
