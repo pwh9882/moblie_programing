@@ -13,16 +13,10 @@
         android:theme="@style/Theme.Mobile_programing"
         tools:targetApi="31">
         <activity
-            android:name=".CardActivity"
-            android:exported="false" />
-        <activity
             android:name=".DbDemoActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".views.CardDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".views.CardCreateActivity"
             android:exported="false" />
         <activity
             android:name=".views.RoutineCreateActivity"
@@ -45,7 +39,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
         </activity>
         <activity android:name=".views.MainActivity" />
     </application>
