@@ -1,4 +1,6 @@
-package com.example.mobile_programing.Model
+package com.example.mobile_programing.models
+
+import java.io.Serializable
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -16,17 +18,20 @@ data class Card (
     var preTimerSecs : Int,
     var preTimerAutoStart : Boolean,
 
-    var activeTimerSecs : Int,
-    var activeTimerAutoStart : Boolean,
+    val preTimerSecs : Int,
+    val preTimerAutoStart : Boolean,
 
-    var postTimerSecs : Int,
-    var postTimerAutoStart : Boolean,
+    val activeTimerSecs : Int,
+    val activeTimerAutoStart : Boolean,
 
-    var sets : Int,
+    val postTimerSecs : Int,
+    val postTimerAutoStart : Boolean,
 
-    var additionalInfo : ArrayList<String>
+    val sets : Int,
 
+    val additionalInfo : ArrayList<String>
 
+): Serializable
 ){
     /*초기화
     * 사전타이머 시간과 사후 타이머 시간을 입력하지 않았을때 기본세팅값 3초로 세팅

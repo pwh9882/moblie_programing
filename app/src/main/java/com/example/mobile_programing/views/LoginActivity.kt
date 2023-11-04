@@ -1,4 +1,4 @@
-package com.example.mobile_programing.View
+package com.example.mobile_programing.views
 
 import android.content.Intent
 import android.os.Bundle

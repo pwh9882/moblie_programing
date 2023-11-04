@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Moblie_programing"
+        android:theme="@style/Theme.Mobile_programing"
         tools:targetApi="31">
         <activity
             android:name=".CardActivity"
@@ -19,7 +19,26 @@
             android:name=".DbDemoActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".View.LoginActivity"
+            android:name=".views.CardDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.CardCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.RoutineCreateActivity"
+            android:exported="false"
+            android:label="@string/title_activity_routine_create"
+            android:theme="@style/Theme.Mobile_programing" />
+        <activity
+            android:name=".views.RoutineProgressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.RoutineDetailActivity"
+            android:exported="false"
+            android:label="@string/title_activity_routine_detail"
+            android:theme="@style/Theme.Mobile_programing" />
+        <activity
+            android:name=".views.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +46,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.MainActivity"></activity>
+        </activity>
+        <activity android:name=".views.MainActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.CardDetailActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_card_detail_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="카드 수정하고 돌아가기"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/btn_card_detail_update"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Card Name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Card Name" />
+
+            <EditText
+                android:id="@+id/et_card_detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- PreTimer Fields -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PreTimer Seconds" />
+
+            <EditText
+                android:id="@+id/et_card_detail_preTimerSecs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+            <CheckBox
+                android:id="@+id/cb_card_detail_preTimer_autoStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Auto Start PreTimer" />
+
+            <!-- Active Timer Fields -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Active Timer Seconds" />
+
+            <EditText
+                android:id="@+id/et_card_detail_activeTimerSecs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+            <CheckBox
+                android:id="@+id/cb_card_detail_activeTimer_autoStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Auto Start Active Timer" />
+
+            <!-- Post Timer Fields -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Post Timer Seconds" />
+
+            <EditText
+                android:id="@+id/et_card_detail_postTimerSecs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+            <CheckBox
+                android:id="@+id/cb_card_detail_postTimer_autoStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Auto Start Post Timer" />
+
+            <!-- Set Numbers and Additional Info (temporary EditTexts) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sets" />
+
+            <EditText
+                android:id="@+id/et_card_detail_sets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Additional Info" />
+
+            <EditText
+                android:id="@+id/et_card_detail_additional_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
