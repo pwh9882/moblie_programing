@@ -70,17 +70,6 @@ class CardRepository {
         return true;
     }
 
-    // Updates given fields of an existing routine in Firestore
-    fun updateRoutine(id: Int, newCard: Card): Boolean {
-        // 성공했다고 가정하고 dummy data true return
-        return true;
-    }
-
-    // Fetches all routines from Firestore.
-    fun getAllRoutines(): ArrayList<Card> {
-        val dummy =ArrayList<Card>()
-        return dummy
-    }
 
     // firebase uid로 routine 목록을 가져오는 함수
     suspend fun getCardsByUserId(userId : String) = suspendCoroutine<ArrayList<Card>> {

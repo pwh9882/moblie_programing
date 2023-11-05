@@ -36,7 +36,7 @@ class RoutineRepository {
 
     // Fetches a specific routine using its ID from Firestore.
     suspend fun getRoutine(id: String) = suspendCoroutine<Routine> { continuation ->
-        val routine = Routine("", "", 0, "", arrayListOf())
+        val routine = Routine("", "", 0,"", arrayListOf())
         routineRef.child(id).get().addOnSuccessListener { snapshot ->
             routine.id = snapshot.child("id").value.toString()
             routine.name = snapshot.child("name").value.toString()
@@ -75,31 +75,31 @@ class RoutineRepository {
 
         // Updates given fields of an existing routine in Firestore
         fun updateRoutine(id: String, newRoutine: Routine): Boolean {
-            TODO("Implement function to update certain fields of a specific Routine Document in Firebase Firestore")
+            newRoutine.id = id
+            routineRef.child(id).setValue(newRoutine)
+            return true
         }
 
+    // Fetches all routines from Firestore.
+    fun getAllRoutines(): ArrayList<Routine> {
+        TODO("Implement function fetching all documents (<strong><em>'Routines') present in Firebase Firestore.")
+    }
 
-        // Fetches all routines from Firestore.
-        fun getAllRoutines(): ArrayList<Routine> {
-            TODO("Implement function fetching all documents (<strong><em>'Routines') present in Firebase Firestore.")
-        }
+    // firebase uid로 routine 목록을 가져오는 함수
+    fun getRoutinesByUserId(userId : String): ArrayList<Routine> {
+        TODO(" Implement function for fetching all routines belonging to current logged-in user")
+    }
 
-        // firebase uid로 routine 목록을 가져오는 함수
-        fun getRoutinesByUserId(userId: String): ArrayList<Routine> {
-            TODO(" Implement function for fetching all routines belonging to current logged-in user")
-        }
+    // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
+    fun getHistoryRoutinesByUserId(userId : String): ArrayList<Routine> {
+        TODO(" Implement function for fetching all history routines belonging to current logged-in user")
+    }
 
-        // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
-        fun getHistoryRoutinesByUserId(userId: String): ArrayList<Routine> {
-            TODO(" Implement function for fetching all history routines belonging to current logged-in user")
-        }
+    // user-id와 그에 해당하는 favorite routine 목록을 가져오는 함수
+    fun getFavoriteRoutinesByUserId(userId : String): ArrayList<Routine> {
+        TODO(" Implement function for fetching all favorite routines belonging to current logged-in user")
+    }
 
-        // user-id와 그에 해당하는 favorite routine 목록을 가져오는 함수
-        fun getFavoriteRoutinesByUserId(userId: String): ArrayList<Routine> {
-            TODO(" Implement function for fetching all favorite routines belonging to current logged-in user")
-        }
-
-        // 추가사항: user-id에 해당하는 routine 목록을 폴더 형식으로 가져오는 함수
-
+    // 추가사항: user-id에 해당하는 routine 목록을 폴더 형식으로 가져오는 함수
 
 }
