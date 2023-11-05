@@ -40,13 +40,13 @@ class DbDemoActivity : AppCompatActivity() {
         listCard.add(card2)
 
         //루틴 생성(추가 카드없음)
-        var routine1 = Routine("",userId,"운동",0, "dsajfldsf",listCard)
-//        var routine2 = Routine("",userId,"운동",0, "anything",listCard)
+        var routine1 = Routine("",userId = userId,"운동",0, "dsajfldsf",listCard)
+        var routine2 = Routine("",userId = userId,"운동",0, "anything",listCard)
         //처음 생성한 루틴 저장
 
 
         routineRepository.createRoutine(routine1)
-        //routineRepository.createRoutine(routine2)
+        routineRepository.createRoutine(routine2)
 
         /*
         * 기존 루틴에 카드가 추가 되었으므로 fireDatabase의 기존 루틴도 카드가 추가된 루틴으로 갱신되어야 합니다
@@ -63,7 +63,7 @@ class DbDemoActivity : AppCompatActivity() {
 //            var routine_test = routineRepository.getRoutine(routine1.id)
 //                            Log.d("routine",routine_test.toString())
 
-            var routineid_test = routineRepository.getRoutinesByUserId(userId)
+            var routineid_test = routineRepository.getRoutinesByUserId(routine1.userId)
             Log.d("routineid_test", routineid_test.toString())
 
         }
