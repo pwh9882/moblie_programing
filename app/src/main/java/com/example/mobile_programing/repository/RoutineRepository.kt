@@ -22,14 +22,14 @@ class RoutineRepository {
         routineRef.child(routine.id).setValue(routine)
 
         //루틴에 카드가 추가됬을경우 totalTime을 계산해주는 로직
-        if (!routine.cards.isEmpty()) {
-            var time = 0
-            for (card in routine.cards) {
-                time += (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs) * card.sets
-            }
-            routine.totalTime = time
-            routineRef.child(routine.id).setValue(routine)
-        }
+//        if (!routine.cards.isEmpty()) {
+//            var time = 0
+//            for (card in routine.cards) {
+//                time += (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs) * card.sets
+//            }
+//            routine.totalTime = time
+//            routineRef.child(routine.id).setValue(routine)
+//        }
         return true
         TODO("Implement function to create a new document in Firebase Firestore for the given routine.")
     }
@@ -86,9 +86,9 @@ class RoutineRepository {
         }
 
         // firebase uid로 routine 목록을 가져오는 함수
-        suspend fun getRoutinesByUserId(id: String) = suspendCoroutine<Routine> { continuation ->
-            val routine = Routine("", "", "",0, "", arrayListOf())
-            routineRef.child(id).get().addOnSuccessListener { snapshot ->
+        suspend fun getRoutinesByUserId(userId: String) = suspendCoroutine<Routine> { continuation ->
+            val routine = Routine("", "hong123", "",0, "", arrayListOf())
+            routineRef.child(userId).get().addOnSuccessListener { snapshot ->
                 routine.id = snapshot.child("id").value.toString()
                 routine.userId = snapshot.child("userId").value.toString()
                 routine.name = snapshot.child("name").value.toString()

@@ -26,6 +26,7 @@ class DbDemoActivity : AppCompatActivity() {
         val routineRepository = RoutineRepository()
 
         val userId = "kim123"
+        val R_userId = "hong123"
 
 
         var s1 = arrayListOf<String>("hello")
@@ -39,11 +40,13 @@ class DbDemoActivity : AppCompatActivity() {
         listCard.add(card2)
 
         //루틴 생성(추가 카드없음)
-        var routine1: Routine = Routine("","","운동",0, "dsajfldsf",listCard)
+        var routine1 = Routine("",R_userId,"운동",0, "dsajfldsf",listCard)
+        var routine2 = Routine("",R_userId,"운동",0, "anything",listCard)
         //처음 생성한 루틴 저장
 
 
         routineRepository.createRoutine(routine1)
+        routineRepository.createRoutine(routine2)
 
         /*
         * 기존 루틴에 카드가 추가 되었으므로 fireDatabase의 기존 루틴도 카드가 추가된 루틴으로 갱신되어야 합니다
@@ -54,17 +57,18 @@ class DbDemoActivity : AppCompatActivity() {
         GlobalScope.launch {
             var cardData = cardRepository.getCard(card1.id)
             var cards = ArrayList<Card>()
-            Log.d("getCard",cardData.toString())
+//            Log.d("getCard",cardData.toString())
 //            cards = cardRepository.getCardsByUserId(userId)
 //            Log.d("cards",cards.toString())
 //            var routine_test = routineRepository.getRoutine(routine1.id)
 //                            Log.d("routine",routine_test.toString())
+
             var routineid_test = routineRepository.getRoutinesByUserId(routine1.id)
             Log.d("routineid_test", routineid_test.toString())
 
         }
 
-        cardRepository.deleteCard(card2.id)
+//        cardRepository.deleteCard(card2.id)
         finish()
     }
 
