@@ -86,39 +86,53 @@ class RoutineRepository {
         }
 
         // firebase uid로 routine 목록을 가져오는 함수
-        suspend fun getRoutinesByUserId(userId: String) = suspendCoroutine<Routine> { continuation ->
-            val routine = Routine("", "hong123", "",0, "", arrayListOf())
+        suspend fun getRoutinesByUserId(userId: String): List<Routine> = suspendCoroutine { continuation ->
             routineRef.child(userId).get().addOnSuccessListener { snapshot ->
-                routine.id = snapshot.child("id").value.toString()
-                routine.userId = snapshot.child("userId").value.toString()
-                routine.name = snapshot.child("name").value.toString()
-                routine.totalTime = Integer.parseInt(snapshot.child("totalTime").value.toString())
-                routine.description = snapshot.child("description").value.toString()
+                val routines = snapshot.children.mapNotNull { routineSnapshot ->
+                    // This checks if the userId of the routine matches the one we're looking for
+                    if (routineSnapshot.child("userId").value.toString() != userId) return@mapNotNull null
 
-                // Parsing Card objects
-                val cardsSnapshot = snapshot.child("cards")
-                cardsSnapshot.children.forEach { cardData ->
-                    val card = Card(
-                        id = cardData.child("id").value.toString(),
-                        userId = cardData.child("userId").value.toString(),
-                        name = cardData.child("name").value.toString(),
-                        preTimerSecs = cardData.child("preTimerSecs").value.toString().toInt(),
-                        preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
-                        activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toInt(),
-                        activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
-                        postTimerSecs = cardData.child("postTimerSecs").value.toString().toInt(),
-                        postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
-                        sets = cardData.child("sets").value.toString().toInt(),
-                        additionalInfo = (cardData.child("additionalInfo").value as List<String>).toCollection(ArrayList())
+                    val cards = ArrayList<Card>()
+                    routineSnapshot.child("cards").children.forEach { cardData ->
+                        val userIdOfCard = cardData.child("userId").value.toString()
+                        // Only add cards that match the userId we're interested in
+                        if (userIdOfCard != userId) return@forEach
+
+                        val card = Card(
+                            id = cardData.child("id").value.toString(),
+                            userId = userIdOfCard,
+                            name = cardData.child("name").value.toString(),
+                            preTimerSecs = cardData.child("preTimerSecs").value.toString().toIntOrNull() ?: 0,
+                            preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
+                            activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toIntOrNull() ?: 0,
+                            activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
+                            postTimerSecs = cardData.child("postTimerSecs").value.toString().toIntOrNull() ?: 0,
+                            postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
+                            sets = cardData.child("sets").value.toString().toIntOrNull() ?: 0,
+                            additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(ArrayList()) ?: arrayListOf<String>()
+                        )
+                        cards.add(card)
+                    }
+
+                    Routine(
+                        id = routineSnapshot.child("id").value.toString(),
+                        userId = userId,
+                        name = routineSnapshot.child("name").value.toString(),
+                        totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
+                        description = routineSnapshot.child("description").value.toString(),
+                        cards = cards
                     )
-                    routine.cards.add(card)
                 }
-
-                continuation.resume(routine)
+                continuation.resume(routines)
+            }.addOnFailureListener { exception ->
+                continuation.resumeWith(Result.failure(exception))
             }
         }
 
-        // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
+
+
+
+    // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
         fun getHistoryRoutinesByUserId(userId: String): ArrayList<Routine> {
             TODO(" Implement function for fetching all history routines belonging to current logged-in user")
         }
