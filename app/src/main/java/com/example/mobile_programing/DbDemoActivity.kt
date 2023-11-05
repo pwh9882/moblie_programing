@@ -39,7 +39,7 @@ class DbDemoActivity : AppCompatActivity() {
         listCard.add(card2)
 
         //루틴 생성(추가 카드없음)
-        var routine1: Routine = Routine("","운동",0, "dsajfldsf",listCard)
+        var routine1: Routine = Routine("","","운동",0, "dsajfldsf",listCard)
         //처음 생성한 루틴 저장
 
 
@@ -57,20 +57,16 @@ class DbDemoActivity : AppCompatActivity() {
             Log.d("getCard",cardData.toString())
 //            cards = cardRepository.getCardsByUserId(userId)
 //            Log.d("cards",cards.toString())
-            var routine_test = routineRepository.getRoutine(routine1.id)
-            Log.d("routine",routine_test.toString())
+//            var routine_test = routineRepository.getRoutine(routine1.id)
+//                            Log.d("routine",routine_test.toString())
+            var routineid_test = routineRepository.getRoutinesByUserId(routine1.id)
+            Log.d("routineid_test", routineid_test.toString())
 
         }
-
-
 
         cardRepository.deleteCard(card2.id)
         finish()
     }
-
-
-
-
 
 
 
