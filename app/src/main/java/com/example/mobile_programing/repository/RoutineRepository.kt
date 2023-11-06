@@ -75,7 +75,9 @@ class RoutineRepository {
 
         // Updates given fields of an existing routine in Firestore
         fun updateRoutine(id: String, newRoutine: Routine): Boolean {
-            TODO("Implement function to update certain fields of a specific Routine Document in Firebase Firestore")
+            newRoutine.id = id
+            routineRef.child(id).setValue(newRoutine)
+            return true
         }
 
     // Fetches all routines from Firestore.
