@@ -82,9 +82,48 @@ class RoutineRepository {
         }
 
     // Fetches all routines from Firestore.
-    fun getAllRoutines(): ArrayList<Routine> {
-        TODO("Implement function fetching all documents (<strong><em>'Routines') present in Firebase Firestore.")
+    suspend fun getAllRoutines(): ArrayList<Routine> = suspendCoroutine { continuation ->
+        val routineList = ArrayList<Routine>()
+        routineRef.get().addOnSuccessListener { snapshot ->
+            snapshot.children.forEach { routineSnapshot -> // 여기서 각 루틴을 순회해야 합니다.
+                val routine = Routine(
+                    id = routineSnapshot.child("id").value.toString(),
+                    userId = routineSnapshot.child("userId").value.toString(),
+                    routineStartTime = routineSnapshot.child("routineStartTime").value.toString().toIntOrNull() ?: 0,
+                    name = routineSnapshot.child("name").value.toString(),
+                    totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
+                    description = routineSnapshot.child("description").value.toString(),
+                    cards = arrayListOf()
+                )
+
+                val cardsSnapshot = routineSnapshot.child("cards")
+                cardsSnapshot.children.forEach { cardData ->
+                    val card = Card(
+                        id = cardData.child("id").value.toString(),
+                        userId = cardData.child("userId").value.toString(),
+                        name = cardData.child("name").value.toString(),
+                        preTimerSecs = cardData.child("preTimerSecs").value.toString().toIntOrNull() ?: 0,
+                        preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
+                        activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toIntOrNull() ?: 0,
+                        activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
+                        postTimerSecs = cardData.child("postTimerSecs").value.toString().toIntOrNull() ?: 0,
+                        postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
+                        sets = cardData.child("sets").value.toString().toIntOrNull() ?: 0,
+                        additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(ArrayList()) ?: arrayListOf<String>()
+                    )
+                    routine.cards.add(card) // 여기서 카드를 루틴에 추가합니다.
+                }
+                routineList.add(routine) // 여기서 루틴을 리스트에 추가합니다.
+            }
+            continuation.resume(routineList) // 데이터가 준비되면 중단함수를 재개합니다.
+        }.addOnFailureListener { exception ->
+            continuation.resumeWith(Result.failure(exception))
+        }
     }
+
+
+
+
 
     // firebase uid로 routine 목록을 가져오는 함수
     suspend fun getRoutinesByUserId(userId: String): List<Routine> = suspendCoroutine { continuation ->
