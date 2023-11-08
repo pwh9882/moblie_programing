@@ -3,6 +3,7 @@ package com.example.mobile_programing.views
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -72,6 +73,10 @@ class RoutineDetailActivity : AppCompatActivity() {
 
     private fun updateCardInRoutine(result: ActivityResult, routine: Routine) {
         val updatedCard = result.data?.getSerializableExtra("selected_card") as Card
+
+        //TODO: 현재 DB에 Id를 계속 새로 생성해서 같은 id를 못찾아서 튕김!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Log.e("updatedCard", updatedCard.toString())
+        Log.e("0th",routine.cards[0].id)
         routine?.cards?.set(routine?.cards?.indexOfFirst { it.id == updatedCard.id }!!, updatedCard)
         binding.rvRoutineDetailCardList.adapter?.notifyDataSetChanged()
     }
