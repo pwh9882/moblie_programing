@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_programing.R
@@ -17,7 +18,7 @@ import com.example.mobile_programing.views.RoutineDetailActivity
 import java.util.Collections
 
 
-class RoutineAdapter constructor(private val binding: ActivityMainBinding, val viewModel: MainViewModel, val activity: Activity) : RecyclerView.Adapter<RoutineAdapter.CustomViewHolder>(){
+class RoutineAdapter constructor(private val binding: ActivityMainBinding, val viewModel: MainViewModel, val activity: Activity, private val routineUpdateResultLauncher: ActivityResultLauncher<Intent>) : RecyclerView.Adapter<RoutineAdapter.CustomViewHolder>(){
     var routineList: MutableList<Routine> = mutableListOf()
 
     class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -32,9 +33,13 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, val v
             itemView.setOnClickListener {
                 val selectedRoutine: Routine = routineList[absoluteAdapterPosition]
 
-                activity.startActivity(Intent(activity, RoutineDetailActivity::class.java).apply {
+                routineUpdateResultLauncher.launch(Intent(activity, RoutineDetailActivity::class.java).apply {
                     putExtra("selected_routine", selectedRoutine)
                 })
+
+//                activity.startActivity(Intent(activity, RoutineDetailActivity::class.java).apply {
+//                    putExtra("selected_routine", selectedRoutine)
+//                })
             }
 
         }

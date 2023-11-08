@@ -28,44 +28,6 @@ class MainViewModel(): ViewModel() {
         }
     }
 
-    // 아이템 위치 변경을 처리하는 함수
-    fun swapRoutines(fromPosition: Int, toPosition: Int) {
-        // LiveData의 값 내에서 아이템 위치를 변경
-        val list = _routineList.value!!
-        if (fromPosition < toPosition) {
-            for (i in fromPosition until toPosition) {
-                Collections.swap(list, i, i + 1)
-            }
-        } else {
-            for (i in fromPosition downTo toPosition + 1) {
-                Collections.swap(list, i, i - 1)
-            }
-        }
-        // LiveData를 업데이트하여 변경사항을 알립니다.
-        _routineList.value = list
-
-
-        // TODO: Firebase에서도 순서를 업데이트합니다.
-//        updateRoutineOrderInFirebase(list)
-    }
-
-    fun moveRoutine(fromPosition: Int, toPosition: Int) {
-        viewModelScope.launch {
-            _routineList.value = _routineList.value?.toMutableList()?.apply {
-                if (fromPosition < toPosition) {
-                    for (i in fromPosition until toPosition) {
-                        Collections.swap(this, i, i + 1)
-                    }
-                } else {
-                    for (i in fromPosition downTo toPosition + 1) {
-                        Collections.swap(this, i, i - 1)
-                    }
-                }
-                // 여기에서 Firebase 데이터베이스 업데이트 로직을 추가하세요
-            }
-        }
-    }
-
     fun deleteRoutine(routine: Routine) {
         viewModelScope.launch {
             // Firebase에서 아이템을 삭제합니다.
@@ -83,10 +45,4 @@ class MainViewModel(): ViewModel() {
         }
     }
 
-    fun updateRoutineList(routineList: MutableList<Routine>) {
-        viewModelScope.launch {
-            _routineList.value = routineList
-        }
-
-    }
 }
