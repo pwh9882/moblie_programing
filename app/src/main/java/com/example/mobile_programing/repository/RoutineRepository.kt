@@ -1,32 +1,82 @@
 package com.example.mobile_programing.repository
 
+import android.util.Log
+import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
+
+
 
 // Contains all functions related to operations on Routines collection in Firestore.
 class RoutineRepository {
-
-//    private val db = FirebaseFirestore.getInstance()
-//    private val routineCollection = db.collection("routines")
+    val database =
+        Firebase.database("https://mobile-programing-9ec38-default-rtdb.asia-southeast1.firebasedatabase.app")
+    val routineRef = database.getReference("Routine")
 
     // Creates a new routine in Firestore.
     fun createRoutine(routine: Routine): Boolean {
+        //firebase에 생성한 루틴 저장
+        routineRef.child(routine.id).setValue(routine)
+
+        //루틴에 카드가 추가됬을경우 totalTime을 계산해주는 로직
+        if (!routine.cards.isEmpty()) {
+            var time = 0
+            for (card in routine.cards) {
+                time += (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs) * card.sets
+            }
+            routine.totalTime = time
+            routineRef.child(routine.id).setValue(routine)
+        }
+        return true
         TODO("Implement function to create a new document in Firebase Firestore for the given routine.")
     }
 
     // Fetches a specific routine using its ID from Firestore.
-    fun getRoutine(id: Int): Routine {
-        TODO("Implement function to fetch a specific document using its ID from Firebase Firestore.")
+    suspend fun getRoutine(id: String) = suspendCoroutine<Routine> { continuation ->
+        val routine = Routine("", "", 0, 0,"", arrayListOf())
+        routineRef.child(id).get().addOnSuccessListener { snapshot ->
+            routine.id = snapshot.child("id").value.toString()
+            routine.name = snapshot.child("name").value.toString()
+            routine.totalTime = Integer.parseInt(snapshot.child("totalTime").value.toString())
+            routine.description = snapshot.child("description").value.toString()
+
+            // Parsing Card objects
+            val cardsSnapshot = snapshot.child("cards")
+            cardsSnapshot.children.forEach { cardData ->
+                val card = Card(
+                    id = cardData.child("id").value.toString(),
+                    userId = cardData.child("userId").value.toString(),
+                    name = cardData.child("name").value.toString(),
+                    preTimerSecs = cardData.child("preTimerSecs").value.toString().toInt(),
+                    preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
+                    activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toInt(),
+                    activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
+                    postTimerSecs = cardData.child("postTimerSecs").value.toString().toInt(),
+                    postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
+                    sets = cardData.child("sets").value.toString().toInt(),
+                    additionalInfo = (cardData.child("additionalInfo").value as List<String>).toCollection(ArrayList())
+                )
+                routine.cards.add(card)
+            }
+
+            continuation.resume(routine)
+        }
     }
+
 
     // Deletes a specific routine using its ID from Firestore.
-    fun deleteRoutine(id: Int): Boolean {
-        TODO("Implement function to delete a specific document (Routine) using its ID from Firebase Firestore.")
-    }
+        fun deleteRoutine(id: String): Boolean {
+            routineRef.child(id).removeValue()
+            return true;
+        }
 
-    // Updates given fields of an existing routine in Firestore
-    fun updateRoutine(id: Int, newRoutine: Routine): Boolean {
-        TODO("Implement function to update certain fields of a specific Routine Document in Firebase Firestore")
-    }
+        // Updates given fields of an existing routine in Firestore
+        fun updateRoutine(id: String, newRoutine: Routine): Boolean {
+            TODO("Implement function to update certain fields of a specific Routine Document in Firebase Firestore")
+        }
 
     // Fetches all routines from Firestore.
     fun getAllRoutines(): ArrayList<Routine> {

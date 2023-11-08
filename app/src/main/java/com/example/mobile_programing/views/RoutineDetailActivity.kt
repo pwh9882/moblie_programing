@@ -101,7 +101,8 @@ class RoutineDetailActivity : AppCompatActivity() {
     private fun addCardToRoutine(routine: Routine, cardUpdateResultLauncher: ActivityResultLauncher<Intent>) {
         cardUpdateResultLauncher.launch(Intent(this, CardDetailActivity::class.java).apply {
             var emptyCard = Card(
-                id = routine.cards.size+1,
+                id = (routine.cards.size+1).toString(),
+                userId = "",
                 name = "비어 있는 카드",
                 preTimerSecs = 0,
                 preTimerAutoStart = true,

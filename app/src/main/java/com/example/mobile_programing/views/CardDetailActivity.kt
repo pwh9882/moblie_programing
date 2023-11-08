@@ -48,6 +48,7 @@ class CardDetailActivity : AppCompatActivity() {
             val updatedCard = Card(
                 // TODO: id를 어떻게 처리할지 고민해보기
                 id=currentCard.id,
+                userId = currentCard.userId,
                 name = binding.etCardDetailName.text.toString(),
                 preTimerSecs = binding.etCardDetailPreTimerSecs.text.toString().toInt(),
                 sets = binding.etCardDetailSets.text.toString().toInt(),

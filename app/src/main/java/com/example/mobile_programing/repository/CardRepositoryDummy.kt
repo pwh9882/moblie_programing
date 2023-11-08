@@ -13,10 +13,11 @@ class CardRepositoryDummy {
     }
 
     // Fetches a specific routine using its ID from Firestore.
-    fun getCard(id: Int): Card {
+    fun getCard(id: String): Card {
         // 성공했다고 가정하고 dummu data return
         return Card(
             id=id,
+            userId = "kim123",
             name="Leg Press",
             preTimerSecs=5,
             preTimerAutoStart=true,
@@ -49,7 +50,10 @@ class CardRepositoryDummy {
 
     // firebase uid로 routine 목록을 가져오는 함수
     fun getCardsByUserId(userId : String): ArrayList<Card> {
-        TODO(" Implement function for fetching all routines belonging to current logged-in user")
+        val dummy = ArrayList<Card>()
+
+
+        return dummy
     }
 
     // user-id와 그에 해당하는 history routine 목록을 가져오는 함수

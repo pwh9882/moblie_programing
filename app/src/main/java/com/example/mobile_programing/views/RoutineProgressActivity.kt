@@ -131,7 +131,8 @@ private fun handleCardCreation() {
     binding.btnRoutineProgressCreateCard.setOnClickListener {
         cardCreateResultLauncher.launch(Intent(this, CardDetailActivity::class.java).apply {
             var emptyCard = Card(
-                id = 1000,
+                id = "1000",
+                userId = "kim123",
                 name = "test",
                 preTimerSecs = 5,
                 postTimerSecs = 10,

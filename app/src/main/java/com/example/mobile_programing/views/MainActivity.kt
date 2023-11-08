@@ -9,11 +9,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.mobile_programing.DbDemoActivity
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.views.adapters.RoutineAdapter
 import com.example.mobile_programing.viewModel.MainViewModel
+import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallback
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 class MainActivity : AppCompatActivity() {
@@ -32,6 +35,12 @@ class MainActivity : AppCompatActivity() {
         setupUserAuthentication()
         setupRoutineList()
         setupRoutineCreateButton()
+
+        // 백엔드용 버튼
+        binding.bttnConnect.setOnClickListener {//데모버튼 클릭시 이벤트
+            startActivity(Intent(this, DbDemoActivity::class.java))
+
+        }
     }
 
     private fun setupDataBinding() {
@@ -47,7 +56,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRoutineList() {
         viewModel.updateRoutineListData()
+
         val routineAdapter = RoutineAdapter(binding, viewModel, this)
+
+        val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(routineAdapter))
+        itemTouchHelper.attachToRecyclerView(binding.rvRoutineList)
+
         binding.rvRoutineList.adapter = routineAdapter
         viewModel.routineList.observe(this, Observer {
             routineAdapter.routineList = it
@@ -95,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                 putExtra("selected_routine", viewModel.routineList.value?.let {
                     Routine(
                         // TODO: 현재로는 id를 그냥 최대값+1
-                        id= it.size,
+                        id= it.size.toString(),
                         name = "",
                         description = "",
                         totalTime = 0,
