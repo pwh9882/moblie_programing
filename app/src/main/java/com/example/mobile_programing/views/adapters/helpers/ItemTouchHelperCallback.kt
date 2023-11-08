@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_programing.views.adapters.RoutineAdapter
+import java.util.Collections
 
 class ItemTouchHelperCallback(private val adapter: RoutineAdapter) : ItemTouchHelper.Callback() {
     override fun isLongPressDragEnabled(): Boolean {
@@ -18,18 +19,11 @@ class ItemTouchHelperCallback(private val adapter: RoutineAdapter) : ItemTouchHe
     }
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-        // 아이템의 현재 위치와 목표 위치를 가져옵니다.
-        val fromPosition = viewHolder.adapterPosition
-        val toPosition = target.adapterPosition
 
-        // ViewModel의 LiveData 객체를 업데이트합니다.
-        adapter.viewModel.swapRoutines(fromPosition, toPosition)
-
-        // RecyclerView에 아이템이 이동했음을 알립니다.
-        adapter.notifyItemMoved(fromPosition, toPosition)
-
+        adapter.onItemMove(viewHolder.absoluteAdapterPosition, target.absoluteAdapterPosition)
         return true
     }
+
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         // 스와이프된 아이템의 위치를 가져옵니다.

@@ -49,6 +49,23 @@ class MainViewModel(): ViewModel() {
 //        updateRoutineOrderInFirebase(list)
     }
 
+    fun moveRoutine(fromPosition: Int, toPosition: Int) {
+        viewModelScope.launch {
+            _routineList.value = _routineList.value?.toMutableList()?.apply {
+                if (fromPosition < toPosition) {
+                    for (i in fromPosition until toPosition) {
+                        Collections.swap(this, i, i + 1)
+                    }
+                } else {
+                    for (i in fromPosition downTo toPosition + 1) {
+                        Collections.swap(this, i, i - 1)
+                    }
+                }
+                // 여기에서 Firebase 데이터베이스 업데이트 로직을 추가하세요
+            }
+        }
+    }
+
     fun deleteRoutine(routine: Routine) {
         viewModelScope.launch {
             // Firebase에서 아이템을 삭제합니다.
@@ -66,5 +83,10 @@ class MainViewModel(): ViewModel() {
         }
     }
 
+    fun updateRoutineList(routineList: MutableList<Routine>) {
+        viewModelScope.launch {
+            _routineList.value = routineList
+        }
 
+    }
 }

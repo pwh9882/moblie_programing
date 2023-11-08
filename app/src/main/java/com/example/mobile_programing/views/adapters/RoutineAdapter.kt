@@ -14,6 +14,7 @@ import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.viewModel.MainViewModel
 import com.example.mobile_programing.views.RoutineDetailActivity
+import java.util.Collections
 
 
 class RoutineAdapter constructor(private val binding: ActivityMainBinding, val viewModel: MainViewModel, val activity: Activity) : RecyclerView.Adapter<RoutineAdapter.CustomViewHolder>(){
@@ -57,6 +58,20 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, val v
         notifyItemRemoved(position)
         //TODO: DB에서도 삭제
     }
+
+
+    fun onItemMove(fromPosition: Int, toPosition: Int) {
+        // 이동할 객체를 저장합니다.
+        val routine = routineList[fromPosition]
+        // 이동할 객체를 삭제합니다.
+        routineList.removeAt(fromPosition)
+        // 이동하고 싶은 position에 객체를 추가합니다.
+        routineList.add(toPosition, routine)
+
+        // Adapter에 데이터 이동을 알립니다.
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
 
 }
 
