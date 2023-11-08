@@ -22,7 +22,7 @@ class RoutineRepositoryDummy {
     }
 
     // Deletes a specific routine using its ID from Firestore.
-    fun deleteRoutine(id: Int): Boolean {
+    fun deleteRoutine(id: String): Boolean {
         // 성공했다고 가정하고 dummu data true return
         return true;
     }

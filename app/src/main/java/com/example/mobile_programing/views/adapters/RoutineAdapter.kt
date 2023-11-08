@@ -16,7 +16,7 @@ import com.example.mobile_programing.viewModel.MainViewModel
 import com.example.mobile_programing.views.RoutineDetailActivity
 
 
-class RoutineAdapter constructor(private val binding: ActivityMainBinding, private val viewModel: MainViewModel, private val activity: Activity) : RecyclerView.Adapter<RoutineAdapter.CustomViewHolder>(){
+class RoutineAdapter constructor(private val binding: ActivityMainBinding, val viewModel: MainViewModel, val activity: Activity) : RecyclerView.Adapter<RoutineAdapter.CustomViewHolder>(){
     var routineList: MutableList<Routine> = mutableListOf()
 
     class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -51,4 +51,12 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, priva
         holder.totalTime.text =  routine.totalTime.toString()
     }
 
+    fun removeAt(position: Int) {
+        // 아이템 삭제 로직
+        routineList.removeAt(position)
+        notifyItemRemoved(position)
+        //TODO: DB에서도 삭제
+    }
+
 }
+
