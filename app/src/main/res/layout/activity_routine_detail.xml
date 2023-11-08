@@ -102,5 +102,15 @@
                 android:background="@drawable/custom_routine_run_btn_icon" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/custom_routine_add_button_icon" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

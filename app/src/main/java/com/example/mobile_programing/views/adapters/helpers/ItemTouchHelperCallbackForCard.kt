@@ -4,9 +4,10 @@ import android.app.AlertDialog
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_programing.views.adapters.RoutineAdapter
+import com.example.mobile_programing.views.adapters.RoutineDetailCardAdapter
 import java.util.Collections
 
-class ItemTouchHelperCallback(private val adapter: RoutineAdapter) : ItemTouchHelper.Callback() {
+class ItemTouchHelperCallbackForCard(private val adapter: RoutineDetailCardAdapter) : ItemTouchHelper.Callback() {
     override fun isLongPressDragEnabled(): Boolean {
         return true // 롱클릭 드래그를 활성화
     }
@@ -28,7 +29,7 @@ class ItemTouchHelperCallback(private val adapter: RoutineAdapter) : ItemTouchHe
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         // 스와이프된 아이템의 위치를 가져옵니다.
         val position = viewHolder.adapterPosition
-        val routine = adapter.routineList[position]
+        val card = adapter.cardList[position]
 
         // AlertDialog를 생성하여 삭제를 확인합니다.
         AlertDialog.Builder(adapter.activity).apply {
@@ -36,9 +37,9 @@ class ItemTouchHelperCallback(private val adapter: RoutineAdapter) : ItemTouchHe
             setMessage("이 항목을 삭제하시겠습니까?") // 메시지 설정
             setPositiveButton("예") { dialog, which ->
 //                 '예'를 선택하면 아이템 삭제
-//                adapter.removeAt(position)
+                adapter.removeAt(position)
                 // ViewModel에서 아이템 삭제 로직을 수행합니다.
-                routine.let { adapter.viewModel.deleteRoutine(it) }
+//                card.let { adapter.viewModel.deleteRoutine(it) }
             }
             setNegativeButton("아니오") { dialog, which ->
                 // '아니오'를 선택하면 아무 일도 하지 않고, 스와이프된 아이템을 원래 위치로 되돌립니다.
