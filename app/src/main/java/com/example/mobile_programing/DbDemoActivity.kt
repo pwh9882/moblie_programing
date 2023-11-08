@@ -15,6 +15,16 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.reflect.Array
 
+object Logr {
+    fun d(tag: String, msg: String) {
+        if (msg.length > 4000) {
+            Log.d(tag, msg.substring(0, 4000))
+            Logr.d(tag, msg.substring(4000))
+        } else {
+            Log.d(tag, msg)
+        }
+    }
+}
 
 class DbDemoActivity : AppCompatActivity() {
 
@@ -49,6 +59,9 @@ class DbDemoActivity : AppCompatActivity() {
         routineRepository.createRoutine(routine2)
         routineRepository.createRoutine(routine3)
 
+        //기존의 데이터와 다른 userId: son을 가지는 카드 객체 생성
+        cardRepository.createCard(Card("", "son", "kim", 0, false, 3, true, 0, true, 3, s1))
+
         /*
         * 기존 루틴에 카드가 추가 되었으므로 fireDatabase의 기존 루틴도 카드가 추가된 루틴으로 갱신되어야 합니다
         * 이때 사용하는 함수는 changeRoutine()입니다
@@ -77,6 +90,7 @@ class DbDemoActivity : AppCompatActivity() {
                 newRoutine
             )//Routine3아이디에 Routine3의 정보를 newRoutine의 정보로 변경
             Log.d("변경후", "id: ${routine3.id} => ${routineRepository.getRoutine(routine3.id)}")
+            Logr.d("모든 카드", "${cardRepository.getAllCards()}")
         }
         finish()
     }
