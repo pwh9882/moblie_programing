@@ -33,6 +33,7 @@ private lateinit var binding: ActivityRoutineCreateBinding
             // TODO: 유효한 입력인지 verify하기
             val newRoutine = Routine(
                 id=currentRoutine.id,
+                userId = "",
                 name = binding.etRoutineName.text.toString(),
                 description = binding.etRoutineDescription.text.toString(),
                 totalTime = 0,
