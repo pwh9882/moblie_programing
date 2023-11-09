@@ -1,0 +1,555 @@
+{
+  "name": "card_week",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "MAiC0jvnjibWLGNUBHurRq",
+    "node": "1:66",
+    "version": "4457531064",
+    "component-id": "ca0a3f242124849c403982eb9f815602c748c5f6"
+  },
+  "default": "Card week",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Day"
+      },
+      {
+        "type": "group",
+        "id": "Day1"
+      },
+      {
+        "type": "group",
+        "id": "Day2"
+      },
+      {
+        "type": "group",
+        "id": "Day3"
+      },
+      {
+        "type": "group",
+        "id": "Day4"
+      },
+      {
+        "type": "group",
+        "id": "Day5"
+      },
+      {
+        "type": "group",
+        "id": "Day6"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 2"
+      },
+      {
+        "type": "text",
+        "id": "S"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 3"
+      },
+      {
+        "type": "text",
+        "id": "S1"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 4"
+      },
+      {
+        "type": "text",
+        "id": "S2"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 5"
+      },
+      {
+        "type": "text",
+        "id": "S3"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 6"
+      },
+      {
+        "type": "text",
+        "id": "S4"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 7"
+      },
+      {
+        "type": "text",
+        "id": "S5"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 8"
+      },
+      {
+        "type": "text",
+        "id": "S6"
+      }
+    ],
+    "modes": {
+      "Card week": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Day",
+              "Day1",
+              "Day2",
+              "Day3",
+              "Day4",
+              "Day5",
+              "Day6"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Day",
+            "margin": {
+              "right": "156.0"
+            },
+            "is-structured": "false",
+            "children": [
+              "Ellipse 2",
+              "S"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Day1",
+            "margin": {
+              "left": "156.0"
+            },
+            "is-structured": "false",
+            "children": [
+              "Ellipse 3",
+              "S1"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Day2",
+            "margin": {
+              "left": "130.0",
+              "right": "25.999996185302734"
+            },
+            "is-structured": "false",
+            "children": [
+              "Ellipse 4",
+              "S2"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Day3",
+            "margin": {
+              "left": "104.0",
+              "right": "52.0"
+            },
+            "is-structured": "false",
+            "children": [
+              "Ellipse 5",
+              "S3"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Day4",
+            "margin": {
+              "left": "78.0",
+              "right": "78.0"
+            },
+            "is-structured": "false",
+            "children": [
+              "Ellipse 6",
+              "S4"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Day5",
+            "margin": {
+              "left": "52.0",
+              "right": "104.0"
+            },
+            "is-structured": "false",
+            "children": [
+              "Ellipse 7",
+              "S5"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Day6",
+            "margin": {
+              "left": "26.0",
+              "right": "130.0"
+            },
+            "is-structured": "false",
+            "children": [
+              "Ellipse 8",
+              "S6"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Ellipse 2",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_2.svg"
+          },
+          {
+            "id": "S",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "S",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "10.0",
+            "line-height": "1.36181640625",
+            "typeface": "Open Sans"
+          },
+          {
+            "id": "Ellipse 3",
+            "margin": {
+              "right": "0.7692298889160156"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_3.svg"
+          },
+          {
+            "id": "S1",
+            "margin": {
+              "right": "0.7692298889160156"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "S",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "10.0",
+            "line-height": "1.36181640625",
+            "typeface": "Open Sans"
+          },
+          {
+            "id": "Ellipse 4",
+            "margin": {
+              "right": "0.7692298889160156"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_4.svg"
+          },
+          {
+            "id": "S2",
+            "margin": {
+              "right": "0.7692298889160156"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "F",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "10.0",
+            "line-height": "1.36181640625",
+            "typeface": "Open Sans"
+          },
+          {
+            "id": "Ellipse 5",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_5.svg"
+          },
+          {
+            "id": "S3",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "T",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "10.0",
+            "line-height": "1.36181640625",
+            "typeface": "Open Sans"
+          },
+          {
+            "id": "Ellipse 6",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_6.svg"
+          },
+          {
+            "id": "S4",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "W",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "10.0",
+            "line-height": "1.36181640625",
+            "typeface": "Open Sans"
+          },
+          {
+            "id": "Ellipse 7",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_7.svg"
+          },
+          {
+            "id": "S5",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "T",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "10.0",
+            "line-height": "1.36181640625",
+            "typeface": "Open Sans"
+          },
+          {
+            "id": "Ellipse 8",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_8.svg"
+          },
+          {
+            "id": "S6",
+            "margin": {
+              "right": "0.76922607421875"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "1.0"
+            },
+            "text-content": "M",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align-vertical": "center",
+            "text-size": "10.0",
+            "line-height": "1.36181640625",
+            "typeface": "Open Sans"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "Card week",
+      "size": {
+        "width": 176.76922607421875,
+        "height": 20.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

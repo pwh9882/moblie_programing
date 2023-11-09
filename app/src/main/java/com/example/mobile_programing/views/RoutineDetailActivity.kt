@@ -10,25 +10,29 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityRoutineDetailBinding
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.views.adapters.RoutineDetailCardAdapter
+import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallback
+import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallbackForCard
 
 const val CARD_CREATED = 201
 const val CARD_UPDATED = 202
 
 class RoutineDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRoutineDetailBinding
+    lateinit var routine: Routine
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_routine_detail)
         binding.lifecycleOwner = this
 
-        val routine = getRoutineFromIntent()!!
+        routine = getRoutineFromIntent()!!
 
         setupUI(routine)
 
@@ -69,6 +73,9 @@ class RoutineDetailActivity : AppCompatActivity() {
 
     private fun updateCardInRoutine(result: ActivityResult, routine: Routine) {
         val updatedCard = result.data?.getSerializableExtra("selected_card") as Card
+
+        //TODO: 현재 DB에 Id를 계속 새로 생성해서 같은 id를 못찾아서 튕김!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        Log.e("updatedCard", updatedCard.toString()
         routine?.cards?.set(routine?.cards?.indexOfFirst { it.id == updatedCard.id }!!, updatedCard)
         binding.rvRoutineDetailCardList.adapter?.notifyDataSetChanged()
     }
@@ -83,6 +90,10 @@ class RoutineDetailActivity : AppCompatActivity() {
         val routineDetailCardAdapter = RoutineDetailCardAdapter(binding, this, cardUpdateResultLauncher)
         binding.rvRoutineDetailCardList.adapter = routineDetailCardAdapter
         binding.rvRoutineDetailCardList.layoutManager = LinearLayoutManager(this)
+
+
+        val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallbackForCard(routineDetailCardAdapter))
+        itemTouchHelper.attachToRecyclerView(binding.rvRoutineDetailCardList)
 
         routineDetailCardAdapter.cardList = routine.cards
         routineDetailCardAdapter.notifyDataSetChanged()
@@ -119,8 +130,16 @@ class RoutineDetailActivity : AppCompatActivity() {
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        // TODO: routine이 수정되었으면 DB에 업데이트
+
+    override fun onBackPressed() {
+        // Create an Intent to hold the result data
+        val returnIntent = Intent().apply {
+            putExtra("selected_routine", routine)
+        }
+        // Set the result with a result code and the Intent
+        setResult(ROUTINE_UPDATED, returnIntent)
+        // Call the super method to actually handle the back press
+        super.onBackPressed()
     }
+
 }
