@@ -75,8 +75,7 @@ class RoutineDetailActivity : AppCompatActivity() {
         val updatedCard = result.data?.getSerializableExtra("selected_card") as Card
 
         //TODO: 현재 DB에 Id를 계속 새로 생성해서 같은 id를 못찾아서 튕김!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Log.e("updatedCard", updatedCard.toString())
-        Log.e("0th",routine.cards[0].id)
+//        Log.e("updatedCard", updatedCard.toString()
         routine?.cards?.set(routine?.cards?.indexOfFirst { it.id == updatedCard.id }!!, updatedCard)
         binding.rvRoutineDetailCardList.adapter?.notifyDataSetChanged()
     }
