@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity() {
                     Routine(
                         // TODO: 현재로는 id를 그냥 최대값+1
                         id= it.size.toString(),
+                        userId = "",
                         name = "",
                         description = "",
                         totalTime = 0,
