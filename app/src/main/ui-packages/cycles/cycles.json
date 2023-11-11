@@ -1,0 +1,76 @@
+{
+  "name": "cycles",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "MAiC0jvnjibWLGNUBHurRq",
+    "node": "40:133",
+    "version": "4457394328",
+    "component-id": "59cca67767b38a3897562f7a6b045fae73e98757"
+  },
+  "default": "cycles",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "1/1"
+      }
+    ],
+    "modes": {
+      "cycles": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "1/1"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "1/1",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "1/1",
+            "overflow": "visible",
+            "text-align": "left",
+            "text-size": "24.0",
+            "line-height": "1.2102272510528564",
+            "typeface": "Inter"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "cycles",
+      "size": {
+        "width": 31.0,
+        "height": 29.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

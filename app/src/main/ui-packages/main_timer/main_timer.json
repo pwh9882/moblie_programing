@@ -1,0 +1,143 @@
+{
+  "name": "main_timer",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "MAiC0jvnjibWLGNUBHurRq",
+    "node": "37:264",
+    "version": "4457394328",
+    "component-id": "d61e04e6f3d9665448a87506ba92357f1864d330"
+  },
+  "default": "mainTimer",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 10"
+      },
+      {
+        "type": "adin_component",
+        "id": "Timer",
+        "key": "timer"
+      },
+      {
+        "type": "text",
+        "id": "03:00"
+      }
+    ],
+    "modes": {
+      "mainTimer": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Ellipse 10",
+              "Timer",
+              "03:00"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Ellipse 10",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "ellipse_10.svg"
+          },
+          {
+            "id": "Timer",
+            "margin": {
+              "top": "45.0",
+              "bottom": "110.0"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": "-0.5"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "0.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "65.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            }
+          },
+          {
+            "id": "03:00",
+            "margin": {
+              "top": "115.0",
+              "bottom": "61.0"
+            },
+            "alignment": {
+              "horizontal": {
+                "attachment": "center",
+                "offset": "0.0"
+              },
+              "vertical": {
+                "attachment": "start",
+                "offset": "0.0"
+              }
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "fixed",
+                "value": "126.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "03:00",
+            "overflow": "visible",
+            "max-lines": "-1",
+            "text-align": "right",
+            "text-size": "48.0",
+            "line-height": "1.3830000559488935",
+            "typeface": "Oleo Script"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "mainTimer",
+      "size": {
+        "width": 220.0,
+        "height": 220.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

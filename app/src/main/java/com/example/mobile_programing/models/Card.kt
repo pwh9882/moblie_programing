@@ -37,7 +37,8 @@ data class Card (
         if (preTimerSecs == 0) preTimerSecs = 3
         if(postTimerSecs == 0) postTimerSecs = 3
         if(sets == 0) sets = 1
-        id = cardRef.push().key!!
+        if(id=="")
+            id = cardRef.push().key!!
 
     }
 
