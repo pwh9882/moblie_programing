@@ -1,6 +1,7 @@
 package com.example.mobile_programing.views.adapters.helpers
 
 import android.app.AlertDialog
+import android.util.Log
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_programing.views.adapters.RoutineAdapter
@@ -38,7 +39,8 @@ class ItemTouchHelperCallback(private val adapter: RoutineAdapter) : ItemTouchHe
 //                 '예'를 선택하면 아이템 삭제
 //                adapter.removeAt(position)
                 // ViewModel에서 아이템 삭제 로직을 수행합니다.
-                routine.let { adapter.viewModel.deleteRoutine(it) }
+                Log.e("DeleteRoutineID: ", routine.id)
+                routine.let { adapter.viewModel.deleteRoutine(it.id) }
             }
             setNegativeButton("아니오") { dialog, which ->
                 // '아니오'를 선택하면 아무 일도 하지 않고, 스와이프된 아이템을 원래 위치로 되돌립니다.

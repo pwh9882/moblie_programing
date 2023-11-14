@@ -4,14 +4,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityRoutineProgressBinding
@@ -177,7 +173,7 @@ class RoutineProgressActivity : AppCompatActivity() {
     private fun finishRoutine() {
         Toast.makeText(this, "루틴이 종료되었습니다.", Toast.LENGTH_SHORT).show()
         // TODO: 루틴 종료에 관한 DB 업데이트 처리하기
-        val intent = Intent(this, RoutineComplete::class.java)
+        val intent = Intent(this, RoutineCompleteActivity::class.java)
         intent.putExtra("selected_routine", routineProgressViewModel.currentRoutine.value!!)
         startActivity(intent)
         finish()

@@ -3,6 +3,7 @@ package com.example.mobile_programing.views
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.mobile_programing.DbDemoActivity
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
+import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.views.adapters.RoutineAdapter
 import com.example.mobile_programing.viewModel.MainViewModel
@@ -37,8 +39,31 @@ class MainActivity : AppCompatActivity() {
 
         // 백엔드용 버튼
         binding.bttnConnect.setOnClickListener {//데모버튼 클릭시 이벤트
-            startActivity(Intent(this, DbDemoActivity::class.java))
-
+//            startActivity(Intent(this, DbDemoActivity::class.java))
+            viewModel.deleteRoutine("-NjD3F6s_DvIcOQXHbIO")
+            viewModel.createRoutine(Routine(
+                id="",
+                userId = Firebase.auth.currentUser!!.uid,
+                name = "test",
+                description = "test",
+                totalTime = 0,
+                routineStartTime = 0,
+                cards = arrayListOf(
+                    Card(
+                        id = "-NjD1UrXbnbV0LdkhrkF",
+                        userId = Firebase.auth.currentUser!!.uid,
+                        name = "비어 있는 카드",
+                        preTimerSecs = 0,
+                        preTimerAutoStart = true,
+                        activeTimerSecs = 0,
+                        activeTimerAutoStart = true,
+                        postTimerSecs = 0,
+                        postTimerAutoStart = true,
+                        sets = 0,
+                        additionalInfo = arrayListOf()
+                    )
+                )
+            ))
         }
     }
 
@@ -78,6 +103,7 @@ class MainActivity : AppCompatActivity() {
     // Function to handle activity result
     private fun handleActivityResult(result: ActivityResult) {
         if(result.resultCode == ROUTINE_UPDATED ) {
+            Toast.makeText(this, "루틴이 업데이트 되었습니다.", Toast.LENGTH_SHORT).show()
             updateRoutine(result)
         }
         if(result.resultCode == ROUTINE_CREATED) {
@@ -88,17 +114,21 @@ class MainActivity : AppCompatActivity() {
     // Function to update routine
     private fun updateRoutine(result: ActivityResult) {
         val updatedRoutine = result.data?.getSerializableExtra("selected_routine") as Routine
-        viewModel.routineList.value?.set(viewModel.routineList.value?.indexOfFirst { it.id == updatedRoutine.id }!!, updatedRoutine)
-        binding.rvRoutineList.adapter?.notifyDataSetChanged()
+//        viewModel.routineList.value?.set(viewModel.routineList.value?.indexOfFirst { it.id == updatedRoutine.id }!!, updatedRoutine)
+
         // TODO: Update DB with the updated routine
+        viewModel.updateRoutine(updatedRoutine)
+//        binding.rvRoutineList.adapter?.notifyDataSetChanged()
     }
 
     // Function to create routine
     private fun createRoutine(result: ActivityResult) {
         val updatedRoutine = result.data?.getSerializableExtra("selected_routine") as Routine
-        viewModel.routineList.value?.add(updatedRoutine)
-        binding.rvRoutineList.adapter?.notifyDataSetChanged()
+//        viewModel.routineList.value?.add(updatedRoutine)
+
         // TODO: Update DB with the new routine
+        viewModel.createRoutine(updatedRoutine)
+//        binding.rvRoutineList.adapter?.notifyDataSetChanged()
     }
 
     // Function to launch RoutineCreateActivity
@@ -107,9 +137,8 @@ class MainActivity : AppCompatActivity() {
             Intent(this, RoutineCreateActivity::class.java).apply {
                 putExtra("selected_routine", viewModel.routineList.value?.let {
                     Routine(
-                        // TODO: 현재로는 id를 그냥 최대값+1
-                        id= it.size.toString(),
-                        userId = "",
+                        id="",
+                        userId = Firebase.auth.currentUser!!.uid,
                         name = "",
                         description = "",
                         totalTime = 0,

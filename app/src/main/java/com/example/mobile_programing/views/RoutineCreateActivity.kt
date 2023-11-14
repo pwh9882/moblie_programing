@@ -29,11 +29,10 @@ private lateinit var binding: ActivityRoutineCreateBinding
         // binding에서 정보를 읽어와서 루틴을 생성하고 DB에 저장
         binding.btnRoutineDetailCreate.setOnClickListener {
 
-            // TODO: ID는 DB에서 자동으로 생성되도록 하기
             // TODO: 유효한 입력인지 verify하기
             val newRoutine = Routine(
                 id=currentRoutine.id,
-                userId = "",
+                userId = currentRoutine.userId,
                 name = binding.etRoutineName.text.toString(),
                 description = binding.etRoutineDescription.text.toString(),
                 totalTime = 0,

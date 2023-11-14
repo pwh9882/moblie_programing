@@ -129,9 +129,6 @@ class RoutineRepository {
     suspend fun getRoutinesByUserId(userId: String): List<Routine> = suspendCoroutine { continuation ->
         routineRef.orderByChild("userId").equalTo(userId).get().addOnSuccessListener { snapshot ->
             val routines = snapshot.children.mapNotNull { routineSnapshot ->
-                // This checks if the userId of the routine matches the one we're looking for
-                if (routineSnapshot.child("userId").value.toString() != userId) return@mapNotNull null
-
                 val cards = ArrayList<Card>()
                 routineSnapshot.child("cards").children.forEach { cardData ->
                     val userIdOfCard = cardData.child("userId").value.toString()
@@ -153,7 +150,6 @@ class RoutineRepository {
                     )
                     cards.add(card)
                 }
-
                 Routine(
                     id = routineSnapshot.child("id").value.toString(),
                     userId = userId,

@@ -8,7 +8,7 @@ import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityRoutineCompleteBinding
 import com.example.mobile_programing.models.Routine
 
-class RoutineComplete : AppCompatActivity() {
+class RoutineCompleteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRoutineCompleteBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
