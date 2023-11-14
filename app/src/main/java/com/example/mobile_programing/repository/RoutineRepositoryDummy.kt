@@ -28,7 +28,7 @@ class RoutineRepositoryDummy {
     }
 
     // Updates given fields of an existing routine in Firestore
-    fun updateRoutine(id: Int, newRoutine: Routine): Boolean {
+    fun updateRoutine(id: String, newRoutine: Routine): Boolean {
         // 성공했다고 가정하고 dummu data true return
         return true;
     }
