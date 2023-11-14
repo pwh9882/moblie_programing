@@ -13,8 +13,11 @@
         android:theme="@style/Theme.Mobile_programing"
         tools:targetApi="31">
         <activity
+            android:name=".views.RoutineComplete"
+            android:exported="false" />
+        <activity
             android:name=".DbDemoActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".views.CardDetailActivity"
             android:exported="false" />
