@@ -67,17 +67,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <ImageButton
+            android:background="@drawable/custom_prev_icon"
             android:id="@+id/btn_routine_progress_previous_card"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이전" />
+            android:layout_height="wrap_content" />
 
-        <Button
+        <ImageButton
+            android:background="@drawable/custom_skip_icon"
             android:id="@+id/btn_routine_progress_skip_card"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="스킵" />
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btn_routine_progress_next_card"
