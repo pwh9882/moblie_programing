@@ -1,15 +1,15 @@
 package com.example.mobile_programing.views.fragments
 
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.FragmentCardDisplayBinding
 import com.example.mobile_programing.viewModel.RoutineProgressViewModel
 
@@ -59,9 +59,10 @@ class CardDisplayFragment : Fragment() {
                 2 -> currCard.postTimerSecs
                 else -> 0
             }
-            binding.pbCardTimeProgress.max = 1000
-            routineProgressViewModel.stopCardTimer()
+//            routineProgressViewModel.stopCardTimer()
             routineProgressViewModel.startCardTimer(maxTime)
+            // ProgressBar 업데이트
+            setProgressBarValues(maxTime, it)
         }
 
         routineProgressViewModel.currentCardSet.observe(viewLifecycleOwner) {
@@ -73,8 +74,7 @@ class CardDisplayFragment : Fragment() {
 
         routineProgressViewModel.currentCardTime.observe(viewLifecycleOwner) {
             binding.tvRoutineProgressCardLeftTime.text = it.toString()
-            // ProgressBar 업데이트
-            binding.pbCardTimeProgress.progress = it/1000
+            binding.pbCardTimeProgress.progress = it
             if (it <= 0) {
                 routineProgressViewModel.stopCardTimer()
                 Toast.makeText(requireContext(), "카드가 종료되었습니다.", Toast.LENGTH_SHORT).show()
@@ -84,6 +84,25 @@ class CardDisplayFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    /**
+     * 원형 프로그레스 바에 값 세팅
+     */
+    private fun setProgressBarValues(time: Int, progressIndex: Int) {
+        binding.pbCardTimeProgress.max =  time
+        binding.pbCardTimeProgress.progress = time
+        var progressDrawable = binding.pbCardTimeProgress.progressDrawable
+        // Drawable이 ShapeDrawable인지 확인하고 색상을 변경함
+        if (progressDrawable is GradientDrawable) {
+            progressDrawable.setColor(ContextCompat.getColor(requireContext(), when(progressIndex) {
+                0 -> android.R.color.holo_green_light
+                1 -> android.R.color.holo_orange_light
+                2 -> android.R.color.holo_purple
+                else -> android.R.color.holo_red_light
+            }))
+        }
+
     }
 
     companion object {

@@ -72,11 +72,11 @@ class RoutineProgressActivity : AppCompatActivity() {
     //    }
         routineProgressViewModel.currentCardProgress.observe(this) {
             // 배경화면 색 설정
-            when(it) {
-                0 -> binding.clRoutineProgress.setBackgroundResource(R.color.light_green)
-                1 -> binding.clRoutineProgress.setBackgroundResource(R.color.bright_orange)
-                2 -> binding.clRoutineProgress.setBackgroundResource(R.color.light_purple)
-            }
+//            when(it) {
+//                0 -> binding.clRoutineProgress.setBackgroundResource(R.color.light_green)
+//                1 -> binding.clRoutineProgress.setBackgroundResource(R.color.bright_orange)
+//                2 -> binding.clRoutineProgress.setBackgroundResource(R.color.light_purple)
+//            }
         }
     }
 
