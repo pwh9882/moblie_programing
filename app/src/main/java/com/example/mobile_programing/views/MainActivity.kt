@@ -39,31 +39,31 @@ class MainActivity : AppCompatActivity() {
 
         // 백엔드용 버튼
         binding.bttnConnect.setOnClickListener {//데모버튼 클릭시 이벤트
-            startActivity(Intent(this, DbDemoActivity::class.java))
-//            viewModel.deleteRoutine("-NjD3F6s_DvIcOQXHbIO")
-//            viewModel.createRoutine(Routine(
-//                id="",
-//                userId = Firebase.auth.currentUser!!.uid,
-//                name = "test",
-//                description = "test",
-//                totalTime = 0,
-//                routineStartTime = 0,
-//                cards = arrayListOf(
-//                    Card(
-//                        id = "-NjD1UrXbnbV0LdkhrkF",
-//                        userId = Firebase.auth.currentUser!!.uid,
-//                        name = "비어 있는 카드",
-//                        preTimerSecs = 0,
-//                        preTimerAutoStart = true,
-//                        activeTimerSecs = 0,
-//                        activeTimerAutoStart = true,
-//                        postTimerSecs = 0,
-//                        postTimerAutoStart = true,
-//                        sets = 0,
-//                        additionalInfo = arrayListOf()
-//                    )
-//                )
-//            ))
+            //startActivity(Intent(this, DbDemoActivity::class.java))
+            viewModel.deleteRoutine("-NjD3F6s_DvIcOQXHbIO")
+            viewModel.createRoutine(Routine(
+                id="",
+                userId = Firebase.auth.currentUser!!.uid,
+                name = "test",
+                description = "test",
+                totalTime = 0,
+                routineStartTime = 0,
+                cards = arrayListOf(
+                    Card(
+                        id = "-NjD1UrXbnbV0LdkhrkF",
+                        userId = Firebase.auth.currentUser!!.uid,
+                        name = "비어 있는 카드",
+                        preTimerSecs = 0,
+                        preTimerAutoStart = true,
+                        activeTimerSecs = 0,
+                        activeTimerAutoStart = true,
+                        postTimerSecs = 0,
+                        postTimerAutoStart = true,
+                        sets = 0,
+                        additionalInfo = arrayListOf()
+                    )
+                )
+            ))
         }
     }
 
