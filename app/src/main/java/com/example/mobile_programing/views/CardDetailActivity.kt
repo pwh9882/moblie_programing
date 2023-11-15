@@ -10,6 +10,7 @@ import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityCardDetailBinding
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
+import com.example.mobile_programing.repository.CardRepository
 
 
 class CardDetailActivity : AppCompatActivity() {
@@ -43,6 +44,7 @@ class CardDetailActivity : AppCompatActivity() {
 
         binding.btnCardDetailUpdate.setOnClickListener {
             val resultIntent = Intent(this, CardDetailActivity::class.java)
+            val cardRepository = CardRepository()
 
             // binding 값에서 card 객체를 만들어서 intent에 넣어준다.
             val updatedCard = Card(
