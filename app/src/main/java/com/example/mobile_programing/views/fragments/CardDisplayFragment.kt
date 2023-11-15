@@ -24,6 +24,8 @@ class CardDisplayFragment : Fragment() {
     private lateinit var routineProgressViewModel: RoutineProgressViewModel
     private lateinit var binding: FragmentCardDisplayBinding
 
+    private var maxTime: Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +42,7 @@ class CardDisplayFragment : Fragment() {
 
         }
 
+
         routineProgressViewModel.currentCardProgress.observe(viewLifecycleOwner) {
             val currCard = routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!]
             binding.tvRoutineProgressStatus.text = when(it) {
@@ -50,14 +53,15 @@ class CardDisplayFragment : Fragment() {
             }
 
             // 0: pretimer, 1: activeTimer, 2: postTimer
-            val time = when(it) {
+            maxTime = when(it) {
                 0 -> currCard.preTimerSecs
                 1 -> currCard.activeTimerSecs
                 2 -> currCard.postTimerSecs
                 else -> 0
             }
+            binding.pbCardTimeProgress.max = 1000
             routineProgressViewModel.stopCardTimer()
-            routineProgressViewModel.startCardTimer(time)
+            routineProgressViewModel.startCardTimer(maxTime)
         }
 
         routineProgressViewModel.currentCardSet.observe(viewLifecycleOwner) {
@@ -69,6 +73,8 @@ class CardDisplayFragment : Fragment() {
 
         routineProgressViewModel.currentCardTime.observe(viewLifecycleOwner) {
             binding.tvRoutineProgressCardLeftTime.text = it.toString()
+            // ProgressBar 업데이트
+            binding.pbCardTimeProgress.progress = it/1000
             if (it <= 0) {
                 routineProgressViewModel.stopCardTimer()
                 Toast.makeText(requireContext(), "카드가 종료되었습니다.", Toast.LENGTH_SHORT).show()

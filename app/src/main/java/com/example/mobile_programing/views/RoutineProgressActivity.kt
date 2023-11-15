@@ -70,6 +70,14 @@ class RoutineProgressActivity : AppCompatActivity() {
     //    supportFragmentManager.fragments[0].arguments = Bundle().apply {
     //        putSerializable("selected_routine", routine)
     //    }
+        routineProgressViewModel.currentCardProgress.observe(this) {
+            // 배경화면 색 설정
+            when(it) {
+                0 -> binding.clRoutineProgress.setBackgroundResource(R.color.light_green)
+                1 -> binding.clRoutineProgress.setBackgroundResource(R.color.bright_orange)
+                2 -> binding.clRoutineProgress.setBackgroundResource(R.color.light_purple)
+            }
+        }
     }
 
     // Update routine time
