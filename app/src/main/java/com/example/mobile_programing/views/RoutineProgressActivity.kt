@@ -15,6 +15,8 @@ import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.viewModel.RoutineProgressViewModel
 import com.example.mobile_programing.views.fragments.CardDisplayFragment
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class RoutineProgressActivity : AppCompatActivity() {
 
@@ -131,8 +133,8 @@ class RoutineProgressActivity : AppCompatActivity() {
         binding.btnRoutineProgressCreateCard.setOnClickListener {
             cardCreateResultLauncher.launch(Intent(this, CardDetailActivity::class.java).apply {
                 var emptyCard = Card(
-                    id = "1000",
-                    userId = "kim123",
+                    id = "",
+                    userId = Firebase.auth.currentUser!!.uid,
                     name = "test",
                     preTimerSecs = 5,
                     postTimerSecs = 10,

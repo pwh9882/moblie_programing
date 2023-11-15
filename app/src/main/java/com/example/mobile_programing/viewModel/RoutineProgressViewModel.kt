@@ -77,12 +77,12 @@ class RoutineProgressViewModel: ViewModel() {
     fun startCardTimer(time: Int){
         cardTimerJob?.cancel()
         cardTimerJob = viewModelScope.launch {
-            _currentCardTime.value = time+1
-            while (true) {
-                _currentCardTime.value = _currentCardTime.value?.minus(1)
+            _currentCardTime.value = time
+            while (_currentCardTime.value!! >= 1) {
                 withContext(Dispatchers.IO) {
                     Thread.sleep(1000)
                 }
+                _currentCardTime.value = _currentCardTime.value?.minus(1)
             }
         }
     }

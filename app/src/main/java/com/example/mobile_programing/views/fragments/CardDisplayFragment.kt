@@ -69,7 +69,7 @@ class CardDisplayFragment : Fragment() {
 
         routineProgressViewModel.currentCardTime.observe(viewLifecycleOwner) {
             binding.tvRoutineProgressCardLeftTime.text = it.toString()
-            if (it == 0) {
+            if (it <= 0) {
                 routineProgressViewModel.stopCardTimer()
                 Toast.makeText(requireContext(), "카드가 종료되었습니다.", Toast.LENGTH_SHORT).show()
             }
