@@ -3,6 +3,7 @@ package com.example.mobile_programing.repository
 import android.util.Log
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
+import com.example.mobile_programing.models.cardRef
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.coroutines.resume
@@ -20,7 +21,6 @@ class RoutineRepository {
     fun createRoutine(routine: Routine): Boolean {
         //firebase에 생성한 루틴 저장
         routineRef.child(routine.id).setValue(routine)
-
         //루틴에 카드가 추가됬을경우 totalTime을 계산해주는 로직
         if (!routine.cards.isEmpty()) {
             var time = 0
@@ -77,6 +77,7 @@ class RoutineRepository {
         // Updates given fields of an existing routine in Firestore
         fun updateRoutine(id: String, newRoutine: Routine): Boolean{
             routineRef.child(id).setValue(newRoutine)
+
             return true
         }
 
@@ -94,6 +95,7 @@ class RoutineRepository {
                     description = routineSnapshot.child("description").value.toString(),
                     cards = arrayListOf()
                 )
+
 
                 val cardsSnapshot = routineSnapshot.child("cards")
                 cardsSnapshot.children.forEach { cardData ->
@@ -125,7 +127,9 @@ class RoutineRepository {
     // firebase uid로 routine 목록을 가져오는 함수
     suspend fun getRoutinesByUserId(userId: String): List<Routine> = suspendCoroutine { continuation ->
         routineRef.orderByChild("userId").equalTo(userId).get().addOnSuccessListener { snapshot ->
+
             val routines = snapshot.children.mapNotNull { routineSnapshot ->
+
                 val cards = ArrayList<Card>()
                 routineSnapshot.child("cards").children.forEach { cardData ->
                     val userIdOfCard = routineSnapshot.child("userId").value.toString()

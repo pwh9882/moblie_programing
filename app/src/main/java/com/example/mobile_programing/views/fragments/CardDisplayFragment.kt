@@ -1,15 +1,15 @@
 package com.example.mobile_programing.views.fragments
 
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.FragmentCardDisplayBinding
 import com.example.mobile_programing.viewModel.RoutineProgressViewModel
 
@@ -23,6 +23,8 @@ class CardDisplayFragment : Fragment() {
 
     private lateinit var routineProgressViewModel: RoutineProgressViewModel
     private lateinit var binding: FragmentCardDisplayBinding
+
+    private var maxTime: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +42,7 @@ class CardDisplayFragment : Fragment() {
 
         }
 
+
         routineProgressViewModel.currentCardProgress.observe(viewLifecycleOwner) {
             val currCard = routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!]
             binding.tvRoutineProgressStatus.text = when(it) {
@@ -50,14 +53,16 @@ class CardDisplayFragment : Fragment() {
             }
 
             // 0: pretimer, 1: activeTimer, 2: postTimer
-            val time = when(it) {
+            maxTime = when(it) {
                 0 -> currCard.preTimerSecs
                 1 -> currCard.activeTimerSecs
                 2 -> currCard.postTimerSecs
                 else -> 0
             }
-            routineProgressViewModel.stopCardTimer()
-            routineProgressViewModel.startCardTimer(time)
+//            routineProgressViewModel.stopCardTimer()
+            routineProgressViewModel.startCardTimer(maxTime)
+            // ProgressBar 업데이트
+            setProgressBarValues(maxTime, it)
         }
 
         routineProgressViewModel.currentCardSet.observe(viewLifecycleOwner) {
@@ -69,7 +74,8 @@ class CardDisplayFragment : Fragment() {
 
         routineProgressViewModel.currentCardTime.observe(viewLifecycleOwner) {
             binding.tvRoutineProgressCardLeftTime.text = it.toString()
-            if (it == 0) {
+            binding.pbCardTimeProgress.progress = it
+            if (it <= 0) {
                 routineProgressViewModel.stopCardTimer()
                 Toast.makeText(requireContext(), "카드가 종료되었습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -78,6 +84,25 @@ class CardDisplayFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    /**
+     * 원형 프로그레스 바에 값 세팅
+     */
+    private fun setProgressBarValues(time: Int, progressIndex: Int) {
+        binding.pbCardTimeProgress.max =  time
+        binding.pbCardTimeProgress.progress = time
+        var progressDrawable = binding.pbCardTimeProgress.progressDrawable
+        // Drawable이 ShapeDrawable인지 확인하고 색상을 변경함
+        if (progressDrawable is GradientDrawable) {
+            progressDrawable.setColor(ContextCompat.getColor(requireContext(), when(progressIndex) {
+                0 -> android.R.color.holo_green_light
+                1 -> android.R.color.holo_orange_light
+                2 -> android.R.color.holo_purple
+                else -> android.R.color.holo_red_light
+            }))
+        }
+
     }
 
     companion object {

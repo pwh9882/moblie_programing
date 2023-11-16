@@ -23,6 +23,7 @@ class RoutineProgressViewModel: ViewModel() {
     // 현재 진행중인 전체 루틴 타이머
     private val _currentRoutineTime = MutableLiveData<Int>()
     val currentRoutineTime: LiveData<Int> get() = _currentRoutineTime
+
     private var routineTimerJob: Job? = null
 
     // 현재 진행중인 카드 타이머
@@ -37,6 +38,7 @@ class RoutineProgressViewModel: ViewModel() {
     // 현재 카드의 반복횟수 (세트)
     private val _currentCardSet = MutableLiveData<Int>()
     val currentCardSet: LiveData<Int> get() = _currentCardSet
+
 
 
 
@@ -77,12 +79,12 @@ class RoutineProgressViewModel: ViewModel() {
     fun startCardTimer(time: Int){
         cardTimerJob?.cancel()
         cardTimerJob = viewModelScope.launch {
-            _currentCardTime.value = time+1
-            while (true) {
-                _currentCardTime.value = _currentCardTime.value?.minus(1)
+            _currentCardTime.value = time
+            while (_currentCardTime.value!! >= 1) {
                 withContext(Dispatchers.IO) {
                     Thread.sleep(1000)
                 }
+                _currentCardTime.value = _currentCardTime.value?.minus(1)
             }
         }
     }
