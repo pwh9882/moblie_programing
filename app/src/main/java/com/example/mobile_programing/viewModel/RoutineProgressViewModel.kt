@@ -53,6 +53,7 @@ class RoutineProgressViewModel: ViewModel() {
     fun updateCurrentCardIndexData(index: Int){
         _currentCardIndex.value = index
         _currentCardTime.value = _currentRoutine.value!!.cards[index].activeTimerSecs
+        _currentCardProgress.value = 0
     }
     fun updateCurrentRoutineTimerData(timer: Int){
         _currentRoutineTime.value = timer
