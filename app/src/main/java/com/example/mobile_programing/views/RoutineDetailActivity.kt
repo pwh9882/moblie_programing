@@ -16,7 +16,6 @@ import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityRoutineDetailBinding
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
-import com.example.mobile_programing.repository.RoutineRepository
 import com.example.mobile_programing.views.adapters.RoutineDetailCardAdapter
 import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallback
 import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallbackForCard
@@ -29,7 +28,6 @@ const val CARD_UPDATED = 202
 class RoutineDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRoutineDetailBinding
     lateinit var routine: Routine
-    private var routineRepository = RoutineRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +85,7 @@ class RoutineDetailActivity : AppCompatActivity() {
     private fun addCardToRoutine(result: ActivityResult, routine: Routine) {
         val newCard = result.data?.getSerializableExtra("selected_card") as Card
         routine?.cards?.add(newCard)
-        routineRepository.createRoutine(routine)
+
         binding.rvRoutineDetailCardList.adapter?.notifyDataSetChanged()
     }
 

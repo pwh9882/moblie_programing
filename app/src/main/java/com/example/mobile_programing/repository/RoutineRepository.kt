@@ -129,8 +129,6 @@ class RoutineRepository {
                 val cards = ArrayList<Card>()
                 routineSnapshot.child("cards").children.forEach { cardData ->
                     val userIdOfCard = routineSnapshot.child("userId").value.toString()
-                    // Only add cards that match the userId we're interested in
-                    if (userIdOfCard != userId) return@forEach
 
                     val card = Card(
                         id = cardData.child("id").value.toString(),

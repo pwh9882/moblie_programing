@@ -44,7 +44,6 @@ class CardDetailActivity : AppCompatActivity() {
 
         binding.btnCardDetailUpdate.setOnClickListener {
             val resultIntent = Intent(this, CardDetailActivity::class.java)
-            val cardRepository = CardRepository()
 
             // binding 값에서 card 객체를 만들어서 intent에 넣어준다.
             val updatedCard = Card(
