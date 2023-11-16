@@ -10,6 +10,7 @@ import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityCardDetailBinding
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
+import com.example.mobile_programing.repository.CardRepository
 
 
 class CardDetailActivity : AppCompatActivity() {

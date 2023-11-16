@@ -121,7 +121,7 @@ class CardRepository {
             var continuation = it
             cardRef.get().addOnSuccessListener {
                 it.children.forEach {
-                    if(it.child("userId").value.toString() != userId) return@forEach
+                    if(it.child("userId").value.toString() == userId) return@forEach
                     var card = Card("", "", "", 0, true, 0, true, 0, false, 0, arrayListOf())
                     card.id = it.child("id").value.toString()
                     card.userId = it.child("userId").value.toString()

@@ -19,6 +19,8 @@ import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.views.adapters.RoutineDetailCardAdapter
 import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallback
 import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallbackForCard
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 const val CARD_CREATED = 201
 const val CARD_UPDATED = 202
@@ -83,6 +85,7 @@ class RoutineDetailActivity : AppCompatActivity() {
     private fun addCardToRoutine(result: ActivityResult, routine: Routine) {
         val newCard = result.data?.getSerializableExtra("selected_card") as Card
         routine?.cards?.add(newCard)
+
         binding.rvRoutineDetailCardList.adapter?.notifyDataSetChanged()
     }
 
@@ -113,7 +116,7 @@ class RoutineDetailActivity : AppCompatActivity() {
         cardUpdateResultLauncher.launch(Intent(this, CardDetailActivity::class.java).apply {
             var emptyCard = Card(
                 id = (routine.cards.size+1).toString(),
-                userId = "",
+                userId = Firebase.auth.currentUser!!.uid,
                 name = "비어 있는 카드",
                 preTimerSecs = 0,
                 preTimerAutoStart = true,

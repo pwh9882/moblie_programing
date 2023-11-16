@@ -75,8 +75,7 @@ class RoutineRepository {
         }
 
         // Updates given fields of an existing routine in Firestore
-        fun updateRoutine(id: String, newRoutine: Routine): Boolean {
-            newRoutine.id = id
+        fun updateRoutine(id: String, newRoutine: Routine): Boolean{
             routineRef.child(id).setValue(newRoutine)
             return true
         }
@@ -121,9 +120,7 @@ class RoutineRepository {
         }
     }
 
-
-
-
+  
 
     // firebase uid로 routine 목록을 가져오는 함수
     suspend fun getRoutinesByUserId(userId: String): List<Routine> = suspendCoroutine { continuation ->
@@ -131,9 +128,7 @@ class RoutineRepository {
             val routines = snapshot.children.mapNotNull { routineSnapshot ->
                 val cards = ArrayList<Card>()
                 routineSnapshot.child("cards").children.forEach { cardData ->
-                    val userIdOfCard = cardData.child("userId").value.toString()
-                    // Only add cards that match the userId we're interested in
-                    if (userIdOfCard != userId) return@forEach
+                    val userIdOfCard = routineSnapshot.child("userId").value.toString()
 
                     val card = Card(
                         id = cardData.child("id").value.toString(),

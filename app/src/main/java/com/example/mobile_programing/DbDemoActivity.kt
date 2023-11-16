@@ -41,30 +41,15 @@ class DbDemoActivity : AppCompatActivity() {
         var routine1: Routine = Routine("","","운동",0, 0, "", listCard)
         //처음 생성한 루틴 저장
 
-
         routineRepository.createRoutine(routine1)
-
-        /*
-        * 기존 루틴에 카드가 추가 되었으므로 fireDatabase의 기존 루틴도 카드가 추가된 루틴으로 갱신되어야 합니다
-        * 이때 사용하는 함수는 changeRoutine()입니다
-        * changeRoutine()에는 카드가 추가됨으로써 변하게 되는 totalTime을 계산하는 로직이 포함되있습니다
-        * */
-
         GlobalScope.launch {
-            var cardData = cardRepository.getCard(card1.id)
-            var cards = ArrayList<Card>()
-            Log.d("getCard",cardData.toString())
-//            cards = cardRepository.getCardsByUserId(userId)
-//            Log.d("cards",cards.toString())
-//            var routine_test = routineRepository.getRoutine(routine1.id)
-//            Log.d("routine",routine_test.toString())
-            var routineid_test = routineRepository.getRoutinesByUserId(userId)
-            Log.d("routine_Test",routineid_test.toString())
+        Log.d("루틴",routineRepository.getRoutinesByUserId("lcy1McTm92WNsSfOFj9DWysoj6k1").toString())
         }
 
 
 
-        cardRepository.deleteCard(card2.id)
+
+
         finish()
     }
 

@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         // 백엔드용 버튼
         binding.bttnConnect.setOnClickListener {//데모버튼 클릭시 이벤트
-//            startActivity(Intent(this, DbDemoActivity::class.java))
+            //startActivity(Intent(this, DbDemoActivity::class.java))
             viewModel.deleteRoutine("-NjD3F6s_DvIcOQXHbIO")
             viewModel.createRoutine(Routine(
                 id="",
