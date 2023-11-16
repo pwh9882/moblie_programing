@@ -10,7 +10,8 @@
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -44,20 +45,25 @@
             android:textAlignment="center"
             android:textSize="34sp" />
 
-    </LinearLayout>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fl_routine_progress"
+            android:name="com.example.mobile_programing.views.fragments.CardDisplayFragment"
+            android:layout_width="416dp"
+            android:layout_height="438dp" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fl_routine_progress"
-        android:name="com.example.mobile_programing.views.fragments.CardDisplayFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        <Button
+            android:id="@+id/btn_routine_progress_create_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="새 카드" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="409dp"
+        android:layout_height="134dp"
         android:gravity="center"
         android:orientation="horizontal"
 
@@ -68,29 +74,30 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:background="@drawable/custom_prev_icon"
             android:id="@+id/btn_routine_progress_previous_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="56dp"
+            android:layout_height="65dp"
+            android:background="@drawable/custom_prev_icon" />
 
         <ImageButton
-            android:background="@drawable/custom_skip_icon"
-            android:id="@+id/btn_routine_progress_skip_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/imageButton2"
+            android:layout_width="37dp"
+            android:layout_height="45dp"
+            android:background="@drawable/custom_stop_icon" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_routine_progress_next_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="다음" />
+            android:layout_width="42dp"
+            android:layout_height="43dp"
+            android:background="@drawable/custom_next_icon" />
 
-        <Button
-            android:id="@+id/btn_routine_progress_create_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="새 카드" />
+        <ImageButton
+            android:id="@+id/btn_routine_progress_skip_card"
+            android:layout_width="62dp"
+            android:layout_height="54dp"
+            android:background="@drawable/custom_skip_icon" />
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

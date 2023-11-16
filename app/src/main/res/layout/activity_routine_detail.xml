@@ -19,32 +19,33 @@
             android:layout_height="wrap_content"
             android:text="RoutineDetailName"
             android:textSize="28sp"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="78dp" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_routine_detail_start_time"
+            tools:layout_editor_absoluteX="35dp" />
 
         <TextView
             android:id="@+id/tv_routine_detail_total_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="totalTime"
-            tools:layout_editor_absoluteX="105dp"
-            tools:layout_editor_absoluteY="133dp" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_routine_detail_description"
+            tools:layout_editor_absoluteX="105dp" />
 
         <TextView
             android:id="@+id/tv_routine_detail_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:text="startTime"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="133dp" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_routine_detail_description"
+            app:layout_constraintEnd_toStartOf="@+id/tv_routine_detail_total_time" />
 
         <TextView
             android:id="@+id/tv_routine_detail_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="description"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="162dp" />
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="161dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_routine_detail_card_list"
@@ -91,11 +92,10 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_routine_detail_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.849"
             app:srcCompat="@drawable/custom_back_btn_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
