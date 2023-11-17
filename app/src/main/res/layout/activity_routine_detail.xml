@@ -9,15 +9,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        >
 
         <TextView
             android:id="@+id/tv_routine_detail_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="60dp"
             android:text="RoutineDetailName"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,11 +28,10 @@
             android:id="@+id/tv_routine_detail_total_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
             android:text="totalTime"
-            app:layout_constraintEnd_toEndOf="@+id/tv_routine_detail_name"
-            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_name" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_routine_detail_start_time"
+            app:layout_constraintStart_toEndOf="@+id/tv_routine_detail_start_time" />
 
         <TextView
             android:id="@+id/tv_routine_detail_start_time"
@@ -37,9 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="startTime"
-            app:layout_constraintEnd_toEndOf="@+id/tv_routine_detail_total_time"
-            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_total_time"
-            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_total_time" />
+            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_name" />
 
         <TextView
             android:id="@+id/tv_routine_detail_description"
@@ -47,43 +48,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="description"
-            app:layout_constraintEnd_toEndOf="@+id/tv_routine_detail_start_time"
             app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_start_time"
             app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_start_time" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/custom_back_btn_icon" />
-
-        <TextView
-            android:id="@+id/tv_routine_detail_cards"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="cards"
-            app:layout_constraintEnd_toEndOf="@+id/tv_routine_detail_description"
-            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_description"
-            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_description" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_routine_detail_card_list"
             android:layout_width="409dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_cards" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_description" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -93,24 +77,33 @@
                 android:id="@+id/btn_add_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/custom_routine_add_button_icon" />
+                android:layout_marginStart="88dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/custom_routine_add_button_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageButton
                 android:id="@+id/btn_run_routine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/custom_routine_run_btn_icon" />
-        </LinearLayout>
+                android:layout_marginStart="28dp"
+                android:background="@drawable/custom_routine_run_btn_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.154"
+                app:layout_constraintStart_toEndOf="@+id/btn_add_card"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/custom_routine_add_button_icon" />
+            app:srcCompat="@drawable/custom_back_btn_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

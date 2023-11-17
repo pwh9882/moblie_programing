@@ -21,7 +21,7 @@ class RoutineCompleteActivity : AppCompatActivity() {
             intent.getSerializableExtra("selected_routine") as Routine
         }
 
-        binding.tvCompletedRoutineName.text = routine!!.name
+//        binding.tvCompletedRoutineName.text = routine!!.name
 
 
 
