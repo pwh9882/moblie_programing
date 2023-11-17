@@ -34,7 +34,7 @@
                 android:background="@drawable/custom_box"
                 android:hint="  루틴명을 입력하세요."
                 android:textColorHint="#A4A2A2"
-                android:textSize="28sp">
+                android:textSize="28sp"/>
 
             <!-- Routine Start Time -->
 
