@@ -6,6 +6,7 @@ val routineRef = database.getReference("Routine")
 data class Routine  (
     var id: String, // Unique ID for the routine // ID의 생성 방법: 6자리, auto increment
     var userId : String,
+    var numStar : Int,
     var name: String, // Name of the routine e.g., "Leg Day"
     var routineStartTime: Int, // Time when the routine was started
     var totalTime: Int, // total sum of time of card's timer

@@ -38,23 +38,45 @@ class DbDemoActivity : AppCompatActivity() {
         listCard.add(card2)
 
         //루틴 생성(추가 카드없음)
-        var routine1: Routine = Routine("","","운동",0, 0, "", listCard)
+        //var routine1: Routine = Routine("","",5,"운동",0, 0, "", listCard)
         //처음 생성한 루틴 저장
+        var routine1: Routine = Routine("1","kim",0,"운동",0, 0, "", listCard)
+        var routine2: Routine = Routine("2","kim",0,"러닝",0, 0, "", listCard)
+        var routine3: Routine = Routine("3","son",0,"복싱",0, 0, "", listCard)
+        var routine4: Routine = Routine("4","son",0,"주짓수",0, 0, "", listCard)
+        var routine5: Routine = Routine("5","kim",0,"수영",0, 0, "", listCard)
+
 
         routineRepository.createRoutine(routine1)
+        routineRepository.createRoutine(routine2)
+        routineRepository.createRoutine(routine3)
+        routineRepository.createRoutine(routine4)
+        routineRepository.createRoutine(routine5)
+
+//        GlobalScope.launch {
+//        Log.d("루틴",routineRepository.getRoutinesByUserId("lcy1McTm92WNsSfOFj9DWysoj6k1").toString())
+//        }
+
         GlobalScope.launch {
-        Log.d("루틴",routineRepository.getRoutinesByUserId("lcy1McTm92WNsSfOFj9DWysoj6k1").toString())
+            Log.d(
+                "루틴",
+                routineRepository.getRoutinesByUserId("lcy1McTm92WNsSfOFj9DWysoj6k1").toString()
+            )
+            //routein1 별개수 2개 ,routine2 별개수 1개, 사용자 "kim"의 별개수 총 3개
+            routineRepository.addStar(routine1.id)
+            routineRepository.addStar(routine2.id)
+
+
+            //routine4의 별개수 1개, 사용자 "son"의 별개수 총 1개
+            routineRepository.addStar(routine4.id)
         }
+        GlobalScope.launch{
 
-
-
-
+            Log.d(".",routineRepository.getRoutine(routine1.id).numStar.toString())
+            Log.d("kim",routineRepository.getUserStar("kim").toString())}
 
         finish()
     }
-
-
-
 
 
 

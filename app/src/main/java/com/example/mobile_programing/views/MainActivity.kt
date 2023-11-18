@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.createRoutine(Routine(
                 id="",
                 userId = Firebase.auth.currentUser!!.uid,
+                numStar = 5,
                 name = "test",
                 description = "test",
                 totalTime = 0,
@@ -139,6 +140,7 @@ class MainActivity : AppCompatActivity() {
                     Routine(
                         id="",
                         userId = Firebase.auth.currentUser!!.uid,
+                        numStar = 5,
                         name = "",
                         description = "",
                         totalTime = 0,

@@ -33,6 +33,7 @@ private lateinit var binding: ActivityRoutineCreateBinding
             val newRoutine = Routine(
                 id=currentRoutine.id,
                 userId = currentRoutine.userId,
+                numStar = currentRoutine.numStar,
                 name = binding.etRoutineName.text.toString(),
                 description = binding.etRoutineDescription.text.toString(),
                 totalTime = 0,

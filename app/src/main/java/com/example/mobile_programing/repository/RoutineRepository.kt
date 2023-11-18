@@ -6,6 +6,8 @@ import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.models.cardRef
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -36,10 +38,11 @@ class RoutineRepository {
 
     // Fetches a specific routine using its ID from Firestore.
     suspend fun getRoutine(id: String) = suspendCoroutine<Routine> { continuation ->
-        val routine = Routine("","", "", 0, 0,"", arrayListOf())
+        val routine = Routine("", "", 0, "", 0, 0, "", arrayListOf())
         routineRef.child(id).get().addOnSuccessListener { snapshot ->
             routine.id = snapshot.child("id").value.toString()
             routine.userId = snapshot.child("userId").value.toString()
+            routine.numStar = Integer.parseInt(snapshot.child("numStar").value.toString())
             routine.name = snapshot.child("name").value.toString()
             routine.totalTime = Integer.parseInt(snapshot.child("totalTime").value.toString())
             routine.description = snapshot.child("description").value.toString()
@@ -52,13 +55,18 @@ class RoutineRepository {
                     userId = cardData.child("userId").value.toString(),
                     name = cardData.child("name").value.toString(),
                     preTimerSecs = cardData.child("preTimerSecs").value.toString().toInt(),
-                    preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
+                    preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString()
+                        .toBoolean(),
                     activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toInt(),
-                    activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
+                    activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString()
+                        .toBoolean(),
                     postTimerSecs = cardData.child("postTimerSecs").value.toString().toInt(),
-                    postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
+                    postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString()
+                        .toBoolean(),
                     sets = cardData.child("sets").value.toString().toInt(),
-                    additionalInfo = (cardData.child("additionalInfo").value as List<String>).toCollection(ArrayList())
+                    additionalInfo = (cardData.child("additionalInfo").value as List<String>).toCollection(
+                        ArrayList()
+                    )
                 )
                 routine.cards.add(card)
             }
@@ -69,17 +77,17 @@ class RoutineRepository {
 
 
     // Deletes a specific routine using its ID from Firestore.
-        fun deleteRoutine(id: String): Boolean {
-            routineRef.child(id).removeValue()
-            return true;
-        }
+    fun deleteRoutine(id: String): Boolean {
+        routineRef.child(id).removeValue()
+        return true;
+    }
 
-        // Updates given fields of an existing routine in Firestore
-        fun updateRoutine(id: String, newRoutine: Routine): Boolean{
-            routineRef.child(id).setValue(newRoutine)
+    // Updates given fields of an existing routine in Firestore
+    fun updateRoutine(id: String, newRoutine: Routine): Boolean {
+        routineRef.child(id).setValue(newRoutine)
 
-            return true
-        }
+        return true
+    }
 
     // Fetches all routines from Firestore.
     suspend fun getAllRoutines(): ArrayList<Routine> = suspendCoroutine { continuation ->
@@ -89,9 +97,12 @@ class RoutineRepository {
                 val routine = Routine(
                     id = routineSnapshot.child("id").value.toString(),
                     userId = routineSnapshot.child("userId").value.toString(),
-                    routineStartTime = routineSnapshot.child("routineStartTime").value.toString().toIntOrNull() ?: 0,
+                    numStar = routineSnapshot.child("numStar").value.toString().toIntOrNull() ?: 0,
+                    routineStartTime = routineSnapshot.child("routineStartTime").value.toString()
+                        .toIntOrNull() ?: 0,
                     name = routineSnapshot.child("name").value.toString(),
-                    totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
+                    totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull()
+                        ?: 0,
                     description = routineSnapshot.child("description").value.toString(),
                     cards = arrayListOf()
                 )
@@ -103,14 +114,22 @@ class RoutineRepository {
                         id = cardData.child("id").value.toString(),
                         userId = cardData.child("userId").value.toString(),
                         name = cardData.child("name").value.toString(),
-                        preTimerSecs = cardData.child("preTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
-                        activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
-                        postTimerSecs = cardData.child("postTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
+                        preTimerSecs = cardData.child("preTimerSecs").value.toString().toIntOrNull()
+                            ?: 0,
+                        preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString()
+                            .toBoolean(),
+                        activeTimerSecs = cardData.child("activeTimerSecs").value.toString()
+                            .toIntOrNull() ?: 0,
+                        activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString()
+                            .toBoolean(),
+                        postTimerSecs = cardData.child("postTimerSecs").value.toString()
+                            .toIntOrNull() ?: 0,
+                        postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString()
+                            .toBoolean(),
                         sets = cardData.child("sets").value.toString().toIntOrNull() ?: 0,
-                        additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(ArrayList()) ?: arrayListOf<String>()
+                        additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(
+                            ArrayList()
+                        ) ?: arrayListOf<String>()
                     )
                     routine.cards.add(card) // 여기서 카드를 루틴에 추가합니다.
                 }
@@ -122,60 +141,93 @@ class RoutineRepository {
         }
     }
 
-  
 
     // firebase uid로 routine 목록을 가져오는 함수
-    suspend fun getRoutinesByUserId(userId: String): List<Routine> = suspendCoroutine { continuation ->
-        routineRef.orderByChild("userId").equalTo(userId).get().addOnSuccessListener { snapshot ->
+    suspend fun getRoutinesByUserId(userId: String): List<Routine> =
+        suspendCoroutine { continuation ->
+            routineRef.orderByChild("userId").equalTo(userId).get()
+                .addOnSuccessListener { snapshot ->
 
-            val routines = snapshot.children.mapNotNull { routineSnapshot ->
+                    val routines = snapshot.children.mapNotNull { routineSnapshot ->
 
-                val cards = ArrayList<Card>()
-                routineSnapshot.child("cards").children.forEach { cardData ->
-                    val userIdOfCard = routineSnapshot.child("userId").value.toString()
+                        val cards = ArrayList<Card>()
+                        routineSnapshot.child("cards").children.forEach { cardData ->
+                            val userIdOfCard = routineSnapshot.child("userId").value.toString()
 
-                    val card = Card(
-                        id = cardData.child("id").value.toString(),
-                        userId = userIdOfCard,
-                        name = cardData.child("name").value.toString(),
-                        preTimerSecs = cardData.child("preTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
-                        activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
-                        postTimerSecs = cardData.child("postTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
-                        sets = cardData.child("sets").value.toString().toIntOrNull() ?: 0,
-                        additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(ArrayList()) ?: arrayListOf<String>()
-                    )
-                    cards.add(card)
-                }
-                Routine(
-                    id = routineSnapshot.child("id").value.toString(),
-                    userId = userId,
-                    routineStartTime = routineSnapshot.child("routineStartTime").value.toString().toIntOrNull() ?: 0,
-                    name = routineSnapshot.child("name").value.toString(),
-                    totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
-                    description = routineSnapshot.child("description").value.toString(),
-                    cards = cards
-                )
+                            val card = Card(
+                                id = cardData.child("id").value.toString(),
+                                userId = userIdOfCard,
+                                name = cardData.child("name").value.toString(),
+                                preTimerSecs = cardData.child("preTimerSecs").value.toString()
+                                    .toIntOrNull() ?: 0,
+                                preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString()
+                                    .toBoolean(),
+                                activeTimerSecs = cardData.child("activeTimerSecs").value.toString()
+                                    .toIntOrNull() ?: 0,
+                                activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString()
+                                    .toBoolean(),
+                                postTimerSecs = cardData.child("postTimerSecs").value.toString()
+                                    .toIntOrNull() ?: 0,
+                                postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString()
+                                    .toBoolean(),
+                                sets = cardData.child("sets").value.toString().toIntOrNull() ?: 0,
+                                additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(
+                                    ArrayList()
+                                ) ?: arrayListOf<String>()
+                            )
+                            cards.add(card)
+                        }
+                        Routine(
+                            id = routineSnapshot.child("id").value.toString(),
+                            userId = userId,
+                            numStar = routineSnapshot.child("numStar").value.toString()
+                                .toIntOrNull() ?: 0,
+                            routineStartTime = routineSnapshot.child("routineStartTime").value.toString()
+                                .toIntOrNull() ?: 0,
+                            name = routineSnapshot.child("name").value.toString(),
+                            totalTime = routineSnapshot.child("totalTime").value.toString()
+                                .toIntOrNull() ?: 0,
+                            description = routineSnapshot.child("description").value.toString(),
+                            cards = cards
+                        )
+                    }
+                    continuation.resume(routines)
+                }.addOnFailureListener { exception ->
+                continuation.resumeWith(Result.failure(exception))
             }
-            continuation.resume(routines)
-        }.addOnFailureListener { exception ->
-            continuation.resumeWith(Result.failure(exception))
+        }
+
+    suspend fun addStar(routineId: String) {
+        GlobalScope.launch {
+            var routine = getRoutine(routineId)
+
+            routineRef.child(routineId).child("numStar").setValue(routine.numStar + 1)
         }
     }
 
+    suspend fun getUserStar(userId: String) = suspendCoroutine<Int> { continuation ->
+        var userNumStar = 0
+        routineRef.orderByChild("userId").equalTo(userId).get().addOnSuccessListener { snapshot ->
+            snapshot.children.forEach { routineSnapshot ->
+                userNumStar += routineSnapshot.child("numStar").value.toString().toIntOrNull() ?: 0
+            }
+            continuation.resume(userNumStar)
+        }.addOnFailureListener { exception ->
+            continuation.resumeWith(Result.failure(exception))
+        }
 
-    // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
-    fun getHistoryRoutinesByUserId(userId : String): ArrayList<Routine> {
-        TODO(" Implement function for fetching all history routines belonging to current logged-in user")
+
+        // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
+        fun getHistoryRoutinesByUserId(userId: String): ArrayList<Routine> {
+            TODO(" Implement function for fetching all history routines belonging to current logged-in user")
+        }
+
+        // user-id와 그에 해당하는 favorite routine 목록을 가져오는 함수
+        fun getFavoriteRoutinesByUserId(userId: String): ArrayList<Routine> {
+            TODO(" Implement function for fetching all favorite routines belonging to current logged-in user")
+        }
+
+        // 추가사항: user-id에 해당하는 routine 목록을 폴더 형식으로 가져오는 함수
+
     }
-
-    // user-id와 그에 해당하는 favorite routine 목록을 가져오는 함수
-    fun getFavoriteRoutinesByUserId(userId : String): ArrayList<Routine> {
-        TODO(" Implement function for fetching all favorite routines belonging to current logged-in user")
-    }
-
-    // 추가사항: user-id에 해당하는 routine 목록을 폴더 형식으로 가져오는 함수
-
 }
