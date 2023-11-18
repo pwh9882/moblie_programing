@@ -18,4 +18,8 @@ data class Routine  (
         if(id == "") id = routineRef.push().key!!
         if(cards.isEmpty()) totalTime = 0
     }
+
+    fun updateTotalTime() {
+        totalTime = cards.sumOf { it.preTimerSecs + it.activeTimerSecs + it.postTimerSecs }
+    }
 }

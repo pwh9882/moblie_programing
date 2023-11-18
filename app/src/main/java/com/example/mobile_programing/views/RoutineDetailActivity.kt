@@ -110,15 +110,20 @@ class RoutineDetailActivity : AppCompatActivity() {
             Toast.makeText(this, "루틴이 업데이트 되었습니다.", Toast.LENGTH_SHORT).show()
             // Update the UI with the updated routine
             this.routine = result.data?.getSerializableExtra("selected_routine") as Routine
+            this.routine.updateTotalTime()  // Update the total time
             setupUI(this.routine)
         }
         if(result.resultCode == CARD_UPDATED) {
             updateCardInRoutine(result, routine)
+
+            routine.updateTotalTime()  // Update the total time
         }
         if(result.resultCode == CARD_CREATED) {
             addCardToRoutine(result, routine)
+            routine.updateTotalTime()  // Update the total time
         }
     }
+
 
 
     private fun updateCardInRoutine(result: ActivityResult, routine: Routine) {

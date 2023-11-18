@@ -1,6 +1,9 @@
 package com.example.mobile_programing.views
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerReceiver(logoutReceiver, IntentFilter("com.example.mobile_programing.ACTION_LOGOUT"))
         setupDataBinding()
         setupUserAuthentication()
         setupRoutineList()
@@ -65,6 +69,11 @@ class MainActivity : AppCompatActivity() {
                 )
             ))
         }
+
+        binding.ibUserAccount.setOnClickListener {
+            val intent = Intent(this, UserProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupDataBinding() {
@@ -75,7 +84,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupUserAuthentication() {
         val user = Firebase.auth.currentUser
-        binding.test.text = user?.email ?: "cannot load"
+//        binding.test.text = user?.email ?: "cannot load"
+        // TODO: 이후 별 개수 설정함.
     }
 
     private fun setupRoutineList() {
@@ -153,5 +163,18 @@ class MainActivity : AppCompatActivity() {
                 })
             }
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(logoutReceiver)
+    }
+
+    private val logoutReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == "com.example.mobile_programing.ACTION_LOGOUT") {
+                finish()
+            }
+        }
     }
 }

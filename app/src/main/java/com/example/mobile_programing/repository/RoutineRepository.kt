@@ -2,6 +2,9 @@ package com.example.mobile_programing.repository
 
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.coroutines.resume
@@ -155,7 +158,8 @@ class RoutineRepository {
                     name = routineSnapshot.child("name").value.toString(),
                     totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
                     description = routineSnapshot.child("description").value.toString(),
-                    cards = cards
+                    cards = cards,
+                    lastModifiedTime = routineSnapshot.child("lastModifiedTime").value.toString().toLongOrNull() ?: 0
                 )
             }
             continuation.resume(routines)
@@ -177,4 +181,18 @@ class RoutineRepository {
 
     // 추가사항: user-id에 해당하는 routine 목록을 폴더 형식으로 가져오는 함수
 
+    fun deleteAllRoutinesByUserId(userId: String) {
+    routineRef.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(object :
+        ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            for (routineSnapshot in dataSnapshot.children) {
+                routineSnapshot.ref.removeValue()
+            }
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            // Handle possible errors.
+        }
+    })
+}
 }
