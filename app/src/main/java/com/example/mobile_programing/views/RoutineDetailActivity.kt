@@ -3,7 +3,6 @@ package com.example.mobile_programing.views
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -17,7 +16,6 @@ import com.example.mobile_programing.databinding.ActivityRoutineDetailBinding
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.views.adapters.RoutineDetailCardAdapter
-import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallback
 import com.example.mobile_programing.views.adapters.helpers.ItemTouchHelperCallbackForCard
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -47,6 +45,10 @@ class RoutineDetailActivity : AppCompatActivity() {
         binding.btnRunRoutine.setOnClickListener { runRoutine(routine) }
 
         binding.btnAddCard.setOnClickListener { addCardToRoutine(routine, cardUpdateResultLauncher) }
+
+        binding.btnRoutineDetailBackBtn.setOnClickListener() {
+            onBackPressed()
+        }
     }
 
     private fun getRoutineFromIntent(): Routine? {
@@ -56,22 +58,73 @@ class RoutineDetailActivity : AppCompatActivity() {
             intent.getSerializableExtra("selected_routine") as Routine
         }
     }
+    // Registering for activity result
+    private val routineUpdateResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        handleActivityResult(result, routine)
+    }
 
     private fun setupUI(routine: Routine) {
-        binding.tvRoutineDetailName.text = routine?.name
-        binding.tvRoutineDetailDescription.text = routine?.description
-        binding.tvRoutineDetailTotalTime.text = routine?.totalTime.toString() + " 초"
-        binding.tvRoutineDetailStartTime.text = routine?.routineStartTime.toString()
+        binding.tvRoutineDetailName.text = routine.name
+        binding.tvRoutineDetailDescription.text = routine.description
+        binding.tvRoutineDetailTotalTime.text = formatTimeForTotalTime(routine.totalTime)
+        binding.tvRoutineDetailStartTime.text = formatTimeForRoutineStartTime(routine.routineStartTime)
+
+
+        binding.btnRoutineDetailEditBtn.setOnClickListener {
+            // Start RoutineCreateActivity with the current routine
+            routineUpdateResultLauncher.launch(
+                Intent(this, RoutineCreateActivity::class.java).apply {
+                    putExtra("selected_routine", routine)
+                }
+            )
+        }
+    }
+
+    private fun formatTimeForTotalTime(totalSeconds: Int?): String {
+        if (totalSeconds == null || totalSeconds == 0) return "0초 예상"
+
+        val hours = totalSeconds / 3600
+        val minutes = (totalSeconds % 3600) / 60
+        val seconds = totalSeconds % 60
+
+        var timeString = ""
+        if (hours > 0) timeString += "${hours}시간 "
+        if (minutes > 0) timeString += "${minutes}분 "
+        if (seconds > 0) timeString += "${seconds}초"
+
+        return timeString.trim() + " 예상"
+    }
+
+    private fun formatTimeForRoutineStartTime(totalMinutes: Int?): String {
+        if (totalMinutes == null) return "오전 00시 00분"
+
+        val hours = totalMinutes / 60
+        val minutes = totalMinutes % 60
+        val amPm = if (hours < 12) "오전" else "오후"
+
+        return String.format("%s %02d시 %02d분 시작", amPm, hours, minutes)
     }
 
     private fun handleActivityResult(result: ActivityResult, routine: Routine) {
+        if(result.resultCode == ROUTINE_UPDATED ) {
+            Toast.makeText(this, "루틴이 업데이트 되었습니다.", Toast.LENGTH_SHORT).show()
+            // Update the UI with the updated routine
+            this.routine = result.data?.getSerializableExtra("selected_routine") as Routine
+            this.routine.updateTotalTime()  // Update the total time
+            setupUI(this.routine)
+        }
         if(result.resultCode == CARD_UPDATED) {
             updateCardInRoutine(result, routine)
+
+            routine.updateTotalTime()  // Update the total time
         }
         if(result.resultCode == CARD_CREATED) {
             addCardToRoutine(result, routine)
+            routine.updateTotalTime()  // Update the total time
         }
     }
+
+
 
     private fun updateCardInRoutine(result: ActivityResult, routine: Routine) {
         val updatedCard = result.data?.getSerializableExtra("selected_card") as Card
@@ -125,7 +178,7 @@ class RoutineDetailActivity : AppCompatActivity() {
                 postTimerSecs = 0,
                 postTimerAutoStart = true,
                 sets = 0,
-                additionalInfo = arrayListOf()
+                memo = ""
             )
 
             putExtra("createFlag", true)

@@ -15,7 +15,10 @@ import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.models.Routine
 import com.example.mobile_programing.viewModel.MainViewModel
 import com.example.mobile_programing.views.RoutineDetailActivity
+import java.text.SimpleDateFormat
 import java.util.Collections
+import java.util.Date
+import java.util.Locale
 
 
 class RoutineAdapter constructor(private val binding: ActivityMainBinding, val viewModel: MainViewModel, val activity: Activity, private val routineUpdateResultLauncher: ActivityResultLauncher<Intent>) : RecyclerView.Adapter<RoutineAdapter.CustomViewHolder>(){
@@ -25,6 +28,8 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, val v
         val name: TextView = itemView.findViewById<TextView>(R.id.tv_routine_name)
         val description: TextView = itemView.findViewById(R.id.tv_rountine_desc)
         val totalTime: TextView = itemView.findViewById(R.id.tv_rountine_total_time)
+        val lastModifiedTime: TextView = itemView.findViewById(R.id.tv_routine_last_modified_time) // Add this line
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -43,6 +48,7 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, val v
             }
 
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -54,7 +60,23 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, val v
         Log.e("Routine: ", routine.toString())
         holder.name.text = routine.name
         holder.description.text = routine.description
-        holder.totalTime.text =  routine.totalTime.toString()
+        holder.totalTime.text = formatTime(routine.totalTime)
+        holder.lastModifiedTime.text = formatLastModifiedTime(routine.lastModifiedTime) // Add this line
+
+    }
+
+    private fun formatTime(totalSeconds: Int): String {
+        val hours = totalSeconds / 3600
+        val minutes = (totalSeconds % 3600) / 60
+        val seconds = totalSeconds % 60
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
+    private fun formatLastModifiedTime(lastModifiedTime: Long): String {
+        val date = Date(lastModifiedTime)
+        val format = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault())
+        return format.format(date)
     }
 
     fun removeAt(position: Int) {

@@ -1,8 +1,12 @@
 package com.example.mobile_programing.views
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,7 +14,6 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.mobile_programing.DbDemoActivity
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.models.Card
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerReceiver(logoutReceiver, IntentFilter("com.example.mobile_programing.ACTION_LOGOUT"))
         setupDataBinding()
         setupUserAuthentication()
         setupRoutineList()
@@ -50,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 routineStartTime = 0,
                 cards = arrayListOf(
                     Card(
-                        id = "-NjD1UrXbnbV0LdkhrkF",
+                        id = "",
                         userId = Firebase.auth.currentUser!!.uid,
                         name = "비어 있는 카드",
                         preTimerSecs = 0,
@@ -60,10 +64,15 @@ class MainActivity : AppCompatActivity() {
                         postTimerSecs = 0,
                         postTimerAutoStart = true,
                         sets = 0,
-                        additionalInfo = arrayListOf()
+                        memo = "비어 있는 카드입니다."
                     )
                 )
             ))
+        }
+
+        binding.ibUserAccount.setOnClickListener {
+            val intent = Intent(this, UserProfileActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -75,10 +84,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupUserAuthentication() {
         val user = Firebase.auth.currentUser
-        binding.test.text = user?.email ?: "cannot load"
+//        binding.test.text = user?.email ?: "cannot load"
+        // TODO: 이후 별 개수 설정함.
     }
 
     private fun setupRoutineList() {
+        binding.progressBar.visibility = View.VISIBLE
+
         viewModel.updateRoutineListData()
 
         val routineAdapter = RoutineAdapter(binding, viewModel, this, routineUpdateResultLauncher)
@@ -90,6 +102,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.routineList.observe(this, Observer {
             routineAdapter.routineList = it
             routineAdapter.notifyDataSetChanged()
+
+            binding.progressBar.visibility = View.GONE
+
         })
     }
 
@@ -148,5 +163,18 @@ class MainActivity : AppCompatActivity() {
                 })
             }
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(logoutReceiver)
+    }
+
+    private val logoutReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == "com.example.mobile_programing.ACTION_LOGOUT") {
+                finish()
+            }
+        }
     }
 }

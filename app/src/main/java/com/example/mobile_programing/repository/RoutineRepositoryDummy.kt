@@ -43,12 +43,12 @@ class RoutineRepositoryDummy {
     fun getRoutinesByUserId(userId : String): ArrayList<Routine> {
         val dummy = ArrayList<Routine>()
         dummy.add(Routine("0","", "루틴1", 0,3000, "루틴1입니다.", ArrayList<Card>().apply {
-            add(Card("0", "", "카드1-1", 5, true, 10, true, 3, true, 3, ArrayList<String>()))
-            add(Card("1", "","카드1-2", 4, true, 10, true, 3, true, 2, ArrayList<String>()))
+            add(Card("0", "", "카드1-1", 5, true, 10, true, 3, true, 3, "메모1"))
+            add(Card("1", "","카드1-2", 4, true, 10, true, 3, true, 2, "메모2"))
         }))
         dummy.add(Routine("0","", "루틴2", 0,3000, "루틴1입니다.", ArrayList<Card>().apply {
-            add(Card("0", "", "카드2-1", 5, true, 10, true, 3, true, 3, ArrayList<String>()))
-            add(Card("1", "","카드2-2", 4, true, 10, true, 3, true, 2, ArrayList<String>()))
+            add(Card("0", "", "카드2-1", 5, true, 10, true, 3, true, 3, "메모1"))
+            add(Card("1", "","카드2-2", 4, true, 10, true, 3, true, 2, "메모2"))
         }))
         return dummy
     }

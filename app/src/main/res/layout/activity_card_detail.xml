@@ -122,7 +122,7 @@
                 android:text="Additional Info" />
 
             <EditText
-                android:id="@+id/et_card_detail_additional_info"
+                android:id="@+id/et_card_detail_memo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

@@ -44,7 +44,10 @@ class MainViewModel(): ViewModel() {
         viewModelScope.launch {
             val data = routineRepository.getRoutinesByUserId(Firebase.auth.currentUser!!.uid)
             // data를 mutablelist로 변환
-            _routineList.value = data.toMutableList()
+            _routineList.value = data.toMutableList().apply {
+                // Sort the list in descending order of lastModifiedTime
+                sortWith(Comparator { r1, r2 -> r2.lastModifiedTime.compareTo(r1.lastModifiedTime) })
+            }
         }
     }
 

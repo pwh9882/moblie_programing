@@ -20,8 +20,14 @@ class RoutineCompleteActivity : AppCompatActivity() {
         } else {
             intent.getSerializableExtra("selected_routine") as Routine
         }
-
-        binding.tvCompletedRoutineName.text = routine!!.name
+        val totalElapsedTime = intent.getIntExtra("totalElapsedTime", 0)
+        // 시간 초 포맷을 시간 분 초 포맷으로 바꾸기
+        val hours = totalElapsedTime / 3600
+        val minutes = (totalElapsedTime % 3600) / 60
+        val seconds = totalElapsedTime % 60
+        val timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        binding.tvRoutineCompleteElapsed.text = timeString
+//        binding.tvCompletedRoutineName.text = routine!!.name
 
 
 

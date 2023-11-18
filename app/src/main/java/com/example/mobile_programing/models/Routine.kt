@@ -10,11 +10,16 @@ data class Routine  (
     var routineStartTime: Int, // Time when the routine was started
     var totalTime: Int, // total sum of time of card's timer
     var description: String?, // Optional description for the routine
-    var cards: ArrayList<Card>  // List of all 'cards' that make up this routine
+    var cards: ArrayList<Card>,  // List of all 'cards' that make up this routine
+    var lastModifiedTime: Long = System.currentTimeMillis()
 ): Serializable {
     //초기화
     init {
         if(id == "") id = routineRef.push().key!!
         if(cards.isEmpty()) totalTime = 0
+    }
+
+    fun updateTotalTime() {
+        totalTime = cards.sumOf { it.preTimerSecs + it.activeTimerSecs + it.postTimerSecs }
     }
 }
