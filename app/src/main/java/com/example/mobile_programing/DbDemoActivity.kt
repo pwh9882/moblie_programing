@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Button
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
-import com.example.mobile_programing.repository.CardRepository
+//import com.example.mobile_programing.repository.CardRepository
 import com.example.mobile_programing.repository.RoutineRepository
 //import com.google.firebase.database.ktx.database
 //import com.google.firebase.ktx.Firebase
@@ -20,20 +20,20 @@ class DbDemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //카드와 관련된 메서드를 사용하기 위한 객체 생성
-        val cardRepository = CardRepository()
+//        val cardRepository = CardRepository()
         //루틴과 관련된 메서드를 사용하기 위한 객체 생성
         val routineRepository = RoutineRepository()
 
         val userId = "kim123"
 
 
-        var s1 = arrayListOf<String>("hello")
+        var s1 = "hello"
         var listCard = arrayListOf<Card>()
         var card1 = Card("",userId,"kim",0,false,3,true,0,true,3,s1)
         var card2 = Card("",userId,"son",4,true,3,false,0,true,3,s1)
         //card1,card2저장
-        cardRepository.createCard(card1)
-        cardRepository.createCard(card2)
+//        cardRepository.createCard(card1)
+//        cardRepository.createCard(card2)
         listCard.add(card1)
         listCard.add(card2)
 

@@ -26,7 +26,7 @@ data class Card (
 
     var sets : Int,
 
-    var additionalInfo : ArrayList<String>
+    var memo : String
 
 ): Serializable {
     /*초기화

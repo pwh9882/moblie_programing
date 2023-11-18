@@ -151,7 +151,7 @@ class RoutineProgressActivity : AppCompatActivity() {
                     postTimerAutoStart = false,
                     activeTimerAutoStart = false,
                     sets = 5,
-                    additionalInfo = arrayListOf()
+                    memo = ""
                 )
                 putExtra("selected_card", emptyCard)
                 putExtra("createFlag", true)

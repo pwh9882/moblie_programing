@@ -14,26 +14,31 @@
         >
 
         <TextView
+            android:textColor="@android:color/black"
             android:id="@+id/tv_routine_detail_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="60dp"
             android:text="RoutineDetailName"
-            android:textSize="28sp"
+            android:textSize="36sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
             android:id="@+id/tv_routine_detail_total_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="totalTime"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_routine_detail_start_time"
-            app:layout_constraintStart_toEndOf="@+id/tv_routine_detail_start_time" />
+            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_start_time"
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_start_time" />
 
         <TextView
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
             android:id="@+id/tv_routine_detail_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,12 +49,17 @@
 
         <TextView
             android:id="@+id/tv_routine_detail_description"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
             android:text="description"
-            app:layout_constraintStart_toStartOf="@+id/tv_routine_detail_start_time"
-            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_start_time" />
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_total_time" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_routine_detail_card_list"
@@ -62,48 +72,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_routine_detail_description" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageButton
                 android:id="@+id/btn_add_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="88dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/custom_routine_add_button_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginRight="8dp"
+                android:background="@drawable/custom_routine_add_button_icon" />
 
             <ImageButton
                 android:id="@+id/btn_run_routine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:background="@drawable/custom_routine_run_btn_icon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.154"
-                app:layout_constraintStart_toEndOf="@+id/btn_add_card"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:background="@drawable/custom_routine_run_btn_icon" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/btn_routine_detail_back_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/custom_back_btn_icon" />
+
+        <ImageButton
+            android:id="@+id/btn_routine_detail_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

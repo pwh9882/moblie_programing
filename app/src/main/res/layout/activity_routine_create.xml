@@ -42,17 +42,18 @@
             <!-- Routine Start Time -->
 
             <!-- Routine alarm -->
-            <EditText
-                android:id="@+id/et_routine_start_time"
+            <TimePicker
+                android:id="@+id/tp_routine_start_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:timePickerMode="spinner"
                 android:background="@drawable/custom_box"
-                android:text="  루틴 시작 시간"
                 android:textSize="28sp" />
 
+
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/sw_routine_alarm_flag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"

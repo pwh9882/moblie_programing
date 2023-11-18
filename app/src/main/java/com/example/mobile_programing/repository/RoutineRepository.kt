@@ -1,9 +1,7 @@
 package com.example.mobile_programing.repository
 
-import android.util.Log
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
-import com.example.mobile_programing.models.cardRef
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.coroutines.resume
@@ -58,7 +56,7 @@ class RoutineRepository {
                     postTimerSecs = cardData.child("postTimerSecs").value.toString().toInt(),
                     postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
                     sets = cardData.child("sets").value.toString().toInt(),
-                    additionalInfo = (cardData.child("additionalInfo").value as List<String>).toCollection(ArrayList())
+                    memo = cardData.child("memo").value.toString()
                 )
                 routine.cards.add(card)
             }
@@ -76,6 +74,7 @@ class RoutineRepository {
 
         // Updates given fields of an existing routine in Firestore
         fun updateRoutine(id: String, newRoutine: Routine): Boolean{
+            newRoutine.lastModifiedTime = System.currentTimeMillis() // Update the last modified time
             routineRef.child(id).setValue(newRoutine)
 
             return true
@@ -110,7 +109,7 @@ class RoutineRepository {
                         postTimerSecs = cardData.child("postTimerSecs").value.toString().toIntOrNull() ?: 0,
                         postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
                         sets = cardData.child("sets").value.toString().toIntOrNull() ?: 0,
-                        additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(ArrayList()) ?: arrayListOf<String>()
+                        memo = cardData.child("memo").value.toString() ?: ""
                     )
                     routine.cards.add(card) // 여기서 카드를 루틴에 추가합니다.
                 }
@@ -145,7 +144,7 @@ class RoutineRepository {
                         postTimerSecs = cardData.child("postTimerSecs").value.toString().toIntOrNull() ?: 0,
                         postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
                         sets = cardData.child("sets").value.toString().toIntOrNull() ?: 0,
-                        additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(ArrayList()) ?: arrayListOf<String>()
+                        memo = cardData.child("memo").value.toString()
                     )
                     cards.add(card)
                 }

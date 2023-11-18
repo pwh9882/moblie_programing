@@ -11,7 +11,6 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.example.mobile_programing.DbDemoActivity
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityMainBinding
 import com.example.mobile_programing.models.Card
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 routineStartTime = 0,
                 cards = arrayListOf(
                     Card(
-                        id = "-NjD1UrXbnbV0LdkhrkF",
+                        id = "",
                         userId = Firebase.auth.currentUser!!.uid,
                         name = "비어 있는 카드",
                         preTimerSecs = 0,
@@ -61,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                         postTimerSecs = 0,
                         postTimerAutoStart = true,
                         sets = 0,
-                        additionalInfo = arrayListOf()
+                        memo = "비어 있는 카드입니다."
                     )
                 )
             ))

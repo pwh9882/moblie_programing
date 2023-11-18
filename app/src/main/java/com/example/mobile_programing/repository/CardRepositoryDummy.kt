@@ -26,7 +26,7 @@ class CardRepositoryDummy {
             postTimerSecs=3,
             postTimerAutoStart=true,
             sets=3,
-            additionalInfo=ArrayList()
+            memo=""
         )
     }
 

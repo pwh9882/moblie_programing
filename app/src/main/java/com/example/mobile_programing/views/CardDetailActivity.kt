@@ -9,8 +9,6 @@ import androidx.databinding.DataBindingUtil
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityCardDetailBinding
 import com.example.mobile_programing.models.Card
-import com.example.mobile_programing.models.Routine
-import com.example.mobile_programing.repository.CardRepository
 
 
 class CardDetailActivity : AppCompatActivity() {
@@ -33,7 +31,7 @@ class CardDetailActivity : AppCompatActivity() {
         binding.etCardDetailSets.setText(currentCard?.sets.toString())
 
         binding.etCardDetailActiveTimerSecs.setText(currentCard?.activeTimerSecs.toString())
-        binding.etCardDetailAdditionalInfo.setText(currentCard?.additionalInfo.toString())
+        binding.etCardDetailMemo.setText(currentCard?.memo.toString())
         binding.etCardDetailPostTimerSecs.setText(currentCard?.postTimerSecs.toString())
 
         binding.cbCardDetailPreTimerAutoStart.isChecked = currentCard?.preTimerAutoStart!!
@@ -54,7 +52,7 @@ class CardDetailActivity : AppCompatActivity() {
                 preTimerSecs = binding.etCardDetailPreTimerSecs.text.toString().toInt(),
                 sets = binding.etCardDetailSets.text.toString().toInt(),
                 activeTimerSecs = binding.etCardDetailActiveTimerSecs.text.toString().toInt(),
-                additionalInfo = arrayListOf(binding.etCardDetailAdditionalInfo.text.toString()),
+                memo = binding.etCardDetailMemo.text.toString(),
                 postTimerSecs = binding.etCardDetailPostTimerSecs.text.toString().toInt(),
                 preTimerAutoStart = binding.cbCardDetailPreTimerAutoStart.isChecked,
                 activeTimerAutoStart = binding.cbCardDetailActiveTimerAutoStart.isChecked,
