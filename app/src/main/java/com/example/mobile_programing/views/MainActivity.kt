@@ -3,6 +3,7 @@ package com.example.mobile_programing.views
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -79,6 +80,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRoutineList() {
+        binding.progressBar.visibility = View.VISIBLE
+
         viewModel.updateRoutineListData()
 
         val routineAdapter = RoutineAdapter(binding, viewModel, this, routineUpdateResultLauncher)
@@ -90,6 +93,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.routineList.observe(this, Observer {
             routineAdapter.routineList = it
             routineAdapter.notifyDataSetChanged()
+
+            binding.progressBar.visibility = View.GONE
+
         })
     }
 
