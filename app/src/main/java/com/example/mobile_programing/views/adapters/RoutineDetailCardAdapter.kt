@@ -19,8 +19,9 @@ class RoutineDetailCardAdapter constructor(private val binding: ActivityRoutineD
     var cardList: MutableList<Card> = mutableListOf()
     class CustomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById<TextView>(R.id.tv_card_name)
-        val description: TextView = itemView.findViewById<TextView>(R.id.tv_card_desc)
+        val memo: TextView = itemView.findViewById<TextView>(R.id.tv_card_memo)
         val totalTime: TextView = itemView.findViewById<TextView>(R.id.tv_card_total_time)
+        val sets: TextView = itemView.findViewById<TextView>(R.id.tv_card_sets)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -50,8 +51,9 @@ class RoutineDetailCardAdapter constructor(private val binding: ActivityRoutineD
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val card = cardList[position]
         holder.name.text = card.name
-        holder.description.text = "아직..."
-        holder.totalTime.text =  (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs).toString() + " 초"
+        holder.memo.text = card.memo
+        holder.totalTime.text =  "총 " + (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs).toString() + " 초"
+        holder.sets.text = card.sets.toString() + " 세트"
 
     }
 
