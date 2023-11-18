@@ -197,27 +197,31 @@ class RoutineRepository {
             }
         }
 
-    suspend fun addStar(routineId: String) {
+    suspend fun addStar(userId: String) {
         GlobalScope.launch {
-            var routine = getRoutine(routineId)
+            var routine = getRoutine(userId)
 
-            routineRef.child(routineId).child("numStar").setValue(routine.numStar + 1)
+            routineRef.child(userId).child("numStar").setValue(routine.numStar + 1)
         }
     }
 
     suspend fun getUserStar(userId: String) = suspendCoroutine<Int> { continuation ->
-        var userNumStar = 0
+        var userTotalStars = 0
         routineRef.orderByChild("userId").equalTo(userId).get().addOnSuccessListener { snapshot ->
             snapshot.children.forEach { routineSnapshot ->
-                userNumStar += routineSnapshot.child("numStar").value.toString().toIntOrNull() ?: 0
+                userTotalStars += routineSnapshot.child("numStar").value.toString().toIntOrNull() ?: 0
             }
-            continuation.resume(userNumStar)
+            continuation.resume(userTotalStars)
         }.addOnFailureListener { exception ->
             continuation.resumeWith(Result.failure(exception))
         }
+    }
 
 
-        // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
+
+
+
+    // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
         fun getHistoryRoutinesByUserId(userId: String): ArrayList<Routine> {
             TODO(" Implement function for fetching all history routines belonging to current logged-in user")
         }
@@ -229,5 +233,5 @@ class RoutineRepository {
 
         // 추가사항: user-id에 해당하는 routine 목록을 폴더 형식으로 가져오는 함수
 
-    }
+
 }
