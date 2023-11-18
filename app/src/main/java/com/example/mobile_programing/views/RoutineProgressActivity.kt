@@ -185,6 +185,8 @@ class RoutineProgressActivity : AppCompatActivity() {
         // TODO: 루틴 종료에 관한 DB 업데이트 처리하기
         val intent = Intent(this, RoutineCompleteActivity::class.java)
         intent.putExtra("selected_routine", routineProgressViewModel.currentRoutine.value!!)
+        val totalElapsedTime = routineProgressViewModel.currentRoutineTime.value!!
+        intent.putExtra("totalElapsedTime", totalElapsedTime)
         startActivity(intent)
         finish()
     }
