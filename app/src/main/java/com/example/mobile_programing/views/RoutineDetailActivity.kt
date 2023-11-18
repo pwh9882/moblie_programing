@@ -47,6 +47,10 @@ class RoutineDetailActivity : AppCompatActivity() {
         binding.btnRunRoutine.setOnClickListener { runRoutine(routine) }
 
         binding.btnAddCard.setOnClickListener { addCardToRoutine(routine, cardUpdateResultLauncher) }
+
+        binding.btnRoutineDetailBackBtn.setOnClickListener() {
+            onBackPressed()
+        }
     }
 
     private fun getRoutineFromIntent(): Routine? {

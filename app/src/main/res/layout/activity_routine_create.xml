@@ -32,11 +32,12 @@
                 android:id="@+id/et_routine_name"
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/custom_box"
                 android:hint="  루틴명을 입력하세요."
                 android:paddingTop="10dp"
                 android:textColorHint="#A4A2A2"
-                android:textSize="28sp"/>
+                android:textSize="28sp" />
 
             <!-- Routine Start Time -->
 
@@ -45,6 +46,7 @@
                 android:id="@+id/et_routine_start_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/custom_box"
                 android:text="  루틴 시작 시간"
                 android:textSize="28sp" />
@@ -53,6 +55,7 @@
                 android:id="@+id/switch1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/custom_box"
                 android:text="  루틴 시작 알림"
                 android:textSize="28sp" />
@@ -82,7 +85,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/btn_routine_create_cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"

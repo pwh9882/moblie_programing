@@ -48,6 +48,10 @@ private lateinit var binding: ActivityRoutineCreateBinding
             setResult(ROUTINE_CREATED, returnIntent)
             finish()
         }
+
+        binding.btnRoutineCreateCancelBtn.setOnClickListener() {
+            onBackPressed()
+        }
     }
 
 }
