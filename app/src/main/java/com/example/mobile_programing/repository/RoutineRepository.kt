@@ -5,6 +5,8 @@ import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -36,13 +38,14 @@ class RoutineRepository {
 
     // Fetches a specific routine using its ID from Firestore.
     suspend fun getRoutine(id: String) = suspendCoroutine<Routine> { continuation ->
-        val routine = Routine("","", "", 0, 0,"", arrayListOf())
+        val routine = Routine("","", "", 0, 0,"", arrayListOf(),0)
         routineRef.child(id).get().addOnSuccessListener { snapshot ->
             routine.id = snapshot.child("id").value.toString()
             routine.userId = snapshot.child("userId").value.toString()
             routine.name = snapshot.child("name").value.toString()
             routine.totalTime = Integer.parseInt(snapshot.child("totalTime").value.toString())
             routine.description = snapshot.child("description").value.toString()
+            routine.numStar = Integer.parseInt(snapshot.child("numStar").value.toString())
 
             // Parsing Card objects
             val cardsSnapshot = snapshot.child("cards")
@@ -92,7 +95,8 @@ class RoutineRepository {
                     name = routineSnapshot.child("name").value.toString(),
                     totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
                     description = routineSnapshot.child("description").value.toString(),
-                    cards = arrayListOf()
+                    cards = arrayListOf(),
+                    numStar = 0
                 )
 
                 val cardsSnapshot = routineSnapshot.child("cards")
@@ -152,7 +156,8 @@ class RoutineRepository {
                     name = routineSnapshot.child("name").value.toString(),
                     totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
                     description = routineSnapshot.child("description").value.toString(),
-                    cards = cards
+                    cards = cards,
+                    numStar = 0
                 )
             }
             continuation.resume(routines)
@@ -172,6 +177,24 @@ class RoutineRepository {
         TODO(" Implement function for fetching all favorite routines belonging to current logged-in user")
     }
 
-    // 추가사항: user-id에 해당하는 routine 목록을 폴더 형식으로 가져오는 함수
+    suspend fun addStar(routineId:String){
+        GlobalScope.launch {
+            var routine = getRoutine(routineId)
+            routineRef.child(routineId).child("numStar").setValue(routine.numStar + 1)
+        }
+    }
+
+
+    suspend fun getUserStar(userId:String) = suspendCoroutine<Int> { continuation ->
+        var num = 0
+        routineRef.orderByChild("userId").equalTo(userId).get().addOnSuccessListener { snapshot ->
+             snapshot.children.mapNotNull { routineSnapshot ->
+                num+=Integer.parseInt(routineSnapshot.child("numStar").value.toString())
+            }
+            continuation.resume(num)
+        }
+
+
+    }
 
 }

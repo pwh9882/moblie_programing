@@ -10,10 +10,12 @@ data class Routine  (
     var routineStartTime: Int, // Time when the routine was started
     var totalTime: Int, // total sum of time of card's timer
     var description: String?, // Optional description for the routine
-    var cards: ArrayList<Card>  // List of all 'cards' that make up this routine
+    var cards: ArrayList<Card>,  // List of all 'cards' that make up this routine
+    var numStar: Int
 ): Serializable {
     //초기화
     init {
+        numStar = 0
         if(id == "") id = routineRef.push().key!!
         if(cards.isEmpty()) totalTime = 0
     }
