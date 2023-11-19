@@ -38,6 +38,8 @@ class RoutineProgressActivity : AppCompatActivity() {
         } else {
             intent.getSerializableExtra("selected_routine") as Routine
         }
+        binding.tvRoutineProgressName.text = routine!!.name
+
         routineProgressViewModel.isRoutineUpdated = false
         routineProgressViewModel.updateCurrentRoutineData(routine!!);
         routineProgressViewModel.updateCurrentCardIndexData(0);
@@ -147,8 +149,23 @@ class RoutineProgressActivity : AppCompatActivity() {
     // Update routine time
     private fun updateRoutineTime() {
         routineProgressViewModel.currentRoutineTime.observe(this) {
-            binding.tvRoutineProgressTotalTime.text = it.toString()
+            binding.tvRoutineProgressTotalTime.text = formatTimeForTotalTime(it)
         }
+    }
+
+    private fun formatTimeForTotalTime(totalSeconds: Int?): String {
+        if (totalSeconds == null || totalSeconds == 0) return "현재까지 총 0초 걸렸어요."
+
+        val hours = totalSeconds / 3600
+        val minutes = (totalSeconds % 3600) / 60
+        val seconds = totalSeconds % 60
+
+        var timeString = "현재까지 총 "
+        if (hours > 0) timeString += "${hours}시간 "
+        if (minutes > 0) timeString += "${minutes}분 "
+        if (seconds > 0) timeString += "${seconds}초"
+
+        return timeString.trim() + " 걸렸어요."
     }
 
     // Handle next card click

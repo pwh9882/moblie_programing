@@ -24,27 +24,30 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="루틴명"
-            android:textAlignment="center"
-            android:textSize="34sp" />
-
-        <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_routine_progress_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="전체타이머"
-            android:textAlignment="center" />
+            android:layout_weight="1"
+            android:text="루틴명"
+            android:textAlignment="center"
+
+            android:textColor="@android:color/black"
+            android:textSize="36sp" />
 
         <TextView
+            android:textColor="@android:color/black"
+
             android:id="@+id/tv_routine_progress_total_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="00:00"
             android:textAlignment="center"
-            android:textSize="34sp" />
+            android:textSize="24sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
 
     </LinearLayout>
 

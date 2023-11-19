@@ -1,6 +1,9 @@
 package com.example.mobile_programing.views.fragments
 
+import android.graphics.Color
+import android.graphics.drawable.ClipDrawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
 import android.text.Editable
@@ -44,6 +47,8 @@ class CardDisplayFragment : Fragment() {
         routineProgressViewModel.currentCardIndex.observe(viewLifecycleOwner) {
             routineProgressViewModel.setCurrentCard(routineProgressViewModel.currentRoutine.value!!.cards[it])
             binding.tvRoutineProgressCardIndex.text = "${it+1}/${routineProgressViewModel.currentRoutine.value!!.cards.size} 카드"
+            binding.pbRoutineProgress.progress = it+1
+            binding.pbRoutineProgress.max = routineProgressViewModel.currentRoutine.value!!.cards.size
             // RoutineProgressActivity의 binding.etCardMemo에도 반영
             (activity as RoutineProgressActivity).binding.etCardMemo.setText(routineProgressViewModel.currentCard.value!!.memo)
         }
@@ -51,6 +56,8 @@ class CardDisplayFragment : Fragment() {
         routineProgressViewModel.currentCard.observe(viewLifecycleOwner) {
             binding.tvRoutineProgressCardName.text = it.name
             binding.tvRoutineProgressSets.text = "${routineProgressViewModel.currentCardSet.value}/${it.sets}"
+            binding.pbCardSetsProgress.max = it.sets
+            binding.pbCardSetsProgress.progress = routineProgressViewModel.currentCardSet.value?:0
             routineProgressViewModel.initCardProgressInfo()
             binding.pbCardSetsProgress.max = it.sets
             binding.pbCardSetsProgress.progress = 1
@@ -106,7 +113,9 @@ class CardDisplayFragment : Fragment() {
     private fun setProgressBarValues(time: Int, progressIndex: Int) {
         binding.pbCardTimeProgress.max =  time
         binding.pbCardTimeProgress.progress = time
-        var progressDrawable = binding.pbCardTimeProgress.progressDrawable
+        binding.pbCardStatusProgress.progress = progressIndex + 1
+        var progressDrawable = binding.pbCardTimeProgress.progressDrawable.mutate()
+
         // Drawable이 ShapeDrawable인지 확인하고 색상을 변경함
         if (progressDrawable is GradientDrawable) {
             progressDrawable.setColor(ContextCompat.getColor(requireContext(), when(progressIndex) {
@@ -117,13 +126,27 @@ class CardDisplayFragment : Fragment() {
             }))
         }
         // background 색상 변경: 해당 색깔의 dark 버전으로
-        progressDrawable = binding.pbCardTimeProgress.background
+        progressDrawable = binding.pbCardTimeProgress.background.mutate()
         if (progressDrawable is GradientDrawable) {
             progressDrawable.setColor(ContextCompat.getColor(requireContext(), when(progressIndex) {
                 0 -> android.R.color.holo_green_dark
                 1 -> android.R.color.holo_orange_dark
                 2 -> R.color.dark_purple
                 else -> android.R.color.holo_red_dark
+            }))
+        }
+
+
+        val statusProgressDrawable = binding.pbCardStatusProgress.progressDrawable.mutate() as LayerDrawable
+        val clipDrawable = statusProgressDrawable.findDrawableByLayerId(android.R.id.progress) as ClipDrawable
+        val gradientDrawable = clipDrawable.drawable!!.mutate()
+
+        if (gradientDrawable is GradientDrawable) {
+            gradientDrawable.setColor(ContextCompat.getColor(requireContext(), when(progressIndex) {
+                0 -> android.R.color.holo_green_light
+                1 -> android.R.color.holo_orange_light
+                2 -> android.R.color.holo_purple
+                else -> android.R.color.holo_red_light
             }))
         }
 
