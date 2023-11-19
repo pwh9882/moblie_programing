@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- ProgressBar의 배경 -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="10dp" /> <!-- 더 둥글게 만들기 위해 radius 값을 높입니다 -->
+            <solid android:color="#D3D3D3" />
+        </shape>
+    </item>
+
+    <!-- ProgressBar의 진행 바 -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="10dp" /> <!-- 더 둥글게 만들기 위해 radius 값을 높입니다 -->
+                <solid android:color="#000000" /> <!-- 얇게 만들기 위해 width 값을 낮춥니다 -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>

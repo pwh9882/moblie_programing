@@ -46,10 +46,20 @@ private lateinit var binding: ActivityRoutineCreateBinding
             binding.tpRoutineStartTime.minute = currentRoutine.routineStartTime % 60
         }
 
+
+
         // binding에서 정보를 읽어와서 루틴을 생성하고 DB에 저장
         binding.btnRoutineDetailCreate.setOnClickListener {
 
-            // TODO: 유효한 입력인지 verify하기
+            // 유효한 입력인지 verify하기
+            val routineName = binding.etRoutineName.text.toString().trim()
+
+            // 루틴명이 공백인 경우 오류 메시지를 표시하고 리턴
+            if (routineName.isEmpty()) {
+                binding.etRoutineName.error = "루틴명은 필수 입력항목입니다."
+                return@setOnClickListener
+            }
+
             val newRoutine = Routine(
                 id=currentRoutine.id,
                 userId = currentRoutine.userId,

@@ -58,6 +58,16 @@
                 android:layout_height="wrap_content"
                 android:text="DemoPage" />
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="환영합니다!\n오늘은 어떤 루틴을\n실행할까요?"
+                android:textSize="36sp"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:padding="10dp" />
+
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
