@@ -54,6 +54,14 @@ class DbDemoActivity : AppCompatActivity() {
         routineRepository.createRoutine(routine5)
 
 
+        //별개수 0개 아닐때 확인
+        GlobalScope.launch {
+            routineRepository.createRoutine(Routine("6", "kim", "수영", 0, 0, "", listCard, 4))
+            Log.d("0개아닐때",routineRepository.getRoutine("6").numStar.toString())
+            Log.d("0개일때",routineRepository.getRoutine(routine3.id).numStar.toString())
+        }
+
+
         GlobalScope.launch {
             //routein1 별개수 2개 ,routine2 별개수 1개 사용자 "kim"의 별개수 총 3개
             routineRepository.addStar(routine1.id)

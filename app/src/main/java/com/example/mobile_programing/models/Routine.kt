@@ -15,7 +15,7 @@ data class Routine  (
 ): Serializable {
     //초기화
     init {
-        numStar = 0
+        if(numStar == null) numStar = 0
         if(id == "") id = routineRef.push().key!!
         if(cards.isEmpty()) totalTime = 0
     }
