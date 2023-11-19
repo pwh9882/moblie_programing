@@ -41,6 +41,10 @@ class CardDisplayFragment : Fragment() {
             binding.tvRoutineProgressCardName.text = routineProgressViewModel.currentRoutine.value!!.cards[it].name
 
 
+            // Set the progress of pb_card_sets_progress
+            binding.pbCardSetsProgress.max = routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!].sets
+            binding.pbCardSetsProgress.progress = 1
+
         }
 
 
@@ -68,6 +72,10 @@ class CardDisplayFragment : Fragment() {
 
         routineProgressViewModel.currentCardSet.observe(viewLifecycleOwner) {
             binding.tvRoutineProgressSets.text = "${it} / ${routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!].sets}"
+
+
+            binding.pbCardSetsProgress.progress = it
+
             // 다음 세트로 이동하면 pregress를 0으로 초기화
             routineProgressViewModel.setCardProgress(0)
         }

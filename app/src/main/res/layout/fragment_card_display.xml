@@ -82,6 +82,18 @@
         </FrameLayout>
 
 
+        <ProgressBar
+            android:id="@+id/pb_card_sets_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_margin="8dp"
+            android:indeterminate="false"
+            android:maxHeight="24dp"
+            android:minHeight="24dp"
+            android:padding="4dp"
+            android:progressDrawable="@drawable/custom_progressbar_design" />
+
         <TextView
             android:id="@+id/textView7"
             android:layout_width="match_parent"
@@ -101,16 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="남은 반복횟수" />
-        <ProgressBar
-            android:id="@+id/pb_card_sets_progress"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="false"
-            android:layout_margin="8dp"
-            android:padding="4dp"
-            android:minHeight="24dp"
-            android:maxHeight="24dp" />
+
         <TextView
             android:id="@+id/tv_routine_progress_sets"
             android:layout_width="match_parent"
