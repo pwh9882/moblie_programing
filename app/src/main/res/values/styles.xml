@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 기존 스타일 -->
+
+    <!-- 새로운 TimePicker 스타일 -->
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimary">@android:color/black</item>
+    </style>
+</resources>
