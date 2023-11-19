@@ -50,6 +50,21 @@ class RoutineProgressActivity : AppCompatActivity() {
         handleSkipCardClick();
         handleCardCreation();
 
+        routineProgressViewModel.currentCardTime.observe(this) {
+            if (it <= -1) {
+                val currCard = routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!]
+                routineProgressViewModel.stopCardTimer()
+                Toast.makeText(this, "카드가 종료되었습니다.", Toast.LENGTH_SHORT).show()
+                if ((routineProgressViewModel.currentCardProgress.value == 0 && currCard.preTimerAutoStart) ||
+                    (routineProgressViewModel.currentCardProgress.value == 1 && currCard.activeTimerAutoStart) ||
+                    (routineProgressViewModel.currentCardProgress.value == 2 && currCard.postTimerAutoStart)
+                ) {
+                    binding.btnRoutineProgressNextCard.performClick()
+                }
+            }
+
+        }
+
     }
 
     override fun onDestroy() {
