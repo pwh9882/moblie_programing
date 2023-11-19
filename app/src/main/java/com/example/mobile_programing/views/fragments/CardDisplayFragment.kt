@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.FragmentCardDisplayBinding
 import com.example.mobile_programing.viewModel.RoutineProgressViewModel
 
@@ -99,6 +100,16 @@ class CardDisplayFragment : Fragment() {
                 1 -> android.R.color.holo_orange_light
                 2 -> android.R.color.holo_purple
                 else -> android.R.color.holo_red_light
+            }))
+        }
+        // background 색상 변경: 해당 색깔의 dark 버전으로
+        progressDrawable = binding.pbCardTimeProgress.background
+        if (progressDrawable is GradientDrawable) {
+            progressDrawable.setColor(ContextCompat.getColor(requireContext(), when(progressIndex) {
+                0 -> android.R.color.holo_green_dark
+                1 -> android.R.color.holo_orange_dark
+                2 -> R.color.dark_purple
+                else -> android.R.color.holo_red_dark
             }))
         }
 

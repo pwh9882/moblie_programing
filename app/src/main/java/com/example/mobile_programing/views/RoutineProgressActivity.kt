@@ -1,12 +1,14 @@
 package com.example.mobile_programing.views
 
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mobile_programing.R
@@ -49,6 +51,7 @@ class RoutineProgressActivity : AppCompatActivity() {
         handlePreviousCardClick();
         handleSkipCardClick();
         handleCardCreation();
+        handlePausePlayClick();
 
         routineProgressViewModel.currentCardTime.observe(this) {
             if (it <= -1) {
@@ -65,6 +68,19 @@ class RoutineProgressActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    private fun handlePausePlayClick() {
+        binding.btnRoutineProgressPausePlayCard.setOnClickListener {
+            if (!routineProgressViewModel.isPaused){
+                routineProgressViewModel.pauseTimer()
+                binding.btnRoutineProgressPausePlayCard.setImageResource(R.drawable.custom_next_icon)
+
+            } else {
+                routineProgressViewModel.resumeTimer()
+                binding.btnRoutineProgressPausePlayCard.setImageResource(R.drawable.custom_stop_icon)
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -136,6 +152,10 @@ class RoutineProgressActivity : AppCompatActivity() {
 
     // Handle skip card click
     private fun handleSkipCardClick() {
+        val drawable = ContextCompat.getDrawable(this, android.R.drawable.ic_media_ff)
+        drawable?.setColorFilter(ContextCompat.getColor(this, android.R.color.black), PorterDuff.Mode.SRC_IN)
+        binding.btnRoutineProgressSkipCard.setImageDrawable(drawable)
+
         // 관계없이 다음 카드로 이동(가능하면)
         binding.btnRoutineProgressSkipCard.setOnClickListener {
             if (isNotLastCard())

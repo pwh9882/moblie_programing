@@ -31,6 +31,9 @@ class RoutineProgressViewModel: ViewModel() {
     val currentCardTime: LiveData<Int> get() = _currentCardTime
     private var cardTimerJob: Job? = null
 
+    // Add a flag to track whether the timer is paused
+    var isPaused = false
+
     // 현재 카드의 진행 단계: 0: 진행 전, 1: 진행 중, 2: 진행 완료
     private val _currentCardProgress = MutableLiveData<Int>()
     val currentCardProgress: LiveData<Int> get() = _currentCardProgress
@@ -78,6 +81,7 @@ class RoutineProgressViewModel: ViewModel() {
     }
 
     fun startCardTimer(time: Int){
+        isPaused = false
         cardTimerJob?.cancel()
         cardTimerJob = viewModelScope.launch {
             _currentCardTime.value = time
@@ -85,12 +89,23 @@ class RoutineProgressViewModel: ViewModel() {
                 withContext(Dispatchers.IO) {
                     Thread.sleep(1000)
                 }
-                _currentCardTime.value = _currentCardTime.value?.minus(1)
+                if (!isPaused) {
+                    _currentCardTime.value = _currentCardTime.value?.minus(1)
+                }
             }
         }
     }
     fun stopCardTimer(){
         cardTimerJob?.cancel()
+    }
+
+    // Add methods to pause and resume the timer
+    fun pauseTimer() {
+        isPaused = true
+    }
+
+    fun resumeTimer() {
+        isPaused = false
     }
 
     fun initCardProgressInfo(){
