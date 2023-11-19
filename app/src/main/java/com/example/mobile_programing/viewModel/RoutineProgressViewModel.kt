@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,9 +17,14 @@ class RoutineProgressViewModel: ViewModel() {
     private val _currentRoutine = MutableLiveData<Routine>()
     val currentRoutine: LiveData<Routine> get() = _currentRoutine
 
+    // 현재 진행중인 카드
+    private val _currentCard = MutableLiveData<Card>()
+    val currentCard: LiveData<Card> get() = _currentCard
+
     // 현재 진행중인 카드의 인덱스
     private val _currentCardIndex = MutableLiveData<Int>()
     val currentCardIndex: LiveData<Int> get() = _currentCardIndex
+
 
     // 현재 진행중인 전체 루틴 타이머
     private val _currentRoutineTime = MutableLiveData<Int>()
@@ -42,12 +48,17 @@ class RoutineProgressViewModel: ViewModel() {
     private val _currentCardSet = MutableLiveData<Int>()
     val currentCardSet: LiveData<Int> get() = _currentCardSet
 
+    var isRoutineUpdated = false
 
 
 
 
     init {
         viewModelScope.launch {  }
+    }
+
+    fun setCurrentCard(card: Card){
+        _currentCard.value = card
     }
 
     fun updateCurrentRoutineData(routine: Routine){
@@ -111,6 +122,7 @@ class RoutineProgressViewModel: ViewModel() {
     fun initCardProgressInfo(){
         setCardProgress(0)
         setCardSet(1)
+
     }
 
     fun setCardProgress(progress: Int){

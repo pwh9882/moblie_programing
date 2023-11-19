@@ -26,6 +26,7 @@ const val CARD_UPDATED = 202
 class RoutineDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRoutineDetailBinding
     lateinit var routine: Routine
+    var routineDetailCardAdapter: RoutineDetailCardAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,6 +113,8 @@ class RoutineDetailActivity : AppCompatActivity() {
             this.routine = result.data?.getSerializableExtra("selected_routine") as Routine
             this.routine.updateTotalTime()  // Update the total time
             setupUI(this.routine)
+            routineDetailCardAdapter!!.cardList = this.routine.cards
+            routineDetailCardAdapter!!.notifyDataSetChanged()
         }
         if(result.resultCode == CARD_UPDATED) {
             updateCardInRoutine(result, routine)
@@ -143,16 +146,16 @@ class RoutineDetailActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(routine: Routine, cardUpdateResultLauncher: ActivityResultLauncher<Intent>) {
-        val routineDetailCardAdapter = RoutineDetailCardAdapter(binding, this, cardUpdateResultLauncher)
+        routineDetailCardAdapter = RoutineDetailCardAdapter(binding, this, cardUpdateResultLauncher)
         binding.rvRoutineDetailCardList.adapter = routineDetailCardAdapter
         binding.rvRoutineDetailCardList.layoutManager = LinearLayoutManager(this)
 
 
-        val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallbackForCard(routineDetailCardAdapter))
+        val itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallbackForCard(routineDetailCardAdapter!!))
         itemTouchHelper.attachToRecyclerView(binding.rvRoutineDetailCardList)
 
-        routineDetailCardAdapter.cardList = routine.cards
-        routineDetailCardAdapter.notifyDataSetChanged()
+        routineDetailCardAdapter!!.cardList = routine.cards
+        routineDetailCardAdapter!!.notifyDataSetChanged()
     }
 
     private fun runRoutine(routine: Routine) {
@@ -160,7 +163,7 @@ class RoutineDetailActivity : AppCompatActivity() {
             Toast.makeText(this, "루틴에 카드가 없습니다.", Toast.LENGTH_SHORT).show()
             return
         }
-        startActivity(Intent(this, RoutineProgressActivity::class.java).apply {
+        routineUpdateResultLauncher.launch(Intent(this, RoutineProgressActivity::class.java).apply {
             putExtra("selected_routine", routine)
         })
     }

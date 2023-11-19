@@ -3,16 +3,20 @@ package com.example.mobile_programing.views.fragments
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.FragmentCardDisplayBinding
 import com.example.mobile_programing.viewModel.RoutineProgressViewModel
+import com.example.mobile_programing.views.RoutineProgressActivity
 
 
 /**
@@ -27,6 +31,9 @@ class CardDisplayFragment : Fragment() {
 
     private var maxTime: Int = 0
 
+    // Define a TextWatcher as a property of your class
+    private var memoTextWatcher: TextWatcher? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,16 +42,19 @@ class CardDisplayFragment : Fragment() {
         routineProgressViewModel = ViewModelProvider(requireActivity())[RoutineProgressViewModel::class.java]
 
         routineProgressViewModel.currentCardIndex.observe(viewLifecycleOwner) {
+            routineProgressViewModel.setCurrentCard(routineProgressViewModel.currentRoutine.value!!.cards[it])
+            binding.tvRoutineProgressCardIndex.text = "${it+1}/${routineProgressViewModel.currentRoutine.value!!.cards.size} 카드"
+            // RoutineProgressActivity의 binding.etCardMemo에도 반영
+            (activity as RoutineProgressActivity).binding.etCardMemo.setText(routineProgressViewModel.currentCard.value!!.memo)
+        }
+
+        routineProgressViewModel.currentCard.observe(viewLifecycleOwner) {
+            binding.tvRoutineProgressCardName.text = it.name
+            binding.tvRoutineProgressSets.text = "${routineProgressViewModel.currentCardSet.value}/${it.sets}"
             routineProgressViewModel.initCardProgressInfo()
-
-            binding.tvRoutineProgressCardIndex.text = it.toString()
-            binding.tvRoutineProgressCardName.text = routineProgressViewModel.currentRoutine.value!!.cards[it].name
-
-
-            // Set the progress of pb_card_sets_progress
-            binding.pbCardSetsProgress.max = routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!].sets
+            binding.pbCardSetsProgress.max = it.sets
             binding.pbCardSetsProgress.progress = 1
-
+//            binding.etCardMemo.setText(it.memo)
         }
 
 
@@ -53,7 +63,7 @@ class CardDisplayFragment : Fragment() {
             binding.tvRoutineProgressStatus.text = when(it) {
                 0 -> "진행 전"
                 1 -> "진행 중"
-                2 -> "진행 완료"
+                2 -> "진행 후"
                 else -> "오류"
             }
 
@@ -71,9 +81,7 @@ class CardDisplayFragment : Fragment() {
         }
 
         routineProgressViewModel.currentCardSet.observe(viewLifecycleOwner) {
-            binding.tvRoutineProgressSets.text = "${it} / ${routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!].sets}"
-
-
+            binding.tvRoutineProgressSets.text = "${it}/${routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!].sets} 세트"
             binding.pbCardSetsProgress.progress = it
 
             // 다음 세트로 이동하면 pregress를 0으로 초기화
@@ -88,8 +96,6 @@ class CardDisplayFragment : Fragment() {
             }
 
         }
-
-
 
         return binding.root
     }
@@ -122,6 +128,8 @@ class CardDisplayFragment : Fragment() {
         }
 
     }
+
+
 
     companion object {
         /**
