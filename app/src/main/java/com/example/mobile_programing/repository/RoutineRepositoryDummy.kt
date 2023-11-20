@@ -18,7 +18,7 @@ class RoutineRepositoryDummy {
     // Fetches a specific routine using its ID from Firestore.
     fun getRoutine(id: String): Routine {
         // 성공했다고 가정하고 dummu data return
-        return Routine(id=id, userId = "", name="Leg Day", totalTime=100, routineStartTime = 1, description="Leg Day", cards=ArrayList())
+        return Routine(id=id, userId = "", name="Leg Day", totalTime=100, routineStartTime = 1, description="Leg Day", cards=ArrayList(), numStar = 0)
     }
 
     // Deletes a specific routine using its ID from Firestore.
