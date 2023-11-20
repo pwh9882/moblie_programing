@@ -9,6 +9,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -184,38 +185,56 @@ class RoutineRepository {
         TODO(" Implement function for fetching all favorite routines belonging to current logged-in user")
     }
 
+    // TODO: numStar는 사용하지 않음
     suspend fun addStar(routineId:String){
-        GlobalScope.launch {
-            var routine = getRoutine(routineId)
-            routineRef.child(routineId).child("numStar").setValue(routine.numStar + 1)
-        }
+        val prev = routineRef.child(routineId).child("numStar").get().await().value.toString().toInt()
+        routineRef.child(routineId).child("numStar").setValue(prev + 1)
     }
 
-
+    // TODO: numStar는 사용하지 않음
     suspend fun getUserStar(userId:String) = suspendCoroutine<Int> { continuation ->
         var num = 0
         routineRef.orderByChild("userId").equalTo(userId).get().addOnSuccessListener { snapshot ->
              snapshot.children.mapNotNull { routineSnapshot ->
-                num+=Integer.parseInt(routineSnapshot.child("numStar").value.toString())
+                 val routineStarNum = routineSnapshot.child("numStar").value.toString().toIntOrNull() ?: 0
+                num+=routineStarNum
             }
             continuation.resume(num)
         }
+    }
 
+    suspend fun getUserStars(userId: String) = suspendCoroutine<Int> { continuation ->
+        val starRef = database.getReference("Stars")
+        starRef.child(userId).child("stars").get().addOnSuccessListener { snapshot ->
+            val stars = snapshot.value.toString().toIntOrNull() ?: 0
+            continuation.resume(stars)
+        }.addOnFailureListener { exception ->
+            continuation.resumeWith(Result.failure(exception))
+        }
+    }
 
+    suspend fun incrementUserStars(userId: String) {
+        val starRef = database.getReference("Stars")
+        val currentStars = getUserStars(userId)
+        starRef.child(userId).child("stars").setValue(currentStars + 1)
     }
 
     fun deleteAllRoutinesByUserId(userId: String) {
-    routineRef.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(object :
-        ValueEventListener {
-        override fun onDataChange(dataSnapshot: DataSnapshot) {
-            for (routineSnapshot in dataSnapshot.children) {
-                routineSnapshot.ref.removeValue()
+        routineRef.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (routineSnapshot in dataSnapshot.children) {
+                    routineSnapshot.ref.removeValue()
+                }
             }
-        }
 
-        override fun onCancelled(databaseError: DatabaseError) {
-            // Handle possible errors.
-        }
-    })
-}
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle possible errors.
+            }
+        })
+
+        val starRef = database.getReference("Stars")
+        // Delete stars
+        starRef.child(userId).removeValue()
+    }
 }

@@ -67,7 +67,9 @@ private lateinit var binding: ActivityRoutineCreateBinding
                 description = binding.etRoutineDescription.text.toString(),
                 totalTime = 0,
                 routineStartTime = binding.tpRoutineStartTime.hour * 60 + binding.tpRoutineStartTime.minute,
-                cards = currentRoutine.cards
+                cards = currentRoutine.cards,
+                numStar = currentRoutine.numStar
+
             )
             val returnIntent = android.content.Intent(
                 this,
