@@ -11,6 +11,7 @@ data class Routine  (
     var totalTime: Int, // total sum of time of card's timer
     var description: String?, // Optional description for the routine
     var cards: ArrayList<Card>,  // List of all 'cards' that make up this routine
+    var numStar: Int = 0,
     var lastModifiedTime: Long = System.currentTimeMillis()
 ): Serializable {
     //초기화

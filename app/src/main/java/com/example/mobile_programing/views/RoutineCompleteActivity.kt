@@ -7,6 +7,8 @@ import androidx.databinding.DataBindingUtil
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityRoutineCompleteBinding
 import com.example.mobile_programing.models.Routine
+import com.example.mobile_programing.repository.RoutineRepository
+import kotlinx.coroutines.CoroutineScope
 
 class RoutineCompleteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRoutineCompleteBinding
@@ -28,7 +30,6 @@ class RoutineCompleteActivity : AppCompatActivity() {
         val timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds)
         binding.tvRoutineCompleteElapsed.text = timeString
 //        binding.tvCompletedRoutineName.text = routine!!.name
-
 
 
     }

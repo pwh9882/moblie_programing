@@ -279,6 +279,8 @@ class RoutineProgressActivity : AppCompatActivity() {
         Toast.makeText(this, "루틴이 종료되었습니다.", Toast.LENGTH_SHORT).show()
         // TODO: 루틴 종료에 관한 DB 업데이트 처리하기
         val intent = Intent(this, RoutineCompleteActivity::class.java)
+        routineProgressViewModel.incrementUserStars(routineProgressViewModel.currentRoutine.value!!.userId)
+
         intent.putExtra("selected_routine", routineProgressViewModel.currentRoutine.value!!)
         val totalElapsedTime = routineProgressViewModel.currentRoutineTime.value!!
         intent.putExtra("totalElapsedTime", totalElapsedTime)

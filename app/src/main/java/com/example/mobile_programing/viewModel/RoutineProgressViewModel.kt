@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
+import com.example.mobile_programing.repository.RoutineRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -13,6 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class RoutineProgressViewModel: ViewModel() {
+    val routineRepository = RoutineRepository()
+
     // 현재 진행중인 루틴
     private val _currentRoutine = MutableLiveData<Routine>()
     val currentRoutine: LiveData<Routine> get() = _currentRoutine
@@ -130,5 +133,12 @@ class RoutineProgressViewModel: ViewModel() {
     }
     fun setCardSet(set: Int){
         _currentCardSet.value = set
+    }
+
+    // 별 하나 획득
+    fun incrementUserStars(userId: String){
+        viewModelScope.launch {
+            routineRepository.incrementUserStars(userId)
+        }
     }
 }

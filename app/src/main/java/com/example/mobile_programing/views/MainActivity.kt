@@ -86,6 +86,11 @@ class MainActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
 //        binding.test.text = user?.email ?: "cannot load"
         // TODO: 이후 별 개수 설정함.
+        viewModel.starCount.observe(this, Observer {
+            binding.tvStarCount.text = it.toString() + " "
+        })
+        viewModel.fetchUserStarCount()
+
     }
 
     private fun setupRoutineList() {

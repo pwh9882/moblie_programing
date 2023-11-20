@@ -20,8 +20,19 @@ class MainViewModel(): ViewModel() {
     private val _routineList = MutableLiveData<MutableList<Routine>>()
     val routineList: LiveData<MutableList<Routine>> get() = _routineList
 
+    // 별 개수 설정
+    private val _starCount = MutableLiveData<Int>()
+    val starCount: LiveData<Int> get() = _starCount
+
     init {
         viewModelScope.launch {  }
+    }
+
+    // 별 개수 가져와서 업데이트
+    fun fetchUserStarCount() {
+        viewModelScope.launch {
+            _starCount.value = routineRepository.getUserStars(Firebase.auth.currentUser!!.uid)
+        }
     }
 
     fun createRoutine(routine: Routine) {
@@ -29,6 +40,7 @@ class MainViewModel(): ViewModel() {
             // Firebase에 루틴을 추가합니다.
             routineRepository.createRoutine(routine)
             updateRoutineListData()
+            fetchUserStarCount()
         }
     }
 
@@ -37,6 +49,7 @@ class MainViewModel(): ViewModel() {
             // Firebase에 루틴을 업데이트합니다.
             routineRepository.updateRoutine(routine.id, routine)
             updateRoutineListData()
+            fetchUserStarCount()
         }
     }
 
@@ -55,6 +68,7 @@ class MainViewModel(): ViewModel() {
         viewModelScope.launch {
             routineRepository.deleteRoutine(routineId)
             updateRoutineListData()
+            fetchUserStarCount()
             // Firebase에서 아이템을 삭제합니다.
 //            // TODO: 현재 dummy로 무조건 true를 반환하도록 되어 있습니다.
 //            val isSuccess = routineRepository.deleteRoutine(routine.id)
