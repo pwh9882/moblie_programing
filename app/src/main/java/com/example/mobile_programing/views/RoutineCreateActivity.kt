@@ -84,6 +84,55 @@ private lateinit var binding: ActivityRoutineCreateBinding
         binding.btnRoutineCreateCancelBtn.setOnClickListener() {
             onBackPressed()
         }
+
+        // 요일 체크박스 설정
+        setupCheckBoxes()
+
+
+
+    }
+
+    private fun setupCheckBoxes() {
+        val checkBoxSun = binding.cbSun
+        val checkBoxMon = binding.cbMon
+        val checkBoxTue = binding.cbTue
+        val checkBoxWed = binding.cbWed
+        val checkBoxThu = binding.cbThu
+        val checkBoxFri = binding.cbFri
+        val checkBoxSat = binding.cbSat
+
+        val checkBoxSunDrawableOff = resources.getDrawable(R.drawable.custom_s_offday)
+        val checkBoxMonDrawableOff = resources.getDrawable(R.drawable.custom_m_offday)
+        val checkBoxTueDrawableOff = resources.getDrawable(R.drawable.custom_t_offday)
+        val checkBoxWedDrawableOff = resources.getDrawable(R.drawable.custom_w_offday)
+        val checkBoxThuDrawableOff = resources.getDrawable(R.drawable.custom_t_offday)
+        val checkBoxFriDrawableOff = resources.getDrawable(R.drawable.custom_f_offday)
+        val checkBoxSatDrawableOff = resources.getDrawable(R.drawable.custom_s_offday)
+
+        val checkBoxSunDrawableOn = resources.getDrawable(R.drawable.custom_s_onday)
+        val checkBoxMonDrawableOn = resources.getDrawable(R.drawable.custom_m_onday)
+        val checkBoxTueDrawableOn = resources.getDrawable(R.drawable.custom_t_onday)
+        val checkBoxWedDrawableOn = resources.getDrawable(R.drawable.custom_w_onday)
+        val checkBoxThuDrawableOn = resources.getDrawable(R.drawable.custom_t_onday)
+        val checkBoxFriDrawableOn = resources.getDrawable(R.drawable.custom_f_onday)
+        val checkBoxSatDrawableOn = resources.getDrawable(R.drawable.custom_s_onday)
+
+        val checkBoxes = listOf(checkBoxSun, checkBoxMon, checkBoxTue, checkBoxWed, checkBoxThu, checkBoxFri, checkBoxSat)
+        val checkBoxesDrawableOff = listOf(checkBoxSunDrawableOff, checkBoxMonDrawableOff, checkBoxTueDrawableOff, checkBoxWedDrawableOff, checkBoxThuDrawableOff, checkBoxFriDrawableOff, checkBoxSatDrawableOff)
+        val checkBoxesDrawableOn = listOf(checkBoxSunDrawableOn, checkBoxMonDrawableOn, checkBoxTueDrawableOn, checkBoxWedDrawableOn, checkBoxThuDrawableOn, checkBoxFriDrawableOn, checkBoxSatDrawableOn)
+
+
+
+        checkBoxes.forEachIndexed { index, checkBox ->
+            checkBox.background = checkBoxesDrawableOff[index]
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    checkBox.background = checkBoxesDrawableOn[index]
+                } else {
+                    checkBox.background = checkBoxesDrawableOff[index]
+                }
+            }
+        }
     }
 
 }
