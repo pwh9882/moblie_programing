@@ -14,29 +14,33 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.558">
 
         <TextView
             android:id="@+id/user_id_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="36dp"
             android:text="User ID"
             android:textColor="@color/black"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:textStyle="bold" />
 
-        <Button
+        <ImageButton
             android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Logout" />
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_logout_icon" />
 
-        <Button
+        <ImageButton
             android:id="@+id/delete_account_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete Account" />
+            android:background="@drawable/custom_deleteaccount_icon" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
