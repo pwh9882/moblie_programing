@@ -9,123 +9,105 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/ib_activity_card_detail_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/custom_back_btn_icon"
-            android:padding="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
             android:id="@+id/btn_card_detail_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="카드 수정하고 돌아가기"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/custom_check_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.927"
             app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="381dp"
+            android:layout_height="597dp"
             android:layout_margin="20dp"
+            android:layout_marginBottom="100dp"
+
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/btn_card_detail_update"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.397"
             app:layout_constraintStart_toStartOf="parent">
 
             <!-- Card Name -->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Card Name" />
-
             <EditText
                 android:id="@+id/et_card_detail_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_box"
+                android:hint="카드명을 입력하세요."
+                android:padding="20dp"
+                android:textColor="@android:color/black"
+                android:textColorHint="#A4A2A2"
+                android:textSize="24sp" />
 
             <!-- PreTimer Fields -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="PreTimer Seconds" />
 
-            <EditText
+            <TextView
                 android:id="@+id/et_card_detail_preTimerSecs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_pre_icon" />
 
-            <CheckBox
+            <Switch
                 android:id="@+id/cb_card_detail_preTimer_autoStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Auto Start PreTimer" />
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_auto_icon" />
 
             <!-- Active Timer Fields -->
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Active Timer Seconds" />
-
-            <EditText
                 android:id="@+id/et_card_detail_activeTimerSecs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_mid_timer_icon" />
 
-            <CheckBox
+            <Switch
                 android:id="@+id/cb_card_detail_activeTimer_autoStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Auto Start Active Timer" />
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_auto_icon" />
 
             <!-- Post Timer Fields -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Post Timer Seconds" />
 
-            <EditText
+            <TextView
                 android:id="@+id/et_card_detail_postTimerSecs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_post_icon" />
 
-            <CheckBox
+            <Switch
                 android:id="@+id/cb_card_detail_postTimer_autoStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Auto Start Post Timer" />
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/custom_auto_icon"
+                android:layout_marginBottom="10dp"/>
 
             <!-- Set Numbers and Additional Info (temporary EditTexts) -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sets" />
 
-            <EditText
+            <TextView
                 android:id="@+id/et_card_detail_sets"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Additional Info" />
+                android:layout_height="50dp"
+                android:background="@drawable/custom_repe_icon" />
 
             <EditText
                 android:id="@+id/et_card_detail_memo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="카드에 대한 추가 설명"
+                android:padding="10dp"
+                android:textColorHint="#A4A2A2"
+                android:textSize="24sp" />
 
         </LinearLayout>
 

@@ -34,11 +34,11 @@
                 android:layout_height="77dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/custom_box"
-                android:hint="  루틴명을 입력하세요."
-                android:padding="10dp"
+                android:hint="루틴명을 입력하세요."
+                android:padding="15dp"
                 android:textColor="@android:color/black"
                 android:textColorHint="#A4A2A2"
-                android:textSize="28sp" />
+                android:textSize="24sp" />
 
             <!-- Routine Start Time -->
 
@@ -60,8 +60,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/custom_box"
-                android:text="  루틴 시작 알림"
-                android:textSize="28sp" />
+                android:text="루틴 시작 알림"
+                android:padding="15dp"
+                android:textSize="24sp" />
 
             <!-- Routine Description -->
 
@@ -70,10 +71,10 @@
                 android:id="@+id/et_routine_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="  루틴에 대한 추가 설명"
-                android:paddingTop="10dp"
+                android:hint="루틴에 대한 추가 설명"
+                android:padding="10dp"
                 android:textColorHint="#A4A2A2"
-                android:textSize="28sp"/>
+                android:textSize="24sp"/>
 
         </LinearLayout>
 
