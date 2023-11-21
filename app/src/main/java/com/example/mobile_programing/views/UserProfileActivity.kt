@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import com.example.mobile_programing.R
 import com.example.mobile_programing.repository.RoutineRepository
@@ -29,7 +30,7 @@ class UserProfileActivity : AppCompatActivity() {
         val userIdTextView: TextView = findViewById(R.id.user_id_text_view)
         userIdTextView.text = auth.currentUser?.email
 
-        val logoutButton: Button = findViewById(R.id.logout_button)
+        val logoutButton: ImageButton = findViewById(R.id.logout_button)
         logoutButton.setOnClickListener {
             auth.signOut()
             googleSignInClient.signOut().addOnCompleteListener {
@@ -40,7 +41,7 @@ class UserProfileActivity : AppCompatActivity() {
             }
         }
 
-        val deleteAccountButton: Button = findViewById(R.id.delete_account_button)
+        val deleteAccountButton: ImageButton = findViewById(R.id.delete_account_button)
         deleteAccountButton.setOnClickListener {
             val userId = auth.currentUser?.uid
             if (userId != null) {
