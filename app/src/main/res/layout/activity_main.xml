@@ -17,18 +17,38 @@
         android:background="#F5F5F5"
         >
 
-        <TextView
-            android:id="@+id/tv_star_count"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/custom_star_icon"
+            android:background="@drawable/custom_star_background"
             android:gravity="center"
-            android:text="0  "
-            android:textColor="@color/black"
+            android:orientation="horizontal"
+            android:padding="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_star_count"
+                lawout_width="wrap_content"
+                layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/custom_star_img" />
+
+        </LinearLayout>
+
+
 
         <ImageView
             android:id="@+id/ib_user_account"
