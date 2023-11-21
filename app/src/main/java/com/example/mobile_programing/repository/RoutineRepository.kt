@@ -17,20 +17,32 @@ class RoutineRepository {
     val database =
         Firebase.database("https://mobile-programing-9ec38-default-rtdb.asia-southeast1.firebasedatabase.app")
     val routineRef = database.getReference("Routine")
+    val cardRepo = CardRepository()
 
     // Creates a new routine in Firestore.
     fun createRoutine(routine: Routine): Boolean {
         //firebase에 생성한 루틴 저장
-        routineRef.child(routine.id).setValue(routine)
+        routineRef.child(routine.id).child("id").setValue(routine.id)
+        routineRef.child(routine.id).child("userId").setValue(routine.userId)
+        routineRef.child(routine.id).child("name").setValue(routine.name)
+        routineRef.child(routine.id).child("routineStartTime").setValue(routine.routineStartTime.toString())
+        routineRef.child(routine.id).child("totalTime").setValue(routine.totalTime)
+        routineRef.child(routine.id).child("description").setValue(routine.description.toString())
+
+        var cardIds = arrayListOf<String>()
 
         //루틴에 카드가 추가됬을경우 totalTime을 계산해주는 로직
         if (!routine.cards.isEmpty()) {
             var time = 0
             for (card in routine.cards) {
                 time += (card.preTimerSecs + card.activeTimerSecs + card.postTimerSecs) * card.sets
+                cardIds.add(card.id)
+                //카드는 따로 데이터베이스의 Card에저장
+                cardRepo.createCard(card)
             }
             routine.totalTime = time
-            routineRef.child(routine.id).setValue(routine)
+            routineRef.child(routine.id).child("totalTime").setValue(routine.totalTime)
+            routineRef.child(routine.id).child("cardIds").setValue(cardIds)
         }
         return true
         TODO("Implement function to create a new document in Firebase Firestore for the given routine.")
@@ -48,25 +60,16 @@ class RoutineRepository {
             routine.numStar = Integer.parseInt(snapshot.child("numStar").value.toString())
 
             // Parsing Card objects
-            val cardsSnapshot = snapshot.child("cards")
-            cardsSnapshot.children.forEach { cardData ->
-                val card = Card(
-                    id = cardData.child("id").value.toString(),
-                    userId = cardData.child("userId").value.toString(),
-                    name = cardData.child("name").value.toString(),
-                    preTimerSecs = cardData.child("preTimerSecs").value.toString().toInt(),
-                    preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
-                    activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toInt(),
-                    activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
-                    postTimerSecs = cardData.child("postTimerSecs").value.toString().toInt(),
-                    postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
-                    sets = cardData.child("sets").value.toString().toInt(),
-                    additionalInfo = (cardData.child("additionalInfo").value as List<String>).toCollection(ArrayList())
-                )
-                routine.cards.add(card)
+            var cardIds = snapshot.child("carIds").value.toString()
+            cardIds = cardIds.substring(1, cardIds.length - 1)
+            var cardIdList = cardIds.split(",")
+            GlobalScope.launch {
+                for (cardId in cardIdList) {
+                    routine.cards.add(cardRepo.getCard(cardId))
+                }
+                continuation.resume(routine)
             }
 
-            continuation.resume(routine)
         }
     }
 
@@ -79,7 +82,14 @@ class RoutineRepository {
 
         // Updates given fields of an existing routine in Firestore
         fun updateRoutine(id: String, newRoutine: Routine): Boolean{
-            routineRef.child(id).setValue(newRoutine)
+            //card만 업데이트
+            var cardIds = arrayListOf<String>()
+            //card업데이트
+            for(card in newRoutine.cards){
+                cardIds.add(card.id)
+                cardRepo.createCard(card)
+            }
+            routineRef.child(id).child("cardIds").setValue(cardIds)
             return true
         }
 
@@ -128,42 +138,41 @@ class RoutineRepository {
 
     // firebase uid로 routine 목록을 가져오는 함수
     suspend fun getRoutinesByUserId(userId: String): List<Routine> = suspendCoroutine { continuation ->
-        routineRef.orderByChild("userId").equalTo(userId).get().addOnSuccessListener { snapshot ->
-            val routines = snapshot.children.mapNotNull { routineSnapshot ->
-                val cards = ArrayList<Card>()
-                routineSnapshot.child("cards").children.forEach { cardData ->
-                    val userIdOfCard = routineSnapshot.child("userId").value.toString()
+        Log.d("a","test")
+            routineRef.orderByChild("userId").equalTo(userId).get()
+                .addOnSuccessListener { snapshot ->
 
-                    val card = Card(
-                        id = cardData.child("id").value.toString(),
-                        userId = userIdOfCard,
-                        name = cardData.child("name").value.toString(),
-                        preTimerSecs = cardData.child("preTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        preTimerAutoStart = cardData.child("preTimerAutoStart").value.toString().toBoolean(),
-                        activeTimerSecs = cardData.child("activeTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        activeTimerAutoStart = cardData.child("activeTimerAutoStart").value.toString().toBoolean(),
-                        postTimerSecs = cardData.child("postTimerSecs").value.toString().toIntOrNull() ?: 0,
-                        postTimerAutoStart = cardData.child("postTimerAutoStart").value.toString().toBoolean(),
-                        sets = cardData.child("sets").value.toString().toIntOrNull() ?: 0,
-                        additionalInfo = (cardData.child("additionalInfo").value as? List<String>)?.toCollection(ArrayList()) ?: arrayListOf<String>()
-                    )
-                    cards.add(card)
-                }
-                Routine(
-                    id = routineSnapshot.child("id").value.toString(),
-                    userId = userId,
-                    routineStartTime = routineSnapshot.child("routineStartTime").value.toString().toIntOrNull() ?: 0,
-                    name = routineSnapshot.child("name").value.toString(),
-                    totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
-                    description = routineSnapshot.child("description").value.toString(),
-                    cards = cards,
-                    numStar = 0
-                )
+                    val routines = snapshot.children.mapNotNull { routineSnapshot ->
+                        val cards = ArrayList<Card>()
+                        routineSnapshot.child("cards").children.forEach { cardData ->
+                            GlobalScope.launch {
+                                val userIdOfCard = routineSnapshot.child("userId").value.toString()
+
+                                val card = cardRepo.getCard(cardData.value.toString())
+                                cards.add(card)
+                            }
+                        }
+                        Routine(
+                            id = routineSnapshot.child("id").value.toString(),
+                            userId = userId,
+                            routineStartTime = routineSnapshot.child("routineStartTime").value.toString()
+                                .toIntOrNull() ?: 0,
+                            name = routineSnapshot.child("name").value.toString(),
+                            totalTime = routineSnapshot.child("totalTime").value.toString()
+                                .toIntOrNull()
+                                ?: 0,
+                            description = routineSnapshot.child("description").value.toString(),
+                            cards = cards,
+                            numStar = 0
+                        )
+                    }
+
+                    continuation.resume(routines)
+
+                }.addOnFailureListener { exception ->
+                continuation.resumeWith(Result.failure(exception))
             }
-            continuation.resume(routines)
-        }.addOnFailureListener { exception ->
-            continuation.resumeWith(Result.failure(exception))
-        }
+
     }
 
 
