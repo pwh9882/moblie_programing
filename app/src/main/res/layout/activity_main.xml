@@ -38,12 +38,14 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="0"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 app:srcCompat="@drawable/custom_star_img" />
 
         </LinearLayout>
@@ -73,20 +75,22 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <android.widget.Button
+                android:visibility="gone"
                 android:id="@+id/bttnConnect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="DemoPage" />
 
-            <TextView
+            <ImageView
+
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="환영합니다!\n오늘은 어떤 루틴을\n실행할까요?"
-                android:textSize="36sp"
-                android:textColor="@android:color/black"
+                android:layout_height="200dp"
                 android:gravity="center"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="36sp"
+                tools:srcCompat="@drawable/custom_main_greeting" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
