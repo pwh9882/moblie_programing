@@ -107,12 +107,17 @@ class RoutineProgressActivity : AppCompatActivity() {
 
     private fun handlePausePlayClick() {
         binding.btnRoutineProgressPausePlayCard.setOnClickListener {
-            if (!routineProgressViewModel.isPaused){
+            if (!routineProgressViewModel.isPaused.value!!){
                 routineProgressViewModel.pauseTimer()
-                binding.btnRoutineProgressPausePlayCard.setImageResource(R.drawable.custom_next_icon)
-
             } else {
                 routineProgressViewModel.resumeTimer()
+            }
+        }
+
+        routineProgressViewModel.isPaused.observe(this) {
+            if (it) {
+                binding.btnRoutineProgressPausePlayCard.setImageResource(R.drawable.custom_next_icon)
+            } else {
                 binding.btnRoutineProgressPausePlayCard.setImageResource(R.drawable.custom_stop_icon)
             }
         }

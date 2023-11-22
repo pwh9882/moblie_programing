@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class RoutineProgressViewModel: ViewModel() {
-    val routineRepository = RoutineRepository()
+    private val routineRepository = RoutineRepository()
 
     // 현재 진행중인 루틴
     private val _currentRoutine = MutableLiveData<Routine>()
@@ -41,7 +41,9 @@ class RoutineProgressViewModel: ViewModel() {
     private var cardTimerJob: Job? = null
 
     // Add a flag to track whether the timer is paused
-    var isPaused = false
+    private var _isPaused = MutableLiveData<Boolean>()
+    val isPaused: LiveData<Boolean> get() = _isPaused
+
 
     // 현재 카드의 진행 단계: 0: 진행 전, 1: 진행 중, 2: 진행 완료
     private val _currentCardProgress = MutableLiveData<Int>()
@@ -95,7 +97,7 @@ class RoutineProgressViewModel: ViewModel() {
     }
 
     fun startCardTimer(time: Int){
-        isPaused = false
+        _isPaused.value = false
         cardTimerJob?.cancel()
         cardTimerJob = viewModelScope.launch {
             _currentCardTime.value = time
@@ -103,7 +105,7 @@ class RoutineProgressViewModel: ViewModel() {
                 withContext(Dispatchers.IO) {
                     Thread.sleep(1000)
                 }
-                if (!isPaused) {
+                if (!isPaused.value!!) {
                     _currentCardTime.value = _currentCardTime.value?.minus(1)
                 }
             }
@@ -115,11 +117,11 @@ class RoutineProgressViewModel: ViewModel() {
 
     // Add methods to pause and resume the timer
     fun pauseTimer() {
-        isPaused = true
+        _isPaused.value = true
     }
 
     fun resumeTimer() {
-        isPaused = false
+        _isPaused.value = false
     }
 
     fun initCardProgressInfo(){
