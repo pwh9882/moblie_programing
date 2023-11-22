@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.372"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_routine_create_cancel_btn"
             app:layout_constraintVertical_bias="1.0">
 
             <!-- Routine Name -->
@@ -54,84 +54,82 @@
 
             <LinearLayout
 
-                android:background="@drawable/custom_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/custom_box"
                 android:gravity="center"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <CheckBox
-                    android:button="@null"
-                    android:background="@drawable/custom_s_offday"
                     android:id="@+id/cb_sun"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_s_offday"
+                    android:button="@null" />
 
                 <CheckBox
-                    android:button="@null"
                     android:id="@+id/cb_mon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     />
+                    android:button="@null" />
 
                 <CheckBox
-                    android:button="@null"
                     android:id="@+id/cb_tue"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:button="@null" />
 
                 <CheckBox
-                    android:button="@null"
                     android:id="@+id/cb_wed"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:button="@null" />
 
                 <CheckBox
-                    android:button="@null"
                     android:id="@+id/cb_thu"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:button="@null" />
 
                 <CheckBox
-                    android:button="@null"
                     android:id="@+id/cb_fri"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:button="@null" />
 
                 <CheckBox
-                    android:button="@null"
                     android:id="@+id/cb_sat"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:button="@null" />
 
             </LinearLayout>
 
             <Switch
-                android:textColor="@android:color/black"
                 android:id="@+id/sw_routine_alarm_flag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/custom_box"
-                android:text="루틴 시작 알림"
                 android:padding="15dp"
+                android:text="루틴 시작 알림"
+                android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:visibility="gone" />
 
             <!-- Routine Description -->
 
             <EditText
-                android:padding="20dp"
-                android:background="@drawable/custom_box"
                 android:id="@+id/et_routine_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="루틴에 대한 추가 설명"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/custom_box"
+                android:hint="루틴에 대한 추가 설명"
+                android:padding="20dp"
                 android:textColor="@android:color/black"
                 android:textColorHint="#A4A2A2"
-                android:textSize="24sp"/>
+                android:textSize="24sp" />
 
         </LinearLayout>
 
@@ -139,22 +137,21 @@
             android:id="@+id/btn_routine_detail_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/custom_check_icon"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.876"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/btn_routine_create_cancel_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/custom_del_icon" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/custom_back_btn_icon" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
