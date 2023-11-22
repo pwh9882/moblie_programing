@@ -1,5 +1,6 @@
 package com.example.mobile_programing.repository
 
+import android.util.Log
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
 import com.google.firebase.database.DataSnapshot
@@ -8,6 +9,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
@@ -31,6 +35,7 @@ class RoutineRepository {
         routineRef.child(routine.id).child("routineStartTime").setValue(routine.routineStartTime.toString())
         routineRef.child(routine.id).child("totalTime").setValue(routine.totalTime)
         routineRef.child(routine.id).child("description").setValue(routine.description.toString())
+        routineRef.child(routine.id).child("lastModifiedTime").setValue(routine.lastModifiedTime.toString())
 
         var cardIds = arrayListOf<String>()
 
@@ -52,28 +57,32 @@ class RoutineRepository {
     }
 
     // Fetches a specific routine using its ID from Firestore.
-    suspend fun getRoutine(id: String) = suspendCoroutine<Routine> { continuation ->
+    suspend fun getRoutine(id: String): Routine {
         val routine = Routine("","", "", 0, 0,"", arrayListOf(),0)
-        routineRef.child(id).get().addOnSuccessListener { snapshot ->
-            routine.id = snapshot.child("id").value.toString()
-            routine.userId = snapshot.child("userId").value.toString()
-            routine.name = snapshot.child("name").value.toString()
-            routine.totalTime = Integer.parseInt(snapshot.child("totalTime").value.toString())
-            routine.description = snapshot.child("description").value.toString()
-            routine.numStar = Integer.parseInt(snapshot.child("numStar").value.toString())
+        val snapshot = routineRef.child(id).get().await()
 
-            // Parsing Card objects
-            var cardIds = snapshot.child("carIds").value.toString()
-            cardIds = cardIds.substring(1, cardIds.length - 1)
-            var cardIdList = cardIds.split(",")
-            GlobalScope.launch {
-                for (cardId in cardIdList) {
-                    routine.cards.add(cardRepo.getCard(cardId))
-                }
-                continuation.resume(routine)
-            }
+        routine.id = snapshot.child("id").value.toString()
+        routine.userId = snapshot.child("userId").value.toString()
+        routine.name = snapshot.child("name").value.toString()
+        routine.totalTime = Integer.parseInt(snapshot.child("totalTime").value.toString())
+        routine.description = snapshot.child("description").value.toString()
+        routine.lastModifiedTime =
+            Integer.parseInt(snapshot.child("lastModifiedTime").value.toString()).toLong()
+        routine.numStar = Integer.parseInt(snapshot.child("numStar").value.toString())
 
+        // Parsing Card objects
+        var cardIds = snapshot.child("cardIds").value.toString()
+        cardIds = cardIds.substring(1, cardIds.length - 1)
+        val cardIdList = cardIds.split(",")
+
+        // Fetching cards using structured concurrency
+        coroutineScope {
+            routine.cards.addAll(cardIdList.map { cardId ->
+                async { cardRepo.getCard(cardId) }
+            }.awaitAll())
         }
+
+        return routine
     }
 
 
@@ -112,11 +121,12 @@ class RoutineRepository {
                     totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
                     description = routineSnapshot.child("description").value.toString(),
                     cards = arrayListOf(),
+                    lastModifiedTime = routineSnapshot.child("lastModifiedTime").value.toString().toLongOrNull() ?: 0,
                     numStar = 0
                 )
 
 
-                val cardsSnapshot = routineSnapshot.child("cards")
+                val cardsSnapshot = routineSnapshot.child("cardIds")
                 cardsSnapshot.children.forEach { cardData ->
                     val card = Card(
                         id = cardData.child("id").value.toString(),
@@ -144,43 +154,31 @@ class RoutineRepository {
   
 
     // firebase uid로 routine 목록을 가져오는 함수
-    suspend fun getRoutinesByUserId(userId: String): List<Routine> = suspendCoroutine { continuation ->
-        Log.d("a","test")
-            routineRef.orderByChild("userId").equalTo(userId).get()
-                .addOnSuccessListener { snapshot ->
+    suspend fun getRoutinesByUserId(userId: String): List<Routine> {
+        val snapshot = routineRef.orderByChild("userId").equalTo(userId).get().await()
 
-                    val routines = snapshot.children.mapNotNull { routineSnapshot ->
-                        val cards = ArrayList<Card>()
-                        routineSnapshot.child("cards").children.forEach { cardData ->
-                            GlobalScope.launch {
-                                val userIdOfCard = routineSnapshot.child("userId").value.toString()
+        return coroutineScope {
+            snapshot.children.mapNotNull { routineSnapshot ->
+                val cardIds = routineSnapshot.child("cardIds").children.map { it.value.toString() }
+                val cards = cardIds.map { cardId ->
+                    async { cardRepo.getCard(cardId) }
+                }.awaitAll()
 
-                                val card = cardRepo.getCard(cardData.value.toString())
-                                cards.add(card)
-                            }
-                        }
-                        Routine(
-                            id = routineSnapshot.child("id").value.toString(),
-                            userId = userId,
-                            routineStartTime = routineSnapshot.child("routineStartTime").value.toString()
-                                .toIntOrNull() ?: 0,
-                            name = routineSnapshot.child("name").value.toString(),
-                            totalTime = routineSnapshot.child("totalTime").value.toString()
-                                .toIntOrNull()
-                                ?: 0,
-                            description = routineSnapshot.child("description").value.toString(),
-                            cards = cards,
-                            numStar = 0
-                        )
-                    }
-
-                    continuation.resume(routines)
-
-                }.addOnFailureListener { exception ->
-                continuation.resumeWith(Result.failure(exception))
+                Routine(
+                    id = routineSnapshot.child("id").value.toString(),
+                    userId = userId,
+                    routineStartTime = routineSnapshot.child("routineStartTime").value.toString().toIntOrNull() ?: 0,
+                    name = routineSnapshot.child("name").value.toString(),
+                    totalTime = routineSnapshot.child("totalTime").value.toString().toIntOrNull() ?: 0,
+                    description = routineSnapshot.child("description").value.toString(),
+                    cards = ArrayList(cards),
+                    lastModifiedTime = routineSnapshot.child("lastModifiedTime").value.toString().toLongOrNull() ?: 0,
+                    numStar = 0
+                )
             }
-
+        }
     }
+
 
 
     // user-id와 그에 해당하는 history routine 목록을 가져오는 함수
