@@ -172,7 +172,7 @@ class RoutineDetailActivity : AppCompatActivity() {
     private fun addCardToRoutine(routine: Routine, cardUpdateResultLauncher: ActivityResultLauncher<Intent>) {
         cardUpdateResultLauncher.launch(Intent(this, CardDetailActivity::class.java).apply {
             var emptyCard = Card(
-                id = (routine.cards.size+1).toString(),
+                id = "",
                 userId = Firebase.auth.currentUser!!.uid,
                 name = "비어 있는 카드",
                 preTimerSecs = 0,
