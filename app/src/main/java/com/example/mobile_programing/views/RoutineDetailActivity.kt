@@ -174,7 +174,7 @@ class RoutineDetailActivity : AppCompatActivity() {
             var emptyCard = Card(
                 id = "",
                 userId = Firebase.auth.currentUser!!.uid,
-                name = "비어 있는 카드",
+                name = "",
                 preTimerSecs = 0,
                 preTimerAutoStart = true,
                 activeTimerSecs = 0,

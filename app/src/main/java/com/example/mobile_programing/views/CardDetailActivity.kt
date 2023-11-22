@@ -1,10 +1,14 @@
 package com.example.mobile_programing.views
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.NumberPicker
 import androidx.databinding.DataBindingUtil
 import com.example.mobile_programing.R
 import com.example.mobile_programing.databinding.ActivityCardDetailBinding
@@ -13,6 +17,8 @@ import com.example.mobile_programing.models.Card
 
 class CardDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityCardDetailBinding
+
+    val activeTimeSec = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_detail)
@@ -31,12 +37,122 @@ class CardDetailActivity : AppCompatActivity() {
         binding.etCardDetailSets.setText(currentCard?.sets.toString())
 
         binding.etCardDetailActiveTimerSecs.setText(currentCard?.activeTimerSecs.toString())
-        binding.etCardDetailMemo.setText(currentCard?.memo.toString())
         binding.etCardDetailPostTimerSecs.setText(currentCard?.postTimerSecs.toString())
+        binding.etCardDetailMemo.setText(currentCard?.memo.toString())
 
         binding.cbCardDetailPreTimerAutoStart.isChecked = currentCard?.preTimerAutoStart!!
         binding.cbCardDetailActiveTimerAutoStart.isChecked = currentCard.activeTimerAutoStart
         binding.cbCardDetailPostTimerAutoStart.isChecked = currentCard.postTimerAutoStart
+
+
+
+        // LinearLayout에 클릭 리스너 추가
+        binding.llCardDetailPreTimerSecs.setOnClickListener {
+            // NumberPicker를 포함하는 다이얼로그 생성
+            val numberPicker = NumberPicker(this@CardDetailActivity).apply {
+                minValue = 0
+                maxValue = 100
+                value = binding.etCardDetailPreTimerSecs.text.toString().toInt()
+            }
+
+            AlertDialog.Builder(this@CardDetailActivity).apply {
+                setTitle("시간 선택")
+                setView(numberPicker)
+                setPositiveButton("확인") { _, _ ->
+                    // 확인 버튼을 누르면 et_card_detail_preTimerSecs의 값을 업데이트
+                    binding.etCardDetailPreTimerSecs.text = numberPicker.value.toString()
+                }
+                setNegativeButton("취소", null)
+            }.show()
+        }
+
+        // LinearLayout에 클릭 리스너 추가
+        binding.llCardDetailActiveTimerSecs.setOnClickListener {
+            // 시, 분, 초를 선택할 수 있는 3개의 NumberPicker를 포함하는 다이얼로그 생성
+            val pattern = "(\\d+)시간 (\\d+)분 (\\d+)초".toRegex()
+            val matchResult = pattern.find(binding.etCardDetailActiveTimerSecs.text)
+
+            val timeParts = matchResult?.groupValues?.drop(1)?.map { it.toInt() } ?: listOf(0, 0, 0)
+
+            val hourPicker = NumberPicker(this@CardDetailActivity).apply {
+                minValue = 0
+                maxValue = 23
+                value = timeParts[0]
+            }
+            val minutePicker = NumberPicker(this@CardDetailActivity).apply {
+                minValue = 0
+                maxValue = 59
+                value = timeParts[1]
+            }
+            val secondPicker = NumberPicker(this@CardDetailActivity).apply {
+                minValue = 0
+                maxValue = 59
+                value = timeParts[2]
+            }
+
+            val pickerLayout = LinearLayout(this@CardDetailActivity).apply {
+                orientation = LinearLayout.HORIZONTAL
+                // gravity center
+                gravity = Gravity.CENTER
+
+
+                addView(hourPicker)
+                addView(minutePicker)
+                addView(secondPicker)
+            }
+
+            AlertDialog.Builder(this@CardDetailActivity).apply {
+                setTitle("시간 선택")
+                setView(pickerLayout)
+                setPositiveButton("확인") { _, _ ->
+                    // 확인 버튼을 누르면 et_card_detail_activeTimerSecs의 값을 업데이트
+
+                    val formattedTime = "${timeParts[0]}시간 ${timeParts[1]}분 ${timeParts[2]}초"
+                    binding.etCardDetailActiveTimerSecs.text = formattedTime
+                }
+                setNegativeButton("취소", null)
+            }.show()
+        }
+
+        // LinearLayout에 클릭 리스너 추가
+        binding.llCardDetailPostTimerSecs.setOnClickListener {
+            // NumberPicker를 포함하는 다이얼로그 생성
+            val numberPicker = NumberPicker(this@CardDetailActivity).apply {
+                minValue = 0
+                maxValue = 60
+                value = binding.etCardDetailPostTimerSecs.text.toString().toInt()
+            }
+
+            AlertDialog.Builder(this@CardDetailActivity).apply {
+                setTitle("시간 선택")
+                setView(numberPicker)
+                setPositiveButton("확인") { _, _ ->
+                    // 확인 버튼을 누르면 et_card_detail_postTimerSecs의 값을 업데이트
+                    binding.etCardDetailPostTimerSecs.text = numberPicker.value.toString()
+                }
+                setNegativeButton("취소", null)
+            }.show()
+        }
+
+        // LinearLayout에 클릭 리스너 추가
+        binding.llCardDetailSets.setOnClickListener {
+            // NumberPicker를 포함하는 다이얼로그 생성
+            val numberPicker = NumberPicker(this@CardDetailActivity).apply {
+                minValue = 1
+                maxValue = 100
+                value = binding.etCardDetailSets.text.toString().toInt()
+            }
+
+            AlertDialog.Builder(this@CardDetailActivity).apply {
+                setTitle("세트 수 선택")
+                setView(numberPicker)
+                setPositiveButton("확인") { _, _ ->
+                    // 확인 버튼을 누르면 et_card_detail_sets의 값을 업데이트
+                    binding.etCardDetailSets.text = numberPicker.value.toString()
+                }
+                setNegativeButton("취소", null)
+            }.show()
+        }
 
 
 

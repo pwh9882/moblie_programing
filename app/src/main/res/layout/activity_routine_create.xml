@@ -130,7 +130,6 @@
                 android:hint="루틴에 대한 추가 설명"
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/black"
-                android:padding="10dp"
                 android:textColorHint="#A4A2A2"
                 android:textSize="24sp"/>
 
