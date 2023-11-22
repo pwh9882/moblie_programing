@@ -14,6 +14,7 @@ android {
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 
     defaultConfig {
@@ -52,6 +53,9 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.gms:play-services-base:18.2.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.8.1")
+    implementation("com.google.firebase:firebase-database-ktx:20.3.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -92,4 +96,7 @@ dependencies {
 
     // Also add the dependency for the Google Play services library and specify its version
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
 }

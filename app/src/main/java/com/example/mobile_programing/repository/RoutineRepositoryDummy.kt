@@ -1,9 +1,7 @@
 package com.example.mobile_programing.repository
 
-import com.example.mobile_programing.Model.Routine
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
+import com.example.mobile_programing.models.Card
+import com.example.mobile_programing.models.Routine
 
 // Contains all functions related to operations on Routines collection in Firestore.
 class RoutineRepositoryDummy {
@@ -18,19 +16,19 @@ class RoutineRepositoryDummy {
     }
 
     // Fetches a specific routine using its ID from Firestore.
-    fun getRoutine(id: Int): Routine {
+    fun getRoutine(id: String): Routine {
         // 성공했다고 가정하고 dummu data return
-        return Routine(id=id, name="Leg Day", totalTime=100, description="Leg Day", cards=ArrayList())
+        return Routine(id=id, userId = "", name="Leg Day", totalTime=100, routineStartTime = 1, description="Leg Day", cards=ArrayList(), numStar = 0)
     }
 
     // Deletes a specific routine using its ID from Firestore.
-    fun deleteRoutine(id: Int): Boolean {
+    fun deleteRoutine(id: String): Boolean {
         // 성공했다고 가정하고 dummu data true return
         return true;
     }
 
     // Updates given fields of an existing routine in Firestore
-    fun updateRoutine(id: Int, newRoutine: Routine): Boolean {
+    fun updateRoutine(id: String, newRoutine: Routine): Boolean {
         // 성공했다고 가정하고 dummu data true return
         return true;
     }
@@ -43,7 +41,16 @@ class RoutineRepositoryDummy {
 
     // firebase uid로 routine 목록을 가져오는 함수
     fun getRoutinesByUserId(userId : String): ArrayList<Routine> {
-        TODO(" Implement function for fetching all routines belonging to current logged-in user")
+        val dummy = ArrayList<Routine>()
+        dummy.add(Routine("0","", "루틴1", 0,3000, "루틴1입니다.", ArrayList<Card>().apply {
+            add(Card("0", "", "카드1-1", 5, true, 10, true, 3, true, 3, "메모1"))
+            add(Card("1", "","카드1-2", 4, true, 10, true, 3, true, 2, "메모2"))
+        }))
+        dummy.add(Routine("0","", "루틴2", 0,3000, "루틴1입니다.", ArrayList<Card>().apply {
+            add(Card("0", "", "카드2-1", 5, true, 10, true, 3, true, 3, "메모1"))
+            add(Card("1", "","카드2-2", 4, true, 10, true, 3, true, 2, "메모2"))
+        }))
+        return dummy
     }
 
     // user-id와 그에 해당하는 history routine 목록을 가져오는 함수

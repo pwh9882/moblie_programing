@@ -1,0 +1,77 @@
+{
+  "name": "routine_card_name",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "MAiC0jvnjibWLGNUBHurRq",
+    "node": "37:279",
+    "version": "4457394328",
+    "component-id": "1a466f087f821f3945b69f31336a4e767be2abb3"
+  },
+  "default": "routine card name",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "text",
+        "id": "스쿼트"
+      }
+    ],
+    "modes": {
+      "routine card name": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "스쿼트"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "스쿼트",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "font-weight": "700.0",
+            "color": {
+              "alpha": "1.0",
+              "hue": "0.0",
+              "saturation": "0.0",
+              "value": "0.0"
+            },
+            "text-content": "스쿼트",
+            "overflow": "visible",
+            "text-align": "right",
+            "text-size": "24.0",
+            "line-height": "1.3830000559488935",
+            "typeface": "Oleo Script"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "routine card name",
+      "size": {
+        "width": 67.0,
+        "height": 33.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

@@ -1,0 +1,101 @@
+{
+  "name": "icon_button",
+  "version": 32,
+  "source-key": {
+    "type": "figma",
+    "file": "MAiC0jvnjibWLGNUBHurRq",
+    "node": "37:249",
+    "version": "4457394328",
+    "component-id": "aec2483fab50a0ae1e8a4e54f2bedd22826d4cea"
+  },
+  "default": "IconButton",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "Pause"
+      },
+      {
+        "type": "vector",
+        "id": "Ellipse 9"
+      },
+      {
+        "type": "vector",
+        "id": "Vector"
+      }
+    ],
+    "modes": {
+      "IconButton": {
+        "rules": [
+          {
+            "id": "top_level",
+            "is-structured": "false",
+            "children": [
+              "Pause",
+              "Ellipse 9"
+            ],
+            "clip-content": "false"
+          },
+          {
+            "id": "Pause",
+            "margin": "12.0",
+            "is-structured": "false",
+            "children": [
+              "Vector"
+            ]
+          },
+          {
+            "id": "Ellipse 9",
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            }
+          },
+          {
+            "id": "Vector",
+            "margin": {
+              "left": "10.0",
+              "top": "8.333343505859375",
+              "right": "10.0",
+              "bottom": "8.33331298828125"
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              },
+              "height-constraints": {
+                "sizing-mode": "proportional",
+                "value": "1.0"
+              }
+            },
+            "vector-content": "vector.svg"
+          }
+        ]
+      }
+    }
+  },
+  "previews": [
+    {
+      "design": "IconButton",
+      "size": {
+        "width": 64.0,
+        "height": 64.0
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}

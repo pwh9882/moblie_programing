@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 추가된 색상들 -->
+    <color name="light_green">#98FB98</color> <!-- 준비 전 타이머에 대한 색상 -->
+    <color name="bright_orange">#FFA500</color> <!-- 진행 중 타이머에 대한 색상 -->
+    <color name="light_purple">#BB86FC</color>
+    <color name="dark_purple">#3700B3</color>
+    <color name="light_grey">#70777C</color> <!-- 타이머 inner 배경 -->
 </resources>
