@@ -68,9 +68,9 @@ class CardDisplayFragment : Fragment() {
         routineProgressViewModel.currentCardProgress.observe(viewLifecycleOwner) {
             val currCard = routineProgressViewModel.currentRoutine.value!!.cards[routineProgressViewModel.currentCardIndex.value!!]
             binding.tvRoutineProgressStatus.text = when(it) {
-                0 -> "진행 전"
-                1 -> "진행 중"
-                2 -> "진행 후"
+                0 -> "준비하세요!"
+                1 -> "진행 중!"
+                2 -> "다음 세트를 준비하세요!"
                 else -> "오류"
             }
 

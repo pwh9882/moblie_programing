@@ -100,11 +100,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:background="@android:color/transparent"
                 android:id="@+id/btn_routine_progress_create_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
                 app:srcCompat="@drawable/custom_timer_ui_add" />
 
 
@@ -114,6 +116,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
                 app:srcCompat="@drawable/custom_timer_ui_edit" />
 
         </LinearLayout>

@@ -52,7 +52,7 @@ class CardDetailActivity : AppCompatActivity() {
             val numberPicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 0
                 maxValue = 100
-                value = binding.etCardDetailPreTimerSecs.text.toString().toInt()
+                value = currentCard.preTimerSecs
             }
 
             AlertDialog.Builder(this@CardDetailActivity).apply {
@@ -69,25 +69,26 @@ class CardDetailActivity : AppCompatActivity() {
         // LinearLayout에 클릭 리스너 추가
         binding.llCardDetailActiveTimerSecs.setOnClickListener {
             // 시, 분, 초를 선택할 수 있는 3개의 NumberPicker를 포함하는 다이얼로그 생성
-            val pattern = "(\\d+)시간 (\\d+)분 (\\d+)초".toRegex()
-            val matchResult = pattern.find(binding.etCardDetailActiveTimerSecs.text)
 
-            val timeParts = matchResult?.groupValues?.drop(1)?.map { it.toInt() } ?: listOf(0, 0, 0)
+            val currentActiveTimeSec = currentCard.activeTimerSecs
+            val hour = currentActiveTimeSec / 3600
+            val minute = (currentActiveTimeSec % 3600) / 60
+            val second = currentActiveTimeSec % 60
 
             val hourPicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 0
                 maxValue = 23
-                value = timeParts[0]
+                value = hour
             }
             val minutePicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 0
                 maxValue = 59
-                value = timeParts[1]
+                value = minute
             }
             val secondPicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 0
                 maxValue = 59
-                value = timeParts[2]
+                value = second
             }
 
             val pickerLayout = LinearLayout(this@CardDetailActivity).apply {
@@ -107,7 +108,7 @@ class CardDetailActivity : AppCompatActivity() {
                 setPositiveButton("확인") { _, _ ->
                     // 확인 버튼을 누르면 et_card_detail_activeTimerSecs의 값을 업데이트
 
-                    val formattedTime = "${timeParts[0]}시간 ${timeParts[1]}분 ${timeParts[2]}초"
+                    val formattedTime = "${hour}시간 ${minute}분 ${second}초"
                     binding.etCardDetailActiveTimerSecs.text = formattedTime
                 }
                 setNegativeButton("취소", null)
@@ -120,7 +121,7 @@ class CardDetailActivity : AppCompatActivity() {
             val numberPicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 0
                 maxValue = 60
-                value = binding.etCardDetailPostTimerSecs.text.toString().toInt()
+                value = currentCard.postTimerSecs
             }
 
             AlertDialog.Builder(this@CardDetailActivity).apply {
@@ -140,7 +141,7 @@ class CardDetailActivity : AppCompatActivity() {
             val numberPicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 1
                 maxValue = 100
-                value = binding.etCardDetailSets.text.toString().toInt()
+                value = currentCard.sets
             }
 
             AlertDialog.Builder(this@CardDetailActivity).apply {

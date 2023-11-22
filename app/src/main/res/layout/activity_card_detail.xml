@@ -4,248 +4,253 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.CardDetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F5F5F5">
+        android:layout_height="match_parent" >
 
-        <ImageButton
-            android:id="@+id/btn_card_detail_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/custom_check_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.927"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:background="#F5F5F5">
 
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/btn_card_detail_update"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            <ImageButton
+                android:id="@+id/btn_card_detail_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/custom_check_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.927"
+                app:layout_constraintStart_toStartOf="parent" />
 
-            <!-- Card Name -->
-
-            <EditText
-                android:id="@+id/et_card_detail_name"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_box"
-                android:hint="카드명을 입력하세요."
-                android:padding="20dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="#A4A2A2"
-                android:textSize="24sp" />
+                android:layout_margin="20dp"
 
-            <!-- PreTimer Fields -->
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/btn_card_detail_update"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/ll_card_detail_preTimerSecs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_box"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
+                <!-- Card Name -->
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="준비 타이머"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/et_card_detail_preTimerSecs"
+                <EditText
+                    android:id="@+id/et_card_detail_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textAlignment="viewEnd" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_card_detail_preTimer_autoStart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_box"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="자동 넘김"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_box"
+                    android:hint="카드명을 입력하세요."
+                    android:padding="20dp"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#A4A2A2"
                     android:textSize="24sp" />
 
-                <Switch
-                    android:id="@+id/cb_card_detail_preTimer_autoStart"
+                <!-- PreTimer Fields -->
+
+                <LinearLayout
+                    android:id="@+id/ll_card_detail_preTimerSecs"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textAlignment="viewEnd" />
-            </LinearLayout>
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_box"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
 
-            <!-- Active Timer Fields -->
-            <LinearLayout
-                android:id="@+id/ll_card_detail_activeTimerSecs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_box"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="준비 타이머"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="실행 타이머"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    <TextView
+                        android:id="@+id/et_card_detail_preTimerSecs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/et_card_detail_activeTimerSecs"
+                <LinearLayout
+                    android:id="@+id/ll_card_detail_preTimer_autoStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_box"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="자동 넘김"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <Switch
+                        android:id="@+id/cb_card_detail_preTimer_autoStart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <!-- Active Timer Fields -->
+                <LinearLayout
+                    android:id="@+id/ll_card_detail_activeTimerSecs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_box"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="실행 타이머"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/et_card_detail_activeTimerSecs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_card_detail_activeTimer_autoStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_box"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="자동 넘김"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <Switch
+                        android:id="@+id/cb_card_detail_activeTimer_autoStart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <!-- Post Timer Fields -->
+
+                <LinearLayout
+                    android:id="@+id/ll_card_detail_postTimerSecs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_box"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="마무리 타이머"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/et_card_detail_postTimerSecs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_card_detail_postTimer_autoStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_box"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="자동 시작"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <Switch
+                        android:id="@+id/cb_card_detail_postTimer_autoStart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <!-- Set Numbers and Additional Info (temporary EditTexts) -->
+
+                <LinearLayout
+                    android:id="@+id/ll_card_detail_sets"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/custom_box"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="세트 수"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/et_card_detail_sets"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        android:textAlignment="viewEnd" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_card_detail_memo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textAlignment="viewEnd" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_card_detail_activeTimer_autoStart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_box"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="자동 넘김"
-                    android:textColor="@color/black"
+                    android:hint="카드에 대한 추가 설명"
+                    android:padding="10dp"
+                    android:textColorHint="#A4A2A2"
                     android:textSize="24sp" />
 
-                <Switch
-                    android:id="@+id/cb_card_detail_activeTimer_autoStart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="viewEnd" />
             </LinearLayout>
 
-            <!-- Post Timer Fields -->
-
-            <LinearLayout
-                android:id="@+id/ll_card_detail_postTimerSecs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_box"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="마무리 타이머"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/et_card_detail_postTimerSecs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textAlignment="viewEnd" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_card_detail_postTimer_autoStart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_box"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="자동 시작"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
-
-                <Switch
-                    android:id="@+id/cb_card_detail_postTimer_autoStart"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="viewEnd" />
-            </LinearLayout>
-
-            <!-- Set Numbers and Additional Info (temporary EditTexts) -->
-
-            <LinearLayout
-                android:id="@+id/ll_card_detail_sets"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_box"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="세트 수"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/et_card_detail_sets"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textAlignment="viewEnd" />
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/et_card_detail_memo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="카드에 대한 추가 설명"
-                android:padding="10dp"
-                android:textColorHint="#A4A2A2"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </layout>
