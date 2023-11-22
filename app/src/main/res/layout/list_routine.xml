@@ -26,6 +26,7 @@
             android:layout_marginBottom="16dp"
             android:text="01:00"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -40,6 +41,7 @@
             android:maxLines="1"
             android:text="RoutineDescription"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_rountine_total_time"
             app:layout_constraintStart_toStartOf="@+id/tv_routine_name"
@@ -52,11 +54,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="RoutineName"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tv_routine_last_modified_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -68,6 +71,7 @@
             android:layout_marginEnd="16dp"
             android:text="LastModifiedTime"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_routine_name" />
 

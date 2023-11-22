@@ -29,6 +29,7 @@
             android:layout_marginEnd="16dp"
             android:text="1 세트"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:text="01:00"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tv_card_sets"
             app:layout_constraintTop_toBottomOf="@+id/tv_card_sets" />
@@ -53,6 +55,7 @@
             android:maxLines="1"
             android:text="cardMemo"
             android:textColor="@android:color/black"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_card_total_time"
             app:layout_constraintStart_toStartOf="@+id/tv_card_name"
@@ -65,11 +68,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="cardName"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="cardName"
             android:textColor="@android:color/black"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tv_card_sets"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

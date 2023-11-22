@@ -90,6 +90,7 @@
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="36sp"
+                app:srcCompat="@drawable/custom_main_greeting"
                 tools:srcCompat="@drawable/custom_main_greeting" />
 
             <ProgressBar
