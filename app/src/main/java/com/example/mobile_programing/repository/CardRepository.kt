@@ -27,6 +27,7 @@ class CardRepository {
     }
 
 
+
     // Fetches a specific routine using its ID from Firestore.
     //동기 방식으로 처리
     suspend fun getCard(id: String) = suspendCoroutine<Card> {

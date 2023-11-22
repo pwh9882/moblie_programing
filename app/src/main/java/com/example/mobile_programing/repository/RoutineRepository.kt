@@ -3,6 +3,7 @@ package com.example.mobile_programing.repository
 import android.util.Log
 import com.example.mobile_programing.models.Card
 import com.example.mobile_programing.models.Routine
+import com.example.mobile_programing.models.cardRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -93,9 +94,11 @@ class RoutineRepository {
             cardIds.add(card.id)
             cardRepo.createCard(card)
         }
+
         routineRef.child(id).child("cardIds").setValue(cardIds)
         return true
     }
+
 
     // Fetches all routines from Firestore.
     suspend fun getAllRoutines(): ArrayList<Routine> = suspendCoroutine { continuation ->
