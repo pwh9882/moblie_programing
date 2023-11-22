@@ -26,7 +26,8 @@
             android:text="@string/hello_blank_fragment"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="34sp" />
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +48,8 @@
                     android:gravity="center"
                     android:text="1/5 세트"
                     android:textColor="@android:color/black"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <ProgressBar
                     android:id="@+id/pb_card_sets_progress"
@@ -81,7 +83,8 @@
                     android:text="1/4 카드"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <ProgressBar
                     android:id="@+id/pb_routine_progress"
@@ -128,7 +131,8 @@
                 android:shadowRadius="10"
                 android:text="상태:사전"
                 android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </FrameLayout>
 
         <FrameLayout
@@ -156,7 +160,8 @@
                 android:text="100"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/imageView"
