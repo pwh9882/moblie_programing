@@ -243,14 +243,14 @@ class RoutineProgressActivity : AppCompatActivity() {
                 var emptyCard = Card(
                     id = "",
                     userId = Firebase.auth.currentUser!!.uid,
-                    name = "test",
-                    preTimerSecs = 5,
-                    postTimerSecs = 10,
-                    activeTimerSecs = 3,
-                    preTimerAutoStart = false,
-                    postTimerAutoStart = false,
+                    name = "",
+                    preTimerSecs = 3,
+                    postTimerSecs = 3,
+                    activeTimerSecs = 0,
+                    preTimerAutoStart = true,
+                    postTimerAutoStart = true,
                     activeTimerAutoStart = false,
-                    sets = 5,
+                    sets = 1,
                     memo = ""
                 )
                 putExtra("selected_card", emptyCard)

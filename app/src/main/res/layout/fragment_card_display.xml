@@ -169,6 +169,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="40dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
                 app:srcCompat="@drawable/custom_timer_icon" />
 
         </FrameLayout>

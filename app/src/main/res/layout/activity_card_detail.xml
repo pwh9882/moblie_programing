@@ -5,13 +5,14 @@
     tools:context=".views.CardDetailActivity">
 
     <ScrollView
+        android:background="#F5F5F5"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F5F5F5">
+            >
 
             <ImageButton
                 android:id="@+id/btn_card_detail_update"
@@ -78,7 +79,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        android:textAlignment="viewEnd" />
+                        android:textAlignment="viewEnd"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -130,7 +132,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        android:textAlignment="viewEnd" />
+                        android:textAlignment="viewEnd"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -183,7 +186,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        android:textAlignment="viewEnd" />
+                        android:textAlignment="viewEnd"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -236,7 +240,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        android:textAlignment="viewEnd" />
+                        android:textAlignment="viewEnd"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <EditText

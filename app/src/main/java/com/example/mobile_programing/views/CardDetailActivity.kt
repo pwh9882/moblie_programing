@@ -33,12 +33,18 @@ class CardDetailActivity : AppCompatActivity() {
 
         // binding
         binding.etCardDetailName.setText(currentCard?.name)
-        binding.etCardDetailPreTimerSecs.setText(currentCard?.preTimerSecs.toString())
-        binding.etCardDetailSets.setText(currentCard?.sets.toString())
+        binding.etCardDetailPreTimerSecs.setText(currentCard?.preTimerSecs.toString() + " 초")
 
-        binding.etCardDetailActiveTimerSecs.setText(currentCard?.activeTimerSecs.toString())
-        binding.etCardDetailPostTimerSecs.setText(currentCard?.postTimerSecs.toString())
+        val currentActiveTimeSec = currentCard!!.activeTimerSecs
+        val hour = currentActiveTimeSec / 3600
+        val minute = (currentActiveTimeSec % 3600) / 60
+        val second = currentActiveTimeSec % 60
+        binding.etCardDetailActiveTimerSecs.text = "${hour}시간 ${minute}분 ${second}초"
+
+
+        binding.etCardDetailPostTimerSecs.setText(currentCard?.postTimerSecs.toString() + " 초")
         binding.etCardDetailMemo.setText(currentCard?.memo.toString())
+        binding.etCardDetailSets.setText(currentCard?.sets.toString() + " 세트")
 
         binding.cbCardDetailPreTimerAutoStart.isChecked = currentCard?.preTimerAutoStart!!
         binding.cbCardDetailActiveTimerAutoStart.isChecked = currentCard.activeTimerAutoStart
@@ -51,7 +57,7 @@ class CardDetailActivity : AppCompatActivity() {
             // NumberPicker를 포함하는 다이얼로그 생성
             val numberPicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 0
-                maxValue = 100
+                maxValue = 10
                 value = currentCard.preTimerSecs
             }
 
@@ -60,7 +66,8 @@ class CardDetailActivity : AppCompatActivity() {
                 setView(numberPicker)
                 setPositiveButton("확인") { _, _ ->
                     // 확인 버튼을 누르면 et_card_detail_preTimerSecs의 값을 업데이트
-                    binding.etCardDetailPreTimerSecs.text = numberPicker.value.toString()
+                    currentCard.preTimerSecs = numberPicker.value
+                    binding.etCardDetailPreTimerSecs.text = numberPicker.value.toString() + " 초"
                 }
                 setNegativeButton("취소", null)
             }.show()
@@ -74,6 +81,7 @@ class CardDetailActivity : AppCompatActivity() {
             val hour = currentActiveTimeSec / 3600
             val minute = (currentActiveTimeSec % 3600) / 60
             val second = currentActiveTimeSec % 60
+            binding.etCardDetailActiveTimerSecs.text = "${hour}시간 ${minute}분 ${second}초"
 
             val hourPicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 0
@@ -108,7 +116,8 @@ class CardDetailActivity : AppCompatActivity() {
                 setPositiveButton("확인") { _, _ ->
                     // 확인 버튼을 누르면 et_card_detail_activeTimerSecs의 값을 업데이트
 
-                    val formattedTime = "${hour}시간 ${minute}분 ${second}초"
+                    val formattedTime = "${hourPicker.value}시간 ${minutePicker.value}분 ${secondPicker.value}초"
+                    currentCard.activeTimerSecs = hourPicker.value * 3600 + minutePicker.value * 60 + secondPicker.value
                     binding.etCardDetailActiveTimerSecs.text = formattedTime
                 }
                 setNegativeButton("취소", null)
@@ -120,7 +129,7 @@ class CardDetailActivity : AppCompatActivity() {
             // NumberPicker를 포함하는 다이얼로그 생성
             val numberPicker = NumberPicker(this@CardDetailActivity).apply {
                 minValue = 0
-                maxValue = 60
+                maxValue = 100
                 value = currentCard.postTimerSecs
             }
 
@@ -129,7 +138,8 @@ class CardDetailActivity : AppCompatActivity() {
                 setView(numberPicker)
                 setPositiveButton("확인") { _, _ ->
                     // 확인 버튼을 누르면 et_card_detail_postTimerSecs의 값을 업데이트
-                    binding.etCardDetailPostTimerSecs.text = numberPicker.value.toString()
+                    currentCard.postTimerSecs = numberPicker.value
+                    binding.etCardDetailPostTimerSecs.text = numberPicker.value.toString() + " 초"
                 }
                 setNegativeButton("취소", null)
             }.show()
@@ -149,7 +159,8 @@ class CardDetailActivity : AppCompatActivity() {
                 setView(numberPicker)
                 setPositiveButton("확인") { _, _ ->
                     // 확인 버튼을 누르면 et_card_detail_sets의 값을 업데이트
-                    binding.etCardDetailSets.text = numberPicker.value.toString()
+                    currentCard.sets = numberPicker.value
+                    binding.etCardDetailSets.text = numberPicker.value.toString() + " 세트"
                 }
                 setNegativeButton("취소", null)
             }.show()
@@ -158,6 +169,13 @@ class CardDetailActivity : AppCompatActivity() {
 
 
         binding.btnCardDetailUpdate.setOnClickListener {
+
+            // Check if the name field is empty
+            if (binding.etCardDetailName.text.toString().isEmpty()) {
+                binding.etCardDetailName.error = "카드명은 필수 입력 항목입니다."
+                return@setOnClickListener
+            }
+
             val resultIntent = Intent(this, CardDetailActivity::class.java)
 
             // binding 값에서 card 객체를 만들어서 intent에 넣어준다.
@@ -166,11 +184,11 @@ class CardDetailActivity : AppCompatActivity() {
                 id=currentCard.id,
                 userId = currentCard.userId,
                 name = binding.etCardDetailName.text.toString(),
-                preTimerSecs = binding.etCardDetailPreTimerSecs.text.toString().toInt(),
-                sets = binding.etCardDetailSets.text.toString().toInt(),
-                activeTimerSecs = binding.etCardDetailActiveTimerSecs.text.toString().toInt(),
+                preTimerSecs = currentCard.preTimerSecs,
+                sets = currentCard.sets,
+                activeTimerSecs = currentCard.activeTimerSecs,
                 memo = binding.etCardDetailMemo.text.toString(),
-                postTimerSecs = binding.etCardDetailPostTimerSecs.text.toString().toInt(),
+                postTimerSecs = currentCard.postTimerSecs,
                 preTimerAutoStart = binding.cbCardDetailPreTimerAutoStart.isChecked,
                 activeTimerAutoStart = binding.cbCardDetailActiveTimerAutoStart.isChecked,
                 postTimerAutoStart = binding.cbCardDetailPostTimerAutoStart.isChecked

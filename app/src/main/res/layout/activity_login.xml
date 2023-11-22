@@ -27,6 +27,7 @@
             app:layout_constraintVertical_bias="0.565" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
             app:layout_constraintVertical_bias="0.612" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/btn_google_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

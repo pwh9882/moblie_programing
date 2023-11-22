@@ -98,13 +98,31 @@ class CardDisplayFragment : Fragment() {
 
         routineProgressViewModel.currentCardTime.observe(viewLifecycleOwner) {
             if(it >= 0){
-                binding.tvRoutineProgressCardLeftTime.text = it.toString()
+                // 시, 분, 초로 표현
+                val timeString = formatTimeForTotalTime(it)
+
+                binding.tvRoutineProgressCardLeftTime.text = timeString
                 binding.pbCardTimeProgress.progress = it
             }
 
         }
 
         return binding.root
+    }
+
+    private fun formatTimeForTotalTime(totalSeconds: Int?): String {
+        if (totalSeconds == null || totalSeconds == 0) return "0초"
+
+        val hours = totalSeconds / 3600
+        val minutes = (totalSeconds % 3600) / 60
+        val seconds = totalSeconds % 60
+
+        var timeString = ""
+        if (hours > 0) timeString += "${hours}시간 "
+        if (minutes > 0) timeString += "${minutes}분 "
+        if (seconds >= 0) timeString += "${seconds}초"
+
+        return timeString.trim()
     }
 
     /**

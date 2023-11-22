@@ -178,10 +178,10 @@ class RoutineDetailActivity : AppCompatActivity() {
                 preTimerSecs = 0,
                 preTimerAutoStart = true,
                 activeTimerSecs = 0,
-                activeTimerAutoStart = true,
+                activeTimerAutoStart = false,
                 postTimerSecs = 0,
                 postTimerAutoStart = true,
-                sets = 0,
+                sets = 1,
                 memo = ""
             )
 
