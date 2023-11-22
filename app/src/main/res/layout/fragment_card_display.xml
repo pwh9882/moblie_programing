@@ -158,6 +158,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="34sp" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                app:srcCompat="@drawable/custom_timer_icon" />
+
         </FrameLayout>
 
 
