@@ -98,6 +98,7 @@ class RoutineProgressActivity : AppCompatActivity() {
         binding.btnRoutineProgressCardEdit.setOnClickListener {
             // Get the current card
             val currentCard = routineProgressViewModel.currentCard.value!!
+            currentCard.memo = binding.etCardMemo.text.toString()
             // Launch the CardDetailActivity with the current card passed as an extra
             cardEditResultLauncher.launch(Intent(this, CardDetailActivity::class.java).apply {
                 putExtra("selected_card", currentCard)
