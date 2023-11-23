@@ -1,5 +1,6 @@
 package com.example.mobile_programing.views
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupRoutineList() {
         binding.progressBar.visibility = View.VISIBLE
 
@@ -134,11 +136,8 @@ class MainActivity : AppCompatActivity() {
     // Function to update routine
     private fun updateRoutine(result: ActivityResult) {
         val updatedRoutine = result.data?.getSerializableExtra("selected_routine") as Routine
-//        viewModel.routineList.value?.set(viewModel.routineList.value?.indexOfFirst { it.id == updatedRoutine.id }!!, updatedRoutine)
 
-        // TODO: Update DB with the updated routine
         viewModel.updateRoutine(updatedRoutine)
-//        binding.rvRoutineList.adapter?.notifyDataSetChanged()
     }
 
     // Function to create routine

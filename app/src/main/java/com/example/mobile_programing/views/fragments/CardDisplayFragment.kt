@@ -50,7 +50,7 @@ class CardDisplayFragment : Fragment() {
             binding.pbRoutineProgress.progress = it+1
             binding.pbRoutineProgress.max = routineProgressViewModel.currentRoutine.value!!.cards.size
             // RoutineProgressActivity의 binding.etCardMemo에도 반영
-            (activity as RoutineProgressActivity).binding.etCardMemo.setText(routineProgressViewModel.currentCard.value!!.memo)
+//            (activity as RoutineProgressActivity).binding.etCardMemo.setText(routineProgressViewModel.currentCard.value!!.memo)
         }
 
         routineProgressViewModel.currentCard.observe(viewLifecycleOwner) {
@@ -59,7 +59,7 @@ class CardDisplayFragment : Fragment() {
             binding.pbCardSetsProgress.max = it.sets
             binding.pbCardSetsProgress.progress = routineProgressViewModel.currentCardSet.value?:0
             routineProgressViewModel.initCardProgressInfo()
-            binding.pbCardSetsProgress.max = it.sets
+            (activity as RoutineProgressActivity).binding.etCardMemo.setText(routineProgressViewModel.currentCard.value!!.memo)
             binding.pbCardSetsProgress.progress = 1
 //            binding.etCardMemo.setText(it.memo)
         }

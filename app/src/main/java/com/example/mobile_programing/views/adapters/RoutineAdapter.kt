@@ -42,9 +42,6 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, val v
                     putExtra("selected_routine", selectedRoutine)
                 })
 
-//                activity.startActivity(Intent(activity, RoutineDetailActivity::class.java).apply {
-//                    putExtra("selected_routine", selectedRoutine)
-//                })
             }
 
         }
@@ -83,7 +80,6 @@ class RoutineAdapter constructor(private val binding: ActivityMainBinding, val v
         // 아이템 삭제 로직
         routineList.removeAt(position)
         notifyItemRemoved(position)
-        //TODO: DB에서도 삭제
     }
 
 
