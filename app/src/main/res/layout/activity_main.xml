@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.mobile_programing.viewModel.MainViewModel" />
+            type="com.routine_mate.mobile_programing.viewModel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

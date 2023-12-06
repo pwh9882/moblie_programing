@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mobile_programing"
+    namespace = "com.routine_mate.mobile_programing"
     compileSdk = 34
 
     buildFeatures {
@@ -18,7 +18,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.mobile_programing"
+        applicationId = "com.routine_mate.mobile_programing"
         minSdk = 30
         targetSdk = 33
         versionCode = 1
