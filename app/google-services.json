@@ -84,11 +84,27 @@
           }
         },
         {
+          "client_id": "740114569992-e2vevr5b5e3et7acpsvkfurh5s9nlpvs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.routine_mate.mobile_programing",
+            "certificate_hash": "c6c97351612a9530a8e2c6d08fc8502bc6703a22"
+          }
+        },
+        {
           "client_id": "740114569992-erkesb2okdmn3qe8ek3h25l08gaik1vo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.routine_mate.mobile_programing",
             "certificate_hash": "dbb111181f164efb40d22255d1052b6f9393268f"
+          }
+        },
+        {
+          "client_id": "740114569992-r0sv59cgkjk4rppct2ocd441dbsht35e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.routine_mate.mobile_programing",
+            "certificate_hash": "c11ac861cda60de47b54b462e28afe7ad4f47e98"
           }
         },
         {
