@@ -79,7 +79,8 @@ Routine Mate는 사용자의 일상을 관리하는 Android 앱입니다. 사용
 ## 4. 시연 영상
 https://youtu.be/oIKH0-OAKKU?feature=shared
 
+
+
 ---------
-
-# ./description.md
-
+## readmes 폴더에는 각 클래스에 대한 상세 설명이 있습니다.
+[모든 클래스 상세 설명](readmes)
