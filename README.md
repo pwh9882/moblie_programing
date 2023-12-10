@@ -22,6 +22,23 @@ Routine Mate는 사용자의 일상을 관리하는 Android 앱입니다. 사용
 - 루틴 수행
 - 루틴 수행 완료
 
+## 주요 흐름
+
+이 안드로이드 애플리케이션은 사용자들이 개인 루틴을 관리하고 실행할 수 있는 기능을 제공합니다. 주요 흐름과 클래스들은 다음과 같습니다:
+
+1. **로그인 및 사용자 관리 (`LoginActivity`, `UserProfileActivity`)**: 사용자는 Google 로그인을 통해 앱에 접근하고, 자신의 프로필을 관리할 수 있습니다. 프로필 관리에는 별 백분율 확인, 로그아웃, 계정 삭제 기능이 포함됩니다.
+
+2. **루틴 목록 관리 (`MainActivity`, `RoutineAdapter`, `ItemTouchHelperCallback`)**: 메인 화면에서 사용자는 자신의 루틴 목록을 확인하고, 루틴을 추가, 수정, 삭제할 수 있습니다. 루틴은 드래그 앤 드롭 및 스와이프를 통해 순서를 변경하거나 제거할 수 있습니다.
+
+3. **루틴 상세 및 카드 관리 (`RoutineDetailActivity`, `RoutineDetailCardAdapter`, `ItemTouchHelperCallbackForCard`)**: 사용자는 각 루틴을 클릭하여 상세 페이지로 이동할 수 있으며, 여기에서 개별 카드를 관리할 수 있습니다. 카드는 시간, 세트, 메모 등의 정보를 포함하며, 수정 및 삭제가 가능합니다.
+
+4. **루틴 실행 (`RoutineProgressActivity`, `RoutineProgressViewModel`, `CardDisplayFragment`)**: 사용자가 루틴을 실행하면, 진행 중인 루틴과 각 카드의 상세 정보가 시간과 함께 표시됩니다. 타이머는 루틴과 각 카드에 대해 별도로 작동하며, 일시 정지 및 재개 기능을 지원합니다.
+
+5. **루틴 완료 처리 (`RoutineCompleteActivity`)**: 루틴을 모두 완료하면 사용자는 총 소요 시간과 함께 완료 화면을 볼 수 있습니다.
+
+6. **데이터 관리 및 저장 (`MainViewModel`, `RoutineProgressViewModel`, `RoutineRepository`)**: ViewModel을 통해 사용자 인터페이스와 데이터 로직을 분리하여 관리합니다. Firebase를 이용하여 사용자 데이터, 루틴 및 카드 정보를 저장하고 관리합니다.
+
+
 ## 실행 방법
 
 1. Android Studio를 설치합니다.
