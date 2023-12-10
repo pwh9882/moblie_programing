@@ -23,6 +23,11 @@ class UserProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
+        val starPercentile = intent.getDoubleExtra("star_percentile", 0.0)
+        val percentileTextView: TextView = findViewById(R.id.tv_star_percentile)
+        percentileTextView.text = "당신은 상위\n$starPercentile%\n유저입니다!\n계속 별을 모아봐요!"
+
+
         auth = Firebase.auth
         googleSignInClient = GoogleSignIn.getClient(this, GoogleSignInOptions.DEFAULT_SIGN_IN)
 

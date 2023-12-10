@@ -225,6 +225,16 @@ class RoutineRepository {
         starRef.child(userId).child("stars").setValue(currentStars + 1)
     }
 
+    suspend fun getAllUserStars(): List<Int> = suspendCoroutine { continuation ->
+        val starRef = database.getReference("Stars")
+        starRef.get().addOnSuccessListener { snapshot ->
+            val allStars = snapshot.children.mapNotNull { it.child("stars").value.toString().toIntOrNull() }
+            continuation.resume(allStars)
+        }.addOnFailureListener { exception ->
+            continuation.resumeWith(Result.failure(exception))
+        }
+    }
+
     fun deleteAllRoutinesByUserId(userId: String) {
         routineRef.orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(object :
             ValueEventListener {

@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.routine_mate.mobile_programing.R
 import com.routine_mate.mobile_programing.databinding.ActivityMainBinding
@@ -24,6 +25,8 @@ import com.routine_mate.mobile_programing.viewModel.MainViewModel
 import com.routine_mate.mobile_programing.views.adapters.helpers.ItemTouchHelperCallback
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -73,7 +76,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.ibUserAccount.setOnClickListener {
             val intent = Intent(this, UserProfileActivity::class.java)
-            startActivity(intent)
+            viewModel.viewModelScope.launch {
+                val percentile = viewModel.getUserStarPercentile(Firebase.auth.currentUser!!.uid)
+                intent.putExtra("star_percentile", percentile)
+                startActivity(intent)
+            }
         }
     }
 

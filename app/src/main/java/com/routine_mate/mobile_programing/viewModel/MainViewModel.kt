@@ -9,6 +9,10 @@ import com.routine_mate.mobile_programing.repository.RoutineRepository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 class MainViewModel(): ViewModel() {
     // data repo dummy 설정
@@ -82,5 +86,35 @@ class MainViewModel(): ViewModel() {
 //            }
         }
     }
+
+    suspend fun getUserStarPercentile(userId: String): Double = suspendCoroutine { continuation ->
+        viewModelScope.launch {
+            val allStars = routineRepository.getAllUserStars()
+            val userStars = routineRepository.getUserStars(userId)
+            val percentile = calculatePercentile(allStars, userStars)
+            continuation.resume(percentile)
+        }
+    }
+
+    fun calculatePercentile(allStars: List<Int>, userStars: Int): Double {
+        // 사용자가 받은 별의 수보다 많은 별을 받은 사용자의 수를 세는 것
+        val countMore = allStars.count { it > userStars }
+
+        // 같은 수의 별을 받은 사용자의 수를 세는 것 (사용자 자신을 제외)
+        val countEqual = allStars.count { it == userStars } - 1
+
+        // 퍼센타일 계산: (더 많은 별을 받은 사람들의 비율 + 동일한 별을 받은 사람들의 절반의 비율)
+        val percentile = 100 - ((countMore + (0.5 * countEqual)) / allStars.size * 100)
+
+        // 결과를 3자리까지 반올림
+        return (100 - percentile).round(3)
+    }
+
+
+    // 소수점 아래 n자리까지 반올림하는 확장 함수
+    fun Double.round(n: Int): Double {
+        return (this * 10.0.pow(n)).roundToInt() / 10.0.pow(n)
+    }
+
 
 }
